@@ -1,16 +1,11 @@
-import time
-
-# import the necessary packages
 import dlib
 from collections import OrderedDict
 import numpy as np
 import cv2
 
-from image_tools import ImageTools
-
 
 class PreProcessDataExternal:
-    FACIAL_LANDMARKS_IDXS = OrderedDict([
+    FACIAL_LANDMARKS_68_IDXS = OrderedDict([
         ("mouth", (48, 68)),
         ("right_eyebrow", (17, 22)),
         ("left_eyebrow", (22, 27)),
@@ -26,9 +21,18 @@ class PreProcessDataExternal:
         ("nose", 4)
     ])
 
-    def __init__(self, predictor_path=None):
+    def __init__(self, predictor_path=None, desiredLeftEye=(0.35, 0.35),
+                 desiredFaceWidth=256, desiredFaceHeight=None):
         self.detector = dlib.get_frontal_face_detector()
         self.predictor = dlib.shape_predictor(predictor_path)
+        self.desiredLeftEye = desiredLeftEye
+        self.desiredFaceWidth = desiredFaceWidth
+        self.desiredFaceHeight = desiredFaceHeight
+
+        # if the desired face height is None, set it to be the
+        # desired face width (normal behavior)
+        if self.desiredFaceHeight is None:
+            self.desiredFaceHeight = self.desiredFaceWidth
 
     def get_shapes(self, gray):
         results = []
@@ -45,6 +49,67 @@ class PreProcessDataExternal:
             (x, y, w, h) = PreProcessDataExternal.rect_to_bb(rect)
             results.append((x, y, w, h))
         return results
+
+    def align(self, image, gray, rect):
+        # convert the landmark (x, y)-coordinates to a NumPy array
+        shape = self.predictor(gray, rect)
+        shape = PreProcessDataExternal.shape_to_np(shape)
+
+        # simple hack ;)
+        if len(shape) == 68:
+            # extract the left and right eye (x, y)-coordinates
+            (lStart, lEnd) = PreProcessDataExternal.FACIAL_LANDMARKS_68_IDXS["left_eye"]
+            (rStart, rEnd) = PreProcessDataExternal.FACIAL_LANDMARKS_68_IDXS["right_eye"]
+        else:
+            (lStart, lEnd) = PreProcessDataExternal.FACIAL_LANDMARKS_5_IDXS["left_eye"]
+            (rStart, rEnd) = PreProcessDataExternal.FACIAL_LANDMARKS_5_IDXS["right_eye"]
+
+        left_eye_pts = shape[lStart:lEnd]
+        right_eye_pts = shape[rStart:rEnd]
+
+        # compute the center of mass for each eye
+        left_eye_center = left_eye_pts.mean(axis=0).astype("int")
+        right_eye_center = right_eye_pts.mean(axis=0).astype("int")
+
+        # compute the angle between the eye centroids
+        d_y = right_eye_center[1] - left_eye_center[1]
+        d_x = right_eye_center[0] - left_eye_center[0]
+        angle = np.degrees(np.arctan2(d_y, d_x)) - 180
+
+        # compute the desired right eye x-coordinate based on the
+        # desired x-coordinate of the left eye
+        desired_right_eye_x = 1.0 - self.desiredLeftEye[0]
+
+        # determine the scale of the new resulting image by taking
+        # the ratio of the distance between eyes in the *current*
+        # image to the ratio of distance between eyes in the
+        # *desired* image
+        dist = np.sqrt((d_x ** 2) + (d_y ** 2))
+        desired_dist = (desired_right_eye_x - self.desiredLeftEye[0])
+        desired_dist *= self.desiredFaceWidth
+        scale = desired_dist / dist
+
+        # compute center (x, y)-coordinates (i.e., the median point)
+        # between the two eyes in the input image
+        eyes_center = ((left_eye_center[0] + right_eye_center[0]) // 2,
+                       (left_eye_center[1] + right_eye_center[1]) // 2)
+
+        # grab the rotation matrix for rotating and scaling the face
+        m = cv2.getRotationMatrix2D(eyes_center, angle, scale)
+
+        # update the translation component of the matrix
+        t_x = self.desiredFaceWidth * 0.5
+        t_y = self.desiredFaceHeight * self.desiredLeftEye[1]
+        m[0, 2] += (t_x - eyes_center[0])
+        m[1, 2] += (t_y - eyes_center[1])
+
+        # apply the affine transformation
+        (w, h) = (self.desiredFaceWidth, self.desiredFaceHeight)
+        output = cv2.warpAffine(image, m, (w, h),
+                                flags=cv2.INTER_CUBIC)
+
+        # return the aligned face
+        return output
 
     @staticmethod
     def draw_on_image(predictor, detector, image, gray):

@@ -4,7 +4,6 @@
     <list default="true" id="c01e69f1-dfde-4789-a00e-231c94c88efb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Work/tools/external_face_pos.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/tools/external_face_pos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/prepossess_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/tools/image_tools.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Work/tools/test_preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/tools/test_preprocess.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -226,7 +225,13 @@
       <option name="presentableId" value="LOCAL‎00006" />
       <updated>1577466946656</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL‎00007" summary="changed name">
+      <created>1577467095392</created>
+      <option name="number" value="LOCAL‎00007" />
+      <option name="presentableId" value="LOCAL‎00007" />
+      <updated>1577467095392</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -245,7 +250,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first push" />
     <MESSAGE value="added drew face on image" />
-    <option name="LAST_COMMIT_MESSAGE" value="added drew face on image" />
+    <MESSAGE value="changed name" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed name" />
   </component>
   <component name="WindowStateProjectService">
     <state x="432" y="164" key="#Notifications" timestamp="1577449094073">
@@ -256,10 +262,10 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="603" y="309" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577450376430" />
-    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1577466945991">
+    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1577467094849">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466945991" />
+    <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577467094849" />
     <state x="160" y="89" key="DiffContextDialog" timestamp="1577449892248">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
@@ -272,22 +278,22 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="598" y="373" key="Github.CreatePullRequestDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449234180" />
-    <state width="1659" height="161" key="GridCell.Tab.0.bottom" timestamp="1577467032692">
+    <state width="1659" height="161" key="GridCell.Tab.0.bottom" timestamp="1577468327359">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1659" height="161" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577467032692" />
-    <state width="1659" height="161" key="GridCell.Tab.0.center" timestamp="1577467032692">
+    <state width="1659" height="161" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468327359" />
+    <state width="1659" height="161" key="GridCell.Tab.0.center" timestamp="1577468327359">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1659" height="161" key="GridCell.Tab.0.center/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577467032692" />
-    <state width="1659" height="161" key="GridCell.Tab.0.left" timestamp="1577467032692">
+    <state width="1659" height="161" key="GridCell.Tab.0.center/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468327359" />
+    <state width="1659" height="161" key="GridCell.Tab.0.left" timestamp="1577468327359">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1659" height="161" key="GridCell.Tab.0.left/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577467032692" />
-    <state width="1659" height="161" key="GridCell.Tab.0.right" timestamp="1577467032692">
+    <state width="1659" height="161" key="GridCell.Tab.0.left/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468327359" />
+    <state width="1659" height="161" key="GridCell.Tab.0.right" timestamp="1577468327359">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1659" height="161" key="GridCell.Tab.0.right/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577467032692" />
+    <state width="1659" height="161" key="GridCell.Tab.0.right/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468327359" />
     <state width="1659" height="336" key="GridCell.Tab.1.bottom" timestamp="1577466281673">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
@@ -312,10 +318,10 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="341" y="148" key="SettingsEditor/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577452354861" />
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1577467087509">
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1577467097581">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577467087509" />
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577467097581" />
     <state x="536" y="330" key="com.intellij.ide.util.TipDialog" timestamp="1577450795113">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
@@ -328,16 +334,9 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="503" y="354" key="git4idea.ui.GitUnstashDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449834975" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Work/tools/external_face_pos.py</url>
-          <line>29</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="503" y="217" width="672" height="678" key="search.everywhere.popup" timestamp="1577468235514">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="503" y="217" width="672" height="678" key="search.everywhere.popup/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468235514" />
   </component>
 </project>
