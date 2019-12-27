@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c01e69f1-dfde-4789-a00e-231c94c88efb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,7 +17,17 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="CREATE_PULL_REQUEST_DEFAULT_BRANCH" value="master" />
+    <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_USER" value="ilanlevi" />
+    <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_NAME" value="computer_vision_project" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
@@ -40,6 +49,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Work\ComputerVision\Project\Work" />
       <recent name="C:\Users\ilan_\Google Drive\Masters\Computer vision\Assignments\Project\Work\tools" />
       <recent name="C:\Users\ilan_\Google Drive\Masters\Computer vision\Assignments\Project\Work\data" />
     </key>
@@ -57,7 +67,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/run_download_data.py" />
+      <option name="SCRIPT_NAME" value="C:\Work\ComputerVision\Project\Work\run_download_data.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -101,26 +111,71 @@
       <option name="presentableId" value="LOCAL‎00001" />
       <updated>1577439929640</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL‎00002" summary="first push">
+      <created>1577449079600</created>
+      <option name="number" value="LOCAL‎00002" />
+      <option name="presentableId" value="LOCAL‎00002" />
+      <updated>1577449079601</updated>
+    </task>
+    <task id="LOCAL‎00003" summary="first push">
+      <created>1577449415040</created>
+      <option name="number" value="LOCAL‎00003" />
+      <option name="presentableId" value="LOCAL‎00003" />
+      <updated>1577449415040</updated>
+    </task>
+    <task id="LOCAL‎00004" summary="first push">
+      <created>1577449487578</created>
+      <option name="number" value="LOCAL‎00004" />
+      <option name="presentableId" value="LOCAL‎00004" />
+      <updated>1577449487578</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first push" />
     <option name="LAST_COMMIT_MESSAGE" value="first push" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1577440598331">
+    <state x="432" y="164" key="#Notifications" timestamp="1577449094073">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577440598331" />
+    <state x="432" y="164" key="#Notifications/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449094073" />
+    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1577449486589">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449486589" />
+    <state x="619" y="248" key="FileChooserDialogImpl" timestamp="1577449545547">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="619" y="248" key="FileChooserDialogImpl/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449545547" />
+    <state x="598" y="373" key="Github.CreatePullRequestDialog" timestamp="1577449234180">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="598" y="373" key="Github.CreatePullRequestDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449234180" />
+    <state x="552" y="222" key="MultipleFileMergeDialog" timestamp="1577449807013">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="552" y="222" key="MultipleFileMergeDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449807013" />
     <state x="341" y="148" key="SettingsEditor" timestamp="1577439837942">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="341" y="148" key="SettingsEditor/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577439837942" />
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1577440601981">
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1577449489005">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577440601981" />
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449489005" />
     <state x="536" y="330" key="com.intellij.ide.util.TipDialog" timestamp="1577448973655">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
