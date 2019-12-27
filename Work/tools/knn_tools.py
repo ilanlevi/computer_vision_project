@@ -4,10 +4,10 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 from matplotlib import pyplot as plt
 
-import tools.prepossess_data as pre_data
-from data.mnist_data import MNIST
-from show_data.plot_points import PlotsGraph
-from classification.knn_classifier import KNN
+from Work import tools as pre_data
+from Work.data import MNIST
+from Work.show_data import PlotsGraph
+from Work.classification import KNN
 
 
 class KNNTools:

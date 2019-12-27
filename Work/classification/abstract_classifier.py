@@ -1,7 +1,5 @@
 from abc import ABCMeta, abstractmethod
 
-from data.abstract_read_data import AbstractReadData
-
 
 class AbstractClassifier:
     __metaclass__ = ABCMeta

@@ -5,8 +5,8 @@ from sklearn import metrics
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 
-import tools.prepossess_data as pre_data
-from data.mnist_data import MNIST
+from Work import tools as pre_data
+from Work.data import MNIST
 from abstract_classifier import AbstractClassifier
 
 
