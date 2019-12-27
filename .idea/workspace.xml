@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c01e69f1-dfde-4789-a00e-231c94c88efb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/Project.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/Work.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/ilan_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/classification/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/classification/abstract_classifier.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/classification/bow.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/classification/knn_classifier.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/classification/pca.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/classification/svm_classifier.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/consts/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/consts/files_consts.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/abstract_read_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/mnist_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/spatial_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run_download_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run_knn.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run_part1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run_pca.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run_svm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/show_data/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/show_data/abstract_show_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/show_data/accuracy_report.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/show_data/images_as_sub_plots.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/show_data/plot_points.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/download_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/knn_tools.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/pack_files.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/prepossess_data.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="980" />
+    <option name="height" value="1050" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ilan_\Google Drive\Masters\Computer vision\Assignments\Project\Work\tools" />
+      <recent name="C:\Users\ilan_\Google Drive\Masters\Computer vision\Assignments\Project\Work\data" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="run_download_data" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Work" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/run_download_data.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.run_download_data" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="509aa30a-5247-402b-94c3-df39d6cdd80b" name="Default Changelist" comment="" />
+      <created>1576855045725</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1576855045725</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="341" y="148" key="SettingsEditor" timestamp="1577439837942">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="341" y="148" key="SettingsEditor/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577439837942" />
+  </component>
+</project>
