@@ -2,7 +2,7 @@ import cv2
 import time
 
 
-class PreProcessData:
+class ImageTools:
 
     def __init__(self):
         pass
@@ -14,7 +14,7 @@ class PreProcessData:
         for image_path in images_path_list:
             try:
                 im = cv2.imread(image_path)
-                im = PreProcessData.resize(im, width=width)
+                im = ImageTools.resize(im, width=width)
                 ims.append(im)
             except Exception as e:
                 print ('Error while reading image!Path= %s\nError= %s' % (image_path, str(e)))
@@ -29,7 +29,7 @@ class PreProcessData:
         for image_path in images_path_list:
             try:
                 im = cv2.imread(image_path)
-                im = PreProcessData.convert_image(im, width)
+                im = ImageTools.convert_image(im, width)
                 ims.append(im)
             except Exception as e:
                 print ('Error while reading image!Path= %s\nError= %s' % (image_path, str(e)))
@@ -47,7 +47,7 @@ class PreProcessData:
         """
         gray_images = []
         for im in images:
-            gray = PreProcessData.convert_image(im, width)
+            gray = ImageTools.convert_image(im, width)
             gray.append(gray)
         return gray_images
 
@@ -59,7 +59,7 @@ class PreProcessData:
         :param image: the loaded image
         :return: gray scaled image
         """
-        im = PreProcessData.resize(image, width=width)
+        im = ImageTools.resize(image, width=width)
         gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
         return gray
 

@@ -5,7 +5,7 @@ from Work.consts.files_consts import FileConsts
 from Work.consts.ds_consts import DataSetConsts
 from Work.data.helen_data import HelenDataSet
 from external_face_pos import PreProcessDataExternal
-from prepossess_data import PreProcessData
+from image_tools import ImageTools
 
 
 class MyTestCase(unittest.TestCase):
@@ -30,12 +30,11 @@ class MyTestCase(unittest.TestCase):
         original_images = ds.original_file_list
 
         rnd_index = randint(0, len(original_images) - 1)
-        images = PreProcessData.load_images([ds.original_file_list[rnd_index]], DataSetConsts.PICTURE_WIDTH)
-        con_images = PreProcessData.load_converted_images([ds.original_file_list[rnd_index]],
-                                                          DataSetConsts.PICTURE_WIDTH)
+        images = ImageTools.load_images([ds.original_file_list[rnd_index]], DataSetConsts.PICTURE_WIDTH)
+        con_images = ImageTools.load_converted_images([ds.original_file_list[rnd_index]],
+                                                      DataSetConsts.PICTURE_WIDTH)
 
         pr = PreProcessDataExternal(predictor_path=(FileConsts.DOWNLOAD_FOLDER + FileConsts.PREDICTOR_FILE_NAME))
-        # pr = PreProcessDataExternal()
 
         rect = pr.get_shapes(con_images[0])
         print ('Rectangles for face:\n%s' % str(rect))
