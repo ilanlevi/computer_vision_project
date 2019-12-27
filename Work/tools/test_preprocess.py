@@ -50,11 +50,12 @@ class MyTestCase(unittest.TestCase):
 
         self.assertEqual(True, True)
 
-    NUMBER_OF_TESTS = 5
+    NUMBER_OF_TESTS = 1
 
     def test_align_image(self):
         ds = MyTestCase.generate_dataset()
         original_images = ds.original_file_list
+        pr = PreProcessDataExternal(predictor_path=(FileConsts.DOWNLOAD_FOLDER + FileConsts.PREDICTOR_FILE_NAME))
 
         for i in range(MyTestCase.NUMBER_OF_TESTS):
             rnd_index = randint(0, len(original_images) - 1)
@@ -62,21 +63,20 @@ class MyTestCase(unittest.TestCase):
             con_images = ImageTools.load_converted_images([ds.original_file_list[rnd_index]],
                                                           DataSetConsts.PICTURE_WIDTH)
 
-            pr = PreProcessDataExternal(predictor_path=(FileConsts.DOWNLOAD_FOLDER + FileConsts.PREDICTOR_FILE_NAME))
             rects = pr.detector(con_images[0], 2)
 
             for rect in rects:
                 # extract the ROI of the *original* face, then align the face
                 # using facial landmarks
-                (x, y, w, h) = PreProcessDataExternal.rect_to_bb(rect)
+                (x, y, w, h) = pr.rect_to_bb(rect)
                 face_orig = ImageTools.resize(images[0][y:y + h, x:x + w], width=256)
                 face_aligned = pr.align(images[0], con_images[0], rect)
 
-                print 'Image rect: ' + str(rect)
+                print 'Image rect: #%d: %s' % (i, str(rect))
 
                 # display the output images
-                cv2.imshow("Original #%d" % i, face_orig)
-                cv2.imshow("Aligned #%d" % i, face_aligned)
+                cv2.imshow("Original #%d %s" % (i, str(rect)), face_orig)
+                cv2.imshow("Aligned #%d %s" % (i, str(rect)), face_aligned)
 
         cv2.waitKey(0)
         self.assertEqual(True, True)
