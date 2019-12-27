@@ -3,7 +3,7 @@ import time
 import numpy as np
 from sklearn.decomposition import PCA
 
-from Work.data.mnist_data import MNIST
+from tmp.data.mnist_data import MNIST
 from abstract_classifier import AbstractClassifier
 
 

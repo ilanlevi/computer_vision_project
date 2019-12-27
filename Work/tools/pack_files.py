@@ -1,6 +1,6 @@
 import gzip
-import shutil
 import time
+import zipfile
 
 
 class DataZip:
@@ -21,10 +21,9 @@ class DataZip:
         start = time.time()
 
         try:
-            with gzip.open(self.from_file, 'r') as zip_ref:
-                data = zip_ref.read()
-                with open(self.to_dir, 'wb') as f_out:
-                    f_out.write(data)
+            with zipfile.ZipFile(self.from_file, 'r') as zip_ref:
+                zip_ref.extractall(self.to_dir)
+                zip_ref.close()
             # both files are closed at this point
         except Exception as e:
             print 'Extracting failed! (in: %.2f seconds)' % (time.time() - start)
@@ -33,5 +32,3 @@ class DataZip:
 
         print 'Extracting completed! (in: %.2f seconds)' % (time.time() - start)
         return True
-
-    # def

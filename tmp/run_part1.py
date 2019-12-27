@@ -1,7 +1,7 @@
 import numpy as np
 
-from Work.data.mnist_data import MNIST
-from Work.show_data.images_as_sub_plots import ImagesGraph
+from tmp.data.mnist_data import MNIST
+from tmp.show_data.images_as_sub_plots import ImagesGraph
 
 PATH_TO_MNIST = "C:\\Users\\ilan_\\Google Drive\\Masters\\Computer vision\\Assignments\\12\\Work\\"
 MNIST_NAME = 'mnist.gz'

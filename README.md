@@ -3,13 +3,7 @@ Face Pose 3D
 
 This page contains an inspired version of the 3d face pose renderer from the paper _I. Masi\*, A. Tran\*, T. Hassner\*, J. Leksut, G. Medioni, "[Do We Really Need to Collect Million of Faces for Effective Face Recognition?](http://www.openu.ac.il/home/hassner/projects/augmented_faces/Masietal2016really.pdf) ", in Proc. of ECCV 2016 [1]_.
 
-This release is part of an on-going face recognition project [4]. Please, check [this project page](http://www.openu.ac.il/home/hassner/projects/augmented_faces/) for updates and more data.
-
-**New!** We released an [end-to-end pipeline](https://github.com/fengju514/Face-Pose-Net) with Python code and deep models for direct 6DoF, 3D head pose estimation and face rendering (e.g., _frontalization_). The new code removes the need to run external facial landmark detection methods for alignment. Instead, it uses our extremely fast and robust, deep face pose estimator, described in [this paper](https://arxiv.org/abs/1708.07517) [5].
-
- __New!__ The code now supports adding novel views if you want for other yaw angles or even new title angles. You have to modify the code to incorporate the logic of using the novel views.
-For creating the new precomputed rendered views, [please see this page](render_mat_demo)
-
+This project is for 3d face pos recognition.
 
 ![Teaser](images/collect2.png)
 
@@ -31,14 +25,21 @@ The code has been ported and extended from the re-implementation provided by [Do
 * [Matplotlib](http://matplotlib.org/)
 * [Numpy](http://www.numpy.org/)
 * [Scikit-Learn](http://scikit-learn.org/)
-* [urllib2](https://docs.python.org/2/library/urllib2.html)
 * [Python2.7](https://www.python.org/download/releases/2.7/)
 
 The code has been tested on Linux only. On Linux you can rely on the default version of python, installing all the packages needed from the package manager or on Anaconda Python and install required packages through `conda`. 
 
-**Importantly:** OpenGL or other 3D rendering libraries are **not** required to run this code.
+**Importantly:** Dlib library are **not** required to run this code.
+
 
 ## Usage
+
+#####todo
+
+## Download data
+```bash
+$ python demo.py <image-path>
+```
 
 ### Run it
 

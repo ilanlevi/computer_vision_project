@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from Work.classification.pca import MyPCA
-from Work.data.mnist_data import MNIST
-from Work.show_data.images_as_sub_plots import ImagesGraph
-from Work.tools.knn_tools import KNNTools
+from tmp.classification.pca import MyPCA
+from tmp.data.mnist_data import MNIST
+from tmp.show_data.images_as_sub_plots import ImagesGraph
+from tmp.knn_tools import KNNTools
 from Work.tools.pca_tools import PCATools
 
 PATH_TO_MNIST = "C:\\Users\\ilan_\\Downloads\\Browsers\\section2data\\"

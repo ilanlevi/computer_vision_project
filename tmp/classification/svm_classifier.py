@@ -5,8 +5,8 @@ from sklearn.cluster import KMeans
 from sklearn.svm import LinearSVC
 
 import Work.tools.prepossess_data as pre_data
-from Work.classification.bow import Bow
-from Work.data.spatial_data import Spatial
+from tmp.classification.bow import Bow
+from tmp.data.spatial_data import Spatial
 from abstract_classifier import AbstractClassifier
 
 

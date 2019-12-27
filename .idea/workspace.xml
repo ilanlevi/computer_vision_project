@@ -2,7 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c01e69f1-dfde-4789-a00e-231c94c88efb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Work/data/helen_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Work/tools/external_face_pos.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Work/tools/handle_download.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Work/tools/test_preprocess.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmp/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmp/classification/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmp/data/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmp/data/abstract_read_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmp/knn_tools.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmp/show_data/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/classification/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/ds_consts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/classification/abstract_classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classification/abstract_classifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/classification/bow.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classification/bow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/classification/knn_classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classification/knn_classifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/classification/pca.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classification/pca.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/classification/svm_classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/classification/svm_classifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/consts/files_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/files_consts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/data/abstract_read_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/data/abstract_read_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/data/mnist_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/data/mnist_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/data/spatial_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/data/spatial_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/run_download_data.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/run_knn.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/run_knn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/run_part1.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/run_part1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/run_pca.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/run_pca.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/run_svm.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/run_svm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/show_data/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/data/create_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/show_data/abstract_show_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/show_data/abstract_show_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/show_data/accuracy_report.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/show_data/accuracy_report.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/show_data/images_as_sub_plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/show_data/images_as_sub_plots.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/show_data/plot_points.py" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/show_data/plot_points.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/tools/knn_tools.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/tools/pack_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/tools/pack_files.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/tools/prepossess_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/tools/prepossess_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,13 +48,14 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Python Unit Test" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="first-push" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -28,12 +64,6 @@
     <option name="CREATE_PULL_REQUEST_DEFAULT_BRANCH" value="master" />
     <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_USER" value="ilanlevi" />
     <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_NAME" value="computer_vision_project" />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
-    <option name="width" value="980" />
-    <option name="height" value="1050" />
   </component>
   <component name="ProjectId" id="1VZ7rC96At77XkSJbtfqE7KSPNd" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -44,17 +74,86 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Work/consts" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Work\ComputerVision\Project\Work\consts" />
+      <recent name="C:\Work\ComputerVision\Project\Work\data" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Work\ComputerVision\Project\Work\data" />
+      <recent name="C:\Work\ComputerVision\Project\tmp" />
       <recent name="C:\Work\ComputerVision\Project\Work" />
       <recent name="C:\Users\ilan_\Google Drive\Masters\Computer vision\Assignments\Project\Work\tools" />
       <recent name="C:\Users\ilan_\Google Drive\Masters\Computer vision\Assignments\Project\Work\data" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python tests.Unittests in test_preprocess.py">
+    <configuration name="handle_download" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Work/tools" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Work/tools/handle_download.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="helen_data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Work/data" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Work/data/helen_data.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run_download_data (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Work" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Work/run_download_data.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="run_download_data" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Work" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -76,8 +175,26 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Unittests in test_preprocess.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Work/tools" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/Work/tools/test_preprocess.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Unittests in test_preprocess.py" />
+        <item itemvalue="Python.helen_data" />
+        <item itemvalue="Python.handle_download" />
+        <item itemvalue="Python.run_download_data (1)" />
         <item itemvalue="Python.run_download_data" />
       </list>
     </recent_temporary>
@@ -129,7 +246,13 @@
       <option name="presentableId" value="LOCAL‎00004" />
       <updated>1577449487578</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL‎00005" summary="first push">
+      <created>1577449814077</created>
+      <option name="number" value="LOCAL‎00005" />
+      <option name="presentableId" value="LOCAL‎00005" />
+      <updated>1577449814077</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -137,7 +260,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -152,33 +277,92 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="432" y="164" key="#Notifications/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449094073" />
-    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1577449486589">
+    <state x="603" y="309" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1577450376430">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449486589" />
-    <state x="619" y="248" key="FileChooserDialogImpl" timestamp="1577449545547">
+    <state x="603" y="309" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577450376430" />
+    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1577449813467">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="619" y="248" key="FileChooserDialogImpl/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449545547" />
+    <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449813467" />
+    <state x="160" y="89" key="DiffContextDialog" timestamp="1577449892248">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="160" y="89" key="DiffContextDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449892248" />
+    <state x="619" y="248" key="FileChooserDialogImpl" timestamp="1577450580999">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="619" y="248" key="FileChooserDialogImpl/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577450580999" />
     <state x="598" y="373" key="Github.CreatePullRequestDialog" timestamp="1577449234180">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="598" y="373" key="Github.CreatePullRequestDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449234180" />
+    <state width="1659" height="161" key="GridCell.Tab.0.bottom" timestamp="1577466906192">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1659" height="161" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466906192" />
+    <state width="1659" height="161" key="GridCell.Tab.0.center" timestamp="1577466906192">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1659" height="161" key="GridCell.Tab.0.center/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466906192" />
+    <state width="1659" height="161" key="GridCell.Tab.0.left" timestamp="1577466906192">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1659" height="161" key="GridCell.Tab.0.left/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466906192" />
+    <state width="1659" height="161" key="GridCell.Tab.0.right" timestamp="1577466906192">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1659" height="161" key="GridCell.Tab.0.right/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466906192" />
+    <state width="1659" height="336" key="GridCell.Tab.1.bottom" timestamp="1577466281673">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1659" height="336" key="GridCell.Tab.1.bottom/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466281673" />
+    <state width="1659" height="336" key="GridCell.Tab.1.center" timestamp="1577466281673">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1659" height="336" key="GridCell.Tab.1.center/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466281673" />
+    <state width="1659" height="336" key="GridCell.Tab.1.left" timestamp="1577466281673">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1659" height="336" key="GridCell.Tab.1.left/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466281673" />
+    <state width="1659" height="336" key="GridCell.Tab.1.right" timestamp="1577466281673">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1659" height="336" key="GridCell.Tab.1.right/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466281673" />
     <state x="552" y="222" key="MultipleFileMergeDialog" timestamp="1577449807013">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="552" y="222" key="MultipleFileMergeDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449807013" />
-    <state x="341" y="148" key="SettingsEditor" timestamp="1577439837942">
+    <state x="341" y="148" key="SettingsEditor" timestamp="1577452354861">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="341" y="148" key="SettingsEditor/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577439837942" />
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1577449489005">
+    <state x="341" y="148" key="SettingsEditor/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577452354861" />
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1577466920786">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449489005" />
-    <state x="536" y="330" key="com.intellij.ide.util.TipDialog" timestamp="1577448973655">
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466920786" />
+    <state x="536" y="330" key="com.intellij.ide.util.TipDialog" timestamp="1577450795113">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="536" y="330" key="com.intellij.ide.util.TipDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577448973655" />
+    <state x="536" y="330" key="com.intellij.ide.util.TipDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577450795113" />
+    <state x="92" y="92" width="1496" height="826" key="dock-window-1" timestamp="1577463206322">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="92" y="92" width="1496" height="826" key="dock-window-1/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577463206322" />
+    <state x="503" y="354" key="git4idea.ui.GitUnstashDialog" timestamp="1577449834975">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="503" y="354" key="git4idea.ui.GitUnstashDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449834975" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Work/tools/external_face_pos.py</url>
+          <line>29</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

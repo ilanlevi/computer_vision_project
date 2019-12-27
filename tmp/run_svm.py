@@ -1,8 +1,8 @@
 import math
 
-from Work.classification.svm_classifier import SVM
-from Work.data.spatial_data import Spatial
-from Work.show_data.accuracy_report import AccuracyPlot
+from tmp.classification.svm_classifier import SVM
+from tmp.data.spatial_data import Spatial
+from tmp.show_data import AccuracyPlot
 
 PATH_TO_DATA = "C:\\Users\\ilan_\\Downloads\\Browsers\\"
 ARCHIVE_NAME = 'spatial_envelope_256x256_static_8outdoorcategories (1).zip'

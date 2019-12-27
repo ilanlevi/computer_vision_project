@@ -3,18 +3,20 @@ from abc import ABCMeta, abstractmethod
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-from Work.consts.ds_consts import DataSetConsts
-
 
 class AbstractReadData:
     __metaclass__ = ABCMeta
 
-    def __init__(self, data_path='', random_state=DataSetConsts.DEFAULT_RANDOM_STATE,
-                 train_rate=DataSetConsts.DEFAULT_TRAIN_RATE, image_size=DataSetConsts.PICTURE_WIDTH):
+    # const
+    DEFAULT_RANDOM_STATE = 0
+    DEFAULT_TRAIN_RATE = 1 / 7.0
+
+    def __init__(self, data_path=''):
+        self.file_name = data_path
         self.data_path = data_path
-        self.image_size = image_size
-        self.random_state = random_state
-        self.train_rate = train_rate
+        self.image_size = 0
+        self.random_state = AbstractReadData.DEFAULT_RANDOM_STATE
+        self.train_rate = AbstractReadData.DEFAULT_TRAIN_RATE
         self.x_train_set = self.y_train_set = self.x_test_set = self.y_test_set = self.valid_set = []
 
     def get_picture_size(self):

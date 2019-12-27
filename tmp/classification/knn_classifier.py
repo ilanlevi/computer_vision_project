@@ -6,7 +6,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 
 from Work import tools as pre_data
-from Work.data import MNIST
+from tmp.data import MNIST
 from abstract_classifier import AbstractClassifier
 
 
