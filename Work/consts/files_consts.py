@@ -1,4 +1,4 @@
-class FileConsts:
+class HelenFileConsts:
 
     DS_DOWNLOAD_URLS = [
         ('http://www.ifp.illinois.edu/~vuongle2/helen/data/helen_1.zip', 'helen_1.zip'),
@@ -20,6 +20,6 @@ class FileConsts:
     PREDICTOR_FILE_NAME = 'shape_predictor_68_face_landmarks.dat'
 
     def __init__(self, download_folder=DOWNLOAD_FOLDER, downloaded_sub_folder=DOWNLOAD_SUB_FOLDER):
-        FileConsts.DOWNLOAD_FOLDER = download_folder
-        FileConsts.DOWNLOAD_SUB_FOLDER = downloaded_sub_folder
-        FileConsts.DOWNLOADED_DIR = download_folder + downloaded_sub_folder
+        HelenFileConsts.DOWNLOAD_FOLDER = download_folder
+        HelenFileConsts.DOWNLOAD_SUB_FOLDER = downloaded_sub_folder
+        HelenFileConsts.DOWNLOADED_DIR = download_folder + downloaded_sub_folder

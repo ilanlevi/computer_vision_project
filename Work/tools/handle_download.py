@@ -3,15 +3,15 @@ import os
 
 import numpy as np
 
-from Work.consts.files_consts import FileConsts
+from Work.consts.files_consts import HelenFileConsts
 from Work.tools.download_data import DownloadData
 from Work.tools.pack_files import DataZip
 
 
 class HandleDownloadData:
 
-    def __init__(self, download_urls=FileConsts.DS_DOWNLOAD_URLS,
-                 to_dir=FileConsts.DOWNLOADED_DIR):
+    def __init__(self, download_urls=HelenFileConsts.DS_DOWNLOAD_URLS,
+                 to_dir=HelenFileConsts.DOWNLOADED_DIR):
         self.download_urls = np.asarray(download_urls)
         self.to_dir = to_dir
 

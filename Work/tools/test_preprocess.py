@@ -3,7 +3,7 @@ import unittest
 # imports
 import cv2
 
-from Work.consts.files_consts import FileConsts
+from Work.consts.files_consts import HelenFileConsts
 from Work.consts.ds_consts import DataSetConsts
 from Work.data.helen_data import HelenDataSet
 from external_face_pos import PreProcessDataExternal
@@ -14,8 +14,8 @@ class MyTestCase(unittest.TestCase):
 
     @staticmethod
     def generate_dataset():
-        ds = HelenDataSet(data_path=FileConsts.DOWNLOAD_FOLDER, original_sub=FileConsts.DOWNLOAD_SUB_FOLDER,
-                          target_sub=FileConsts.PROCESSED_SET_FOLDER)
+        ds = HelenDataSet(data_path=HelenFileConsts.DOWNLOAD_FOLDER, original_sub=HelenFileConsts.DOWNLOAD_SUB_FOLDER,
+                          target_sub=HelenFileConsts.PROCESSED_SET_FOLDER)
         ds.init()
         return ds
 
@@ -39,7 +39,7 @@ class MyTestCase(unittest.TestCase):
         con_images = ImageTools.load_converted_images([ds.original_file_list[rnd_index]],
                                                       DataSetConsts.PICTURE_WIDTH)
 
-        pr = PreProcessDataExternal(predictor_path=(FileConsts.DOWNLOAD_FOLDER + FileConsts.PREDICTOR_FILE_NAME))
+        pr = PreProcessDataExternal(predictor_path=(HelenFileConsts.DOWNLOAD_FOLDER + HelenFileConsts.PREDICTOR_FILE_NAME))
 
         rect = pr.get_shapes(con_images[0])
         print ('Rectangles for face:\n%s' % str(rect))
@@ -50,19 +50,21 @@ class MyTestCase(unittest.TestCase):
 
         self.assertEqual(True, True)
 
-    NUMBER_OF_TESTS = 1
+    NUMBER_OF_TESTS = 5
 
     def test_align_image(self):
         ds = MyTestCase.generate_dataset()
         original_images = ds.original_file_list
-        pr = PreProcessDataExternal(predictor_path=(FileConsts.DOWNLOAD_FOLDER + FileConsts.PREDICTOR_FILE_NAME))
+        pr = PreProcessDataExternal(predictor_path=(HelenFileConsts.DOWNLOAD_FOLDER + HelenFileConsts.PREDICTOR_FILE_NAME))
 
         for i in range(MyTestCase.NUMBER_OF_TESTS):
             rnd_index = randint(0, len(original_images) - 1)
+            image_original = ImageTools.load_images([ds.original_file_list[rnd_index]], width=None)
             images = ImageTools.load_images([ds.original_file_list[rnd_index]], DataSetConsts.PICTURE_WIDTH)
             con_images = ImageTools.load_converted_images([ds.original_file_list[rnd_index]],
                                                           DataSetConsts.PICTURE_WIDTH)
 
+            cv2.imshow(("The Original #%d" % i), image_original[0])
             rects = pr.detector(con_images[0], 2)
 
             for rect in rects:

@@ -120,10 +120,10 @@ if __name__ == '__main__':
     """
     Test loading images 
     """
-    from Work.consts.files_consts import FileConsts
+    from Work.consts.files_consts import HelenFileConsts
 
-    ds = HelenDataSet(data_path=FileConsts.DOWNLOAD_FOLDER, original_sub=FileConsts.DOWNLOAD_SUB_FOLDER,
-                      target_sub=FileConsts.PROCESSED_SET_FOLDER)
+    ds = HelenDataSet(data_path=HelenFileConsts.DOWNLOAD_FOLDER, original_sub=HelenFileConsts.DOWNLOAD_SUB_FOLDER,
+                      target_sub=HelenFileConsts.PROCESSED_SET_FOLDER)
     ds.init()
     # Print number of images
     print str(len(ds.original_file_list))

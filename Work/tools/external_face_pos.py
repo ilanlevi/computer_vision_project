@@ -25,7 +25,7 @@ class PreProcessDataExternal:
                  desiredFaceWidth=256, desiredFaceHeight=None):
         self.detector = dlib.get_frontal_face_detector()
         self.predictor = dlib.shape_predictor(predictor_path)
-        self.desiredLeftEye = desiredLeftEye
+        self.desired_left_eye = desiredLeftEye
         self.desiredFaceWidth = desiredFaceWidth
         self.desiredFaceHeight = desiredFaceHeight
 
@@ -48,6 +48,7 @@ class PreProcessDataExternal:
             # [i.e., (x, y, w, h)], then draw the face bounding box
             (x, y, w, h) = PreProcessDataExternal.rect_to_bb(rect)
             results.append((x, y, w, h))
+
         return results
 
     def align(self, image, gray, rect):
@@ -55,7 +56,6 @@ class PreProcessDataExternal:
         shape = self.predictor(gray, rect)
         shape = PreProcessDataExternal.shape_to_np(shape)
 
-        # simple hack ;)
         if len(shape) == 68:
             # extract the left and right eye (x, y)-coordinates
             (lStart, lEnd) = PreProcessDataExternal.FACIAL_LANDMARKS_68_IDXS["left_eye"]
@@ -78,14 +78,14 @@ class PreProcessDataExternal:
 
         # compute the desired right eye x-coordinate based on the
         # desired x-coordinate of the left eye
-        desired_right_eye_x = 1.0 - self.desiredLeftEye[0]
+        desired_right_eye_x = 1.0 - self.desired_left_eye[0]
 
         # determine the scale of the new resulting image by taking
         # the ratio of the distance between eyes in the *current*
         # image to the ratio of distance between eyes in the
         # *desired* image
         dist = np.sqrt((d_x ** 2) + (d_y ** 2))
-        desired_dist = (desired_right_eye_x - self.desiredLeftEye[0])
+        desired_dist = (desired_right_eye_x - self.desired_left_eye[0])
         desired_dist *= self.desiredFaceWidth
         scale = desired_dist / dist
 
@@ -99,7 +99,7 @@ class PreProcessDataExternal:
 
         # update the translation component of the matrix
         t_x = self.desiredFaceWidth * 0.5
-        t_y = self.desiredFaceHeight * self.desiredLeftEye[1]
+        t_y = self.desiredFaceHeight * self.desired_left_eye[1]
         m[0, 2] += (t_x - eyes_center[0])
         m[1, 2] += (t_y - eyes_center[1])
 
