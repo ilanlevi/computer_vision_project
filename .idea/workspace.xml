@@ -2,151 +2,157 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c01e69f1-dfde-4789-a00e-231c94c88efb" name="Default Changelist" comment="added aligment">
-      <change afterPath="$PROJECT_DIR$/Git/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/ThreeD_Model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/camera_calibration.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/check_resources.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/config.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/cow_data_layer/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/cow_data_layer/data_layer/.empty" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/cow_data_layer/notebooks/check_data_cow.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/cow_data_layer/notebooks/sample_data.tar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/demo.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/dlib_models/.dlib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/facial_feature_detector.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/images/.empty" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/images/collect2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/images/data_3d.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/images/input.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/images/pose1.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/images/pose2.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/images/pose3.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/images/render_fg17.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/input/input.list" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/input/input_1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/input/input_1.pts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_01.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_02.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_03.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_04.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_05.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_06.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_07.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_08.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_09.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_10.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_01.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_02.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_03.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_04.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_05.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_06.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_07.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_08.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_09.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_10.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_01.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_02.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_03.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_04.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_05.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_06.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_07.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_08.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_09.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_10.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_01.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_02.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_03.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_04.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_05.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_06.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_07.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_08.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_09.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_10.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_01.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_02.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_03.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_04.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_05.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_06.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_07.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_08.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_09.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_10.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_01.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_02.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_03.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_04.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_05.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_06.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_07.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_08.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_09.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_10.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_01.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_02.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_03.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_04.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_05.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_06.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_07.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_08.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_09.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_10.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_01.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_02.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_03.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_04.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_05.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_06.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_07.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_08.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_09.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_10.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_01.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_02.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_03.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_04.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_05.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_06.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_07.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_08.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_09.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_10.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/myutil.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/output/.output" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/adjust_translation.m" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_01.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_02.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_03.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_04.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_05.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_06.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_07.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_08.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_09.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_10.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/imgs_render/.empty" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/ldlibMatlab.bash" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/makeNew3DModel.m" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/models10_new/.empty" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/precompute_views.m" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/selectFaceMask.m" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/transferLandmarks.m" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Git/face_specific_augm-master/renderer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Work/consts/vgg_consts.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shape_predictor_68_face_landmarks.dat.bz2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Work/models/ThreeD_Model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Work/models/test_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Work/utils/cv_face_pos.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Work/utils/dlib_landmarks.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Work/utils/images_pose.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Work/utils/my_io.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/facial_landmarks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/ThreeD_Model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/camera_calibration.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/camera_calibration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/check_resources.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/config.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/cow_data_layer/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/cow_data_layer/data_layer/.empty" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/cow_data_layer/notebooks/check_data_cow.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/cow_data_layer/notebooks/sample_data.tar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/demo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/dlib_models/.dlib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/facial_feature_detector.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/images/.empty" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/images/collect2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/images/data_3d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/images/input.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/images/pose1.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/images/pose2.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/images/pose3.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/images/render_fg17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/input/input.list" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/input/input_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/input/input_1.pts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_01.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_02.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_03.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_04.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_05.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_06.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_07.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_08.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_09.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-00_10.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_01.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_02.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_03.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_04.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_05.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_06.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_07.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_08.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_09.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-40_10.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_01.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_02.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_03.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_04.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_05.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_06.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_07.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_08.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_09.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d/model3D_aug_-75_10.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_01.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_02.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_03.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_04.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_05.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_06.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_07.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_08.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_09.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-00_00_10.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_01.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_02.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_03.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_04.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_05.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_06.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_07.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_08.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_09.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-22_00_10.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_01.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_02.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_03.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_04.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_05.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_06.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_07.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_08.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_09.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-40_00_10.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_01.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_02.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_03.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_04.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_05.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_06.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_07.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_08.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_09.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-55_00_10.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_01.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_02.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_03.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_04.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_05.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_06.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_07.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_08.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_09.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-70_00_10.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_01.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_02.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_03.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_04.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_05.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_06.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_07.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_08.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_09.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/models3d_new/model3D_aug_-75_00_10.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/myutil.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/output/.output" beforeDir="false" afterPath="$PROJECT_DIR$/Work/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/adjust_translation.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_01.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_02.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_03.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_04.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_05.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_06.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_07.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_08.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_09.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/data/landmarks/landmarks_10.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/imgs_render/.empty" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/ldlibMatlab.bash" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/makeNew3DModel.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/models10_new/.empty" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/renderer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/precompute_views.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/selectFaceMask.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/render_mat_demo/transferLandmarks.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git/face_specific_augm-master/renderer.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Work/consts/files_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/files_consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/data/helen_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/data/helen_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/external_face_pos.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/tools/external_face_pos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/handle_download.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/tools/handle_download.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/test_preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/tools/test_preprocess.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/consts/vgg_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/vgg_consts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/tools/external_face_pos.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/external_face_pos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/tools/image_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/image_tools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/tools/test_preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/test_preprocess.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,24 +189,34 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Work/consts" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Work/utils" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings>
+        <option name="useSoftWraps" value="true" />
+      </console-settings>
+    </option>
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Work\ComputerVision\Project\Work\models" />
+      <recent name="C:\Work\ComputerVision\Project\Work" />
+      <recent name="C:\Work\ComputerVision\Project\imageUtils" />
+      <recent name="C:\Work\ComputerVision\Project\Work\data" />
+      <recent name="C:\Work\ComputerVision\Project\tmp" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Work\ComputerVision\Project\Work\utils" />
+      <recent name="C:\Work\ComputerVision\Project\Work\models" />
+      <recent name="C:\Work\ComputerVision\Project\aug" />
       <recent name="C:\Work\ComputerVision\Project\Work\consts" />
       <recent name="C:\Work\ComputerVision\Project\Work\data" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Work\ComputerVision\Project\Work\data" />
-      <recent name="C:\Work\ComputerVision\Project\tmp" />
-      <recent name="C:\Work\ComputerVision\Project\Work" />
-      <recent name="C:\Users\ilan_\Google Drive\Masters\Computer vision\Assignments\Project\Work\tools" />
-      <recent name="C:\Users\ilan_\Google Drive\Masters\Computer vision\Assignments\Project\Work\data" />
-    </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests for test_preprocess.MyTestCase.test_align_image">
-    <configuration name="handle_download" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.test_model (1)">
+    <configuration name="ThreeD_Model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -208,11 +224,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Work/tools" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Work/models" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Work/tools/handle_download.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Work/models/ThreeD_Model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -221,7 +237,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="helen_data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="test_model (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -229,11 +245,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Work/data" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Work/models" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Work/data/helen_data.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Work/models/test_model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -242,19 +258,19 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="run_download_data (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="test_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Work" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="SDK_HOME" value="C:\ProgramData\Anaconda2\envs\CV\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Work/models" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Work/run_download_data.py" />
+      <option name="SCRIPT_NAME" value="C:\Work\ComputerVision\Project\Work\models\test_model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -263,41 +279,68 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for test_preprocess.MyTestCase.test_align_image" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="test_model" type="PythonConfigurationType" factoryName="Python">
       <module name="Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Work/tools" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Work/models" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Work/models/test_model.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for Work.models.test_model" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="Project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="C:\ProgramData\Anaconda2\envs\CV\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_pattern" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_preprocess.MyTestCase.test_align_image&quot;" />
+      <option name="_new_target" value="&quot;Work.models.test_model&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests in test_preprocess.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests in test_model.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Work/tools" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="SDK_HOME" value="C:\ProgramData\Anaconda2\envs\CV\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_pattern" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/Work/tools/test_preprocess.py&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/Work/models/test_model.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.test_model" />
+      <item itemvalue="Python tests.Unittests in test_model.py" />
+      <item itemvalue="Python tests.Unittests for Work.models.test_model" />
+      <item itemvalue="Python.test_model (1)" />
+      <item itemvalue="Python.ThreeD_Model" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Unittests for test_preprocess.MyTestCase.test_align_image" />
-        <item itemvalue="Python tests.Unittests in test_preprocess.py" />
-        <item itemvalue="Python.helen_data" />
-        <item itemvalue="Python.handle_download" />
-        <item itemvalue="Python.run_download_data (1)" />
+        <item itemvalue="Python.test_model (1)" />
+        <item itemvalue="Python.ThreeD_Model" />
+        <item itemvalue="Python.test_model" />
+        <item itemvalue="Python tests.Unittests in test_model.py" />
+        <item itemvalue="Python tests.Unittests for Work.models.test_model" />
       </list>
     </recent_temporary>
   </component>
@@ -406,74 +449,104 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="432" y="164" key="#Notifications/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449094073" />
+    <state x="547" y="154" key="#Unittests_for_Work.models.tst_model.MyTestModel.test_align_image" timestamp="1577920501444">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="547" y="154" key="#Unittests_for_Work.models.tst_model.MyTestModel.test_align_image/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577920501444" />
+    <state x="559" y="135" key="#Unittests_in_tst_model.py" timestamp="1577920531554">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="559" y="135" key="#Unittests_in_tst_model.py/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577920531554" />
+    <state x="294" y="161" width="1092" height="706" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577923694966">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="294" y="161" width="1092" height="706" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923694966" />
     <state x="603" y="309" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1577450376430">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="603" y="309" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577450376430" />
-    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1577656539798">
+    <state x="559" y="132" key="#test_model_(1)" timestamp="1577923812037">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="494" y="100" key="CommitChangelistDialog2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577656539798" />
+    <state x="559" y="132" key="#test_model_(1)/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923812037" />
+    <state x="559" y="132" key="#tst_model" timestamp="1577921308436">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="559" y="132" key="#tst_model/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577921308436" />
+    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1577921535333">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="494" y="100" key="CommitChangelistDialog2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577921535333" />
     <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468848032" />
     <state x="160" y="89" key="DiffContextDialog" timestamp="1577449892248">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="160" y="89" key="DiffContextDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449892248" />
-    <state x="619" y="248" key="FileChooserDialogImpl" timestamp="1577450580999">
+    <state x="619" y="248" key="FileChooserDialogImpl" timestamp="1577916730577">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state x="619" y="248" key="FileChooserDialogImpl/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577916730577" />
     <state x="619" y="248" key="FileChooserDialogImpl/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577450580999" />
     <state x="598" y="373" key="Github.CreatePullRequestDialog" timestamp="1577449234180">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="598" y="373" key="Github.CreatePullRequestDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449234180" />
-    <state width="1659" height="161" key="GridCell.Tab.0.bottom" timestamp="1577541190229">
+    <state width="829" height="336" key="GridCell.Tab.0.bottom" timestamp="1577923841933">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state width="829" height="336" key="GridCell.Tab.0.bottom/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923841933" />
     <state width="1659" height="161" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
     <state width="1659" height="161" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
-    <state width="1659" height="161" key="GridCell.Tab.0.center" timestamp="1577541190229">
+    <state width="829" height="336" key="GridCell.Tab.0.center" timestamp="1577923841933">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state width="829" height="336" key="GridCell.Tab.0.center/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923841933" />
     <state width="1659" height="161" key="GridCell.Tab.0.center/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
     <state width="1659" height="161" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
-    <state width="1659" height="161" key="GridCell.Tab.0.left" timestamp="1577541190229">
+    <state width="829" height="336" key="GridCell.Tab.0.left" timestamp="1577923841933">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state width="829" height="336" key="GridCell.Tab.0.left/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923841933" />
     <state width="1659" height="161" key="GridCell.Tab.0.left/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
     <state width="1659" height="161" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
-    <state width="1659" height="161" key="GridCell.Tab.0.right" timestamp="1577541190229">
+    <state width="829" height="336" key="GridCell.Tab.0.right" timestamp="1577923841933">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state width="829" height="336" key="GridCell.Tab.0.right/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923841933" />
     <state width="1659" height="161" key="GridCell.Tab.0.right/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
     <state width="1659" height="161" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
-    <state width="1659" height="336" key="GridCell.Tab.1.bottom" timestamp="1577541027135">
+    <state width="829" height="336" key="GridCell.Tab.1.bottom" timestamp="1577923841934">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state width="829" height="336" key="GridCell.Tab.1.bottom/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923841934" />
     <state width="1659" height="336" key="GridCell.Tab.1.bottom/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466281673" />
     <state width="1659" height="336" key="GridCell.Tab.1.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1577541027135" />
-    <state width="1659" height="336" key="GridCell.Tab.1.center" timestamp="1577541027135">
+    <state width="829" height="336" key="GridCell.Tab.1.center" timestamp="1577923841934">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state width="829" height="336" key="GridCell.Tab.1.center/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923841934" />
     <state width="1659" height="336" key="GridCell.Tab.1.center/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466281673" />
     <state width="1659" height="336" key="GridCell.Tab.1.center/0.0.1680.1010@0.0.1680.1010" timestamp="1577541027135" />
-    <state width="1659" height="336" key="GridCell.Tab.1.left" timestamp="1577541027135">
+    <state width="829" height="336" key="GridCell.Tab.1.left" timestamp="1577923841933">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state width="829" height="336" key="GridCell.Tab.1.left/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923841933" />
     <state width="1659" height="336" key="GridCell.Tab.1.left/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466281673" />
     <state width="1659" height="336" key="GridCell.Tab.1.left/0.0.1680.1010@0.0.1680.1010" timestamp="1577541027135" />
-    <state width="1659" height="336" key="GridCell.Tab.1.right" timestamp="1577541027135">
+    <state width="829" height="336" key="GridCell.Tab.1.right" timestamp="1577923841934">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state width="829" height="336" key="GridCell.Tab.1.right/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923841934" />
     <state width="1659" height="336" key="GridCell.Tab.1.right/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577466281673" />
     <state width="1659" height="336" key="GridCell.Tab.1.right/0.0.1680.1010@0.0.1680.1010" timestamp="1577541027135" />
     <state x="552" y="222" key="MultipleFileMergeDialog" timestamp="1577449807013">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="552" y="222" key="MultipleFileMergeDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449807013" />
-    <state x="341" y="148" key="SettingsEditor" timestamp="1577452354861">
+    <state x="315" y="274" key="SettingsEditor" timestamp="1577923787456">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state x="315" y="274" key="SettingsEditor/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923787456" />
     <state x="341" y="148" key="SettingsEditor/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577452354861" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1577468849513">
       <screen x="0" y="0" width="1680" height="1010" />
@@ -483,26 +556,60 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="536" y="330" key="com.intellij.ide.util.TipDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577450795113" />
-    <state x="92" y="92" width="1496" height="826" key="dock-window-1" timestamp="1577463206322">
+    <state x="649" y="423" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577914513439">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state x="649" y="423" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577914513439" />
+    <state x="-1920" y="98" width="1259" height="785" maximized="true" key="dock-window-1" timestamp="1577908767287">
+      <screen x="-1920" y="0" width="1536" height="832" />
+    </state>
+    <state x="-1920" y="98" width="1259" height="785" maximized="true" key="dock-window-1/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577908767287" />
     <state x="92" y="92" width="1496" height="826" key="dock-window-1/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577463206322" />
+    <state x="-1793" y="-12" width="1259" height="785" maximized="true" key="dock-window-2" timestamp="1577918445955">
+      <screen x="-1920" y="0" width="1536" height="832" />
+    </state>
+    <state x="-1793" y="-12" width="1259" height="785" maximized="true" key="dock-window-2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577918445955" />
+    <state x="536" y="237" width="607" height="536" key="find.popup" timestamp="1577919529033">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="536" y="237" width="607" height="536" key="find.popup/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577919529033" />
     <state x="503" y="354" key="git4idea.ui.GitUnstashDialog" timestamp="1577449834975">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="503" y="354" key="git4idea.ui.GitUnstashDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449834975" />
-    <state x="503" y="217" width="672" height="678" key="search.everywhere.popup" timestamp="1577468235514">
+    <state x="503" y="217" width="672" height="678" key="search.everywhere.popup" timestamp="1577899859171">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state x="503" y="217" width="672" height="678" key="search.everywhere.popup/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577899859171" />
     <state x="503" y="217" width="672" height="678" key="search.everywhere.popup/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468235514" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Work/tools/test_preprocess.py</url>
-          <line>66</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/Work/utils/test_preprocess.py</url>
+          <line>99</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Work/utils/test_preprocess.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Work/utils/cv_face_pos.py</url>
+          <line>126</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Work/models/test_model.py</url>
+          <line>61</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Work/models/test_model.py</url>
+          <line>59</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

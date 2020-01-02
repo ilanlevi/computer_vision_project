@@ -1,4 +1,7 @@
 class HelenFileConsts:
+    def __init__(self):
+        pass
+
     DS_DOWNLOAD_URLS = [
         ('https://www.robots.ox.ac.uk/~vgg/data/vgg_face/vgg_face_dataset.tar.gz', 'vgg_face_dataset.tar.gz'),
     ]
