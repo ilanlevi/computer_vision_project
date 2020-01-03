@@ -68,11 +68,20 @@ def write_scores(folder, filename, print_scores=True):
     write_csv(s, CsvConsts.CSV_LABELS, folder, filename, print_scores)
 
 
+def print_param_details(param_name, param_index, arr):
+    print '#####'
+    print 'avg_' + param_name + ' = ' + str(np.mean(arr[:, param_index]))
+    print 'max_' + param_name + ' = ' + str(np.max(arr[:, param_index]))
+    print 'min_' + param_name + ' = ' + str(np.min(arr[:, param_index]))
+    print '#####'
+
+
 def compare_scores(folder, f1, f2, f_new):
     my = read_csv(folder, f1, True)
     valid = read_csv(folder, f2, True)
 
     total = []
+    total_n = []
     for m in my:
         for v in valid:
             # if v[CsvConsts.PICTURE_NAME] in m[CsvConsts.PICTURE_NAME]:
@@ -84,6 +93,17 @@ def compare_scores(folder, f1, f2, f_new):
                 t_y = float(v[CsvConsts.T_Y]) - float(m[CsvConsts.T_Y])
                 t_z = float(v[CsvConsts.T_Z]) - float(m[CsvConsts.T_Z])
                 total.append([m[CsvConsts.COL_INDEX], m[CsvConsts.PICTURE_NAME], r_x, r_y, r_z, t_x, t_y, t_z, 0])
+                total_n.append([r_x, r_y, r_z, t_x, t_y, t_z])
+
+    total_arr = np.asarray(total_n, dtype=np.float)
+    total_arr = np.reshape(total_arr, (len(total), 6))
+
+    print_param_details('rx', 0, total_arr)
+    print_param_details('ry', 1, total_arr)
+    print_param_details('rz', 2, total_arr)
+    print_param_details('tx', 3, total_arr)
+    print_param_details('ty', 4, total_arr)
+    print_param_details('tz', 5, total_arr)
 
     write_csv(total, CsvConsts.CSV_LABELS, folder, f_new, True)
 
@@ -117,6 +137,6 @@ def plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF
 
 if __name__ == '__main__':
     # write_scores(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV2)
-    compare_scores(folder=fConsts.VALIDATION_FOLDER, f1=fConsts.VALIDATION_DIFF_CSV2, f2=fConsts.VALIDATION_CSV,
+    compare_scores(folder=fConsts.VALIDATION_FOLDER, f1=fConsts.VALIDATION_DIFF_CSV, f2=fConsts.VALIDATION_CSV,
                    f_new=fConsts.VALIDATION_DIFF_CSV3)
     plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV3, print_scores=True)
