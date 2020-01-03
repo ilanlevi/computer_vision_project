@@ -42,8 +42,8 @@ def test_align_image():
 
         if len(lmarks) == 0:
             print 'No faces in image!'
-        # else:
-        #     img, lmarks, yaw = calib.flip_in_case(im, lmarks, allModels)
+        else:
+            img, lmarks, yaw = calib.flip_in_case(im, lmarks, allModels)
 
         # Looping over the faces
         for j in range(len(lmarks)):
@@ -57,27 +57,26 @@ def test_align_image():
             name = splits[-1]
             if j > 0:
                 name = name + '(' + str(j) + ')'
-            # score.append([str(i), splits[-1], str(rvec[0][0]), str(rvec[1][0]), str(rvec[2][0]),
-            #               str(tvec[0][0]), str(tvec[1][0]), str(tvec[2][0])])
             score.append([i, name, rvec[0][0], rvec[1][0], rvec[2][0],
                           tvec[0][0], tvec[1][0], tvec[2][0], 0])
 
     return score
 
 
-def write_scores():
+def write_scores(folder, filename, print_scores=True):
     s = test_align_image()
-    write_csv(s, CsvConsts.CSV_LABELS, fConsts.VALIDATION_FOLDER, fConsts.MY_VALIDATION_CSV, True)
+    write_csv(s, CsvConsts.CSV_LABELS, folder, filename, print_scores)
 
 
-def compare_scores():
-    my = read_csv(fConsts.VALIDATION_FOLDER, fConsts.MY_VALIDATION_CSV, True)
-    valid = read_csv(fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_CSV, True)
+def compare_scores(folder, f1, f2, f_new):
+    my = read_csv(folder, f1, True)
+    valid = read_csv(folder, f2, True)
 
     total = []
     for m in my:
         for v in valid:
-            if v[CsvConsts.PICTURE_NAME] in m[CsvConsts.PICTURE_NAME]:
+            # if v[CsvConsts.PICTURE_NAME] in m[CsvConsts.PICTURE_NAME]:
+            if v[CsvConsts.PICTURE_NAME] == m[CsvConsts.PICTURE_NAME]:
                 r_x = float(v[CsvConsts.R_X]) - float(m[CsvConsts.R_X])
                 r_y = float(v[CsvConsts.R_Y]) - float(m[CsvConsts.R_Y])
                 r_z = float(v[CsvConsts.R_Z]) - float(m[CsvConsts.R_Z])
@@ -86,11 +85,11 @@ def compare_scores():
                 t_z = float(v[CsvConsts.T_Z]) - float(m[CsvConsts.T_Z])
                 total.append([m[CsvConsts.COL_INDEX], m[CsvConsts.PICTURE_NAME], r_x, r_y, r_z, t_x, t_y, t_z, 0])
 
-    write_csv(total, CsvConsts.CSV_LABELS, fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_DIFF_CSV, True)
+    write_csv(total, CsvConsts.CSV_LABELS, folder, f_new, True)
 
 
-def plot_diff():
-    diff = read_csv(fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_DIFF_CSV, True)
+def plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV2, print_scores=True):
+    diff = read_csv(folder, filename, print_scores)
     x_s = range(len(diff))
 
     R_X = [float(i[CsvConsts.R_X]) for i in diff]
@@ -106,15 +105,18 @@ def plot_diff():
     ax1.plot(x_s, R_Y, label=CsvConsts.R_Y, alpha=0.5)
     ax1.plot(x_s, R_Z, label=CsvConsts.R_Z, alpha=0.5)
     ax1.grid(True)
+    ax1.legend()
 
     ax2.plot(x_s, T_X, label=CsvConsts.T_X, alpha=0.5)
     ax2.plot(x_s, T_Y, label=CsvConsts.T_Y, alpha=0.5)
     ax2.plot(x_s, T_Z, label=CsvConsts.T_Z, alpha=0.5)
     ax2.grid(True)
+    ax2.legend()
     plt.show()
 
 
 if __name__ == '__main__':
-    # write_scores()
-    # compare_scores()
-    plot_diff()
+    # write_scores(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV2)
+    compare_scores(folder=fConsts.VALIDATION_FOLDER, f1=fConsts.VALIDATION_DIFF_CSV2, f2=fConsts.VALIDATION_CSV,
+                   f_new=fConsts.VALIDATION_DIFF_CSV3)
+    plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV3, print_scores=True)

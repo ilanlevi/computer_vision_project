@@ -31,3 +31,7 @@ class FileConsts:
     VALIDATION_CSV = 'validation_set.csv'
     MY_VALIDATION_CSV = 'validation_set_my.csv'
     VALIDATION_DIFF_CSV = 'validation_set_diff.csv'
+
+    MY_VALIDATION_CSV2 = 'validation_set_my2.csv'
+    VALIDATION_DIFF_CSV2 = 'validation_set_diff2.csv'
+    VALIDATION_DIFF_CSV3 = 'validation_set_diff3.csv'
