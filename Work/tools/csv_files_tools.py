@@ -39,7 +39,7 @@ def read_csv(path, filename, print_data=False):
 
     if print_data:
         print 'Read CSV completed! (in: %.2f seconds)' % (time.time() - start)
-        print 'Total lines: %d' % str(line_count)
+        print 'Total lines: %d' % line_count
 
     return data
 
@@ -73,8 +73,8 @@ def write_csv(data, fieldnames, path, filename, print_data=False):
                     print 'Data and fieldnames error! Line: %d' % line_count
                     return False
                 row_to_write = dict()
-                for k, v in fieldnames, row:
-                    row_to_write[k] = v
+                for i in range(len(row)):
+                    row_to_write[fieldnames[i]] = row[i]
 
                 writer.writerow(row_to_write)
                 line_count = line_count + 1
@@ -86,6 +86,6 @@ def write_csv(data, fieldnames, path, filename, print_data=False):
 
     if print_data:
         print 'Write CSV completed! (in: %.2f seconds)' % (time.time() - start)
-        print 'Total lines: %d' % str(line_count)
+        print 'Total lines: %d' % line_count
 
     return True

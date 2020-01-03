@@ -4,6 +4,34 @@ import numpy as np
 import cv2
 import math
 
+repLand = [17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 27, 26, 25, \
+           24, 23, 22, 21, 20, 19, 18, 28, 29, 30, 31, 36, 35, 34, 33, 32, 46, 45, 44, 43, \
+           48, 47, 40, 39, 38, 37, 42, 41, 55, 54, 53, 52, 51, 50, 49, 60, 59, 58, 57, 56, \
+           65, 64, 63, 62, 61, 68, 67, 66]
+
+
+def flip_in_case(img, lmarks, allModels):
+    ## Check if we need to flip the image
+    yaws = []  # np.zeros(1,len(allModels))
+    ## Getting yaw estimate over poses and subjects
+    for mmm in allModels.itervalues():
+        proj_matrix, camera_matrix, rmat, tvec, rvecs = estimate_camera(mmm, lmarks[0])
+        yaws.append(get_yaw(rmat))
+    yaws = np.asarray(yaws)
+    yaw = yaws.mean()
+    print '> Yaw value mean: ', yaw
+    if yaw < 0:
+        print '> Positive yaw detected, flipping the image'
+        img = cv2.flip(img, 1)
+        # Flipping X values for landmarks
+        lmarks[0][:, 0] = img.shape[1] - lmarks[0][:, 0]
+        # Creating flipped landmarks with new indexing
+        lmarks3 = np.zeros((1, 68, 2))
+        for i in range(len(repLand)):
+            lmarks3[0][i, :] = lmarks[0][repLand[i] - 1, :]
+        lmarks = lmarks3
+    return img, lmarks, yaw
+
 
 def estimate_camera(model3D, fidu_XY, pose_db_on=False):
     if pose_db_on:
