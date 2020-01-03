@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-from Work.consts.ds_consts import DataSetConsts
+from ..consts.ds_consts import DataSetConsts
 
 
 class AbstractReadData:
@@ -76,14 +76,6 @@ class AbstractReadData:
     def read_data_set(self):
         """
             Read file contents from file_name.
-        """
-        pass
-
-    @abstractmethod
-    def read_data_set_and_separate(self):
-        """"
-            Read file contents from file_name.
-            :returns and set to self the data as tuple
         """
         pass
 

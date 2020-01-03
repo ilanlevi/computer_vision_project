@@ -15,7 +15,7 @@ class DlibLandmarks:
     def _get_landmarks(img, detector, predictor):
         lmarks = []
         dets, scores, idx = detector.run(img, 1)
-        print("Number of faces detected: {}".format(len(dets)))
+        print "Number of faces detected: %d" % len(dets)
         shapes = []
         for k, det in enumerate(dets):
             shape = predictor(img, det)

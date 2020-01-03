@@ -3,15 +3,15 @@ import os
 
 import numpy as np
 
-from Work.consts.files_consts import HelenFileConsts
-from Work.tools.download_data import DownloadData
-from Work.tools.pack_files import DataZip
+from ..consts.files_consts import FileConsts
+from ..tools.download_data import DownloadData
+from ..tools.pack_files import DataUnzip
 
 
 class HandleDownloadData:
 
-    def __init__(self, download_urls=HelenFileConsts.DS_DOWNLOAD_URLS,
-                 to_dir=HelenFileConsts.DOWNLOADED_DIR):
+    def __init__(self, download_urls=FileConsts.DS_DOWNLOAD_URLS,
+                 to_dir=FileConsts.DOWNLOADED_DIR):
         self.download_urls = np.asarray(download_urls)
         self.to_dir = to_dir
 
@@ -32,7 +32,7 @@ class HandleDownloadData:
         files = os.listdir(self.to_dir)
         for file_name in files:
             if 'zip' in file_name:
-                unzip = DataZip(self.to_dir + file_name, self.to_dir)
+                unzip = DataUnzip(self.to_dir + file_name, self.to_dir)
                 action_succeeded = action_succeeded & unzip.unzipped_data()
 
         return action_succeeded

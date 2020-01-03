@@ -1,9 +1,8 @@
-import gzip
 import time
 import zipfile
 
 
-class DataZip:
+class DataUnzip:
 
     def __init__(self, from_file, to_dir=''):
         self.from_file = from_file

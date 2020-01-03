@@ -9,13 +9,13 @@ class ImageTools:
         pass
 
     @staticmethod
-    def load_images(images_path_list, width):
+    def load_images(images_path_list, width=None, height=None):
         start = time.time()
         ims = []
         for image_path in images_path_list:
             try:
                 im = cv2.imread(image_path)
-                im = ImageTools.resize(im, width=width)
+                im = ImageTools.resize(im, width, height)
                 ims.append(im)
             except Exception as e:
                 print ('Error while reading image!Path= %s\nError= %s' % (image_path, str(e)))
@@ -24,13 +24,13 @@ class ImageTools:
         return ims
 
     @staticmethod
-    def load_converted_images(images_path_list, width):
+    def load_converted_images(images_path_list, width=None, height=None):
         start = time.time()
         ims = []
         for image_path in images_path_list:
             try:
                 im = cv2.imread(image_path)
-                im = ImageTools.convert_image(im, width)
+                im = ImageTools.convert_image(im, width, height)
                 ims.append(im)
             except Exception as e:
                 print ('Error while reading image!Path= %s\nError= %s' % (image_path, str(e)))
@@ -53,7 +53,7 @@ class ImageTools:
         return gray_images
 
     @staticmethod
-    def convert_image(image, width=500, height=500):
+    def convert_image(image, width=None, height=None):
         """
         resize image and convert to gray scale
         :param height: the height
@@ -61,7 +61,11 @@ class ImageTools:
         :param image: the loaded image
         :return: gray scaled image
         """
-        im = ImageTools.resize(image, width=width, height=height)
+
+        if width is not None and height is not None:
+            im = ImageTools.resize(image, width=width, height=height)
+        else:
+            im = image
         gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
         return gray
 

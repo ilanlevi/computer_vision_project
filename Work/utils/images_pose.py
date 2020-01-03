@@ -1,7 +1,6 @@
-from math import cos, sin, atan2, asin, sqrt
+from math import cos, atan2, asin, sqrt
+
 import numpy as np
-from .my_io import _load
-from ..consts import files_consts as fc
 
 
 class ImagesPose:
