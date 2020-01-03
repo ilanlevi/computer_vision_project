@@ -58,8 +58,10 @@ def test_align_image():
             else:
                 score.append([i, split, rvec[0], rvec[1], rvec[2], tvec[0], tvec[1], tvec[2]])
 
-    write_csv(score, CsvConsts.CSV_LABELS, fConsts.VALIDATION_FOLDER, fConsts.MY_VALIDATION_CSV, True)
+    return score
 
 
 if __name__ == '__main__':
-    test_align_image()
+    s = test_align_image()
+    write_csv(s, CsvConsts.CSV_LABELS, fConsts.VALIDATION_FOLDER, fConsts.MY_VALIDATION_CSV, True)
+

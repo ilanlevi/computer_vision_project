@@ -2,32 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c01e69f1-dfde-4789-a00e-231c94c88efb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Work/consts/csv_consts.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Work/consts/fpn_model_consts.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Work/models/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Work/models/tests/test_ThreeD_Model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Work/models/tests/test_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Work/tools/csv_files_tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models3d/model3D_aug_-00_01.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/files_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/files_consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/data/abstract_read_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/data/abstract_read_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/data/create_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/data/create_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/data/helen_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/data/helen_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/models/ThreeD_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/models/ThreeD_Model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/models/test_model.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/handle_download.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/tools/handle_download.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/pack_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/tools/pack_files.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/camera_calibration.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/camera_calibration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/cv_face_pos.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/dlib_landmarks.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/dlib_landmarks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/external_face_pos.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/image_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/image_tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/images_pose.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/images_pose.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/my_io.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/my_io.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/renderer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/test_preprocess.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/consts/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/consts/fpn_model_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/fpn_model_consts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/data/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/data/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/models/tests/test_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/models/tests/test_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/tools/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/tools/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +47,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Work/utils" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="configurable.group.project" />
   </component>
   <component name="PyConsoleOptionsProvider">
@@ -76,11 +59,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Work\ComputerVision\Project" />
       <recent name="C:\Work\ComputerVision\Project\Work\utils" />
       <recent name="C:\Work\ComputerVision\Project\Work\models" />
       <recent name="C:\Work\ComputerVision\Project\aug" />
       <recent name="C:\Work\ComputerVision\Project\Work\consts" />
-      <recent name="C:\Work\ComputerVision\Project\Work\data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Work\ComputerVision\Project\Work\models" />
@@ -323,7 +306,13 @@
       <option name="presentableId" value="LOCAL‎00010" />
       <updated>1577923979732</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL‎00011" summary="added aligment">
+      <created>1578057911214</created>
+      <option name="number" value="LOCAL‎00011" />
+      <option name="presentableId" value="LOCAL‎00011" />
+      <updated>1578057911214</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -383,11 +372,12 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="559" y="132" key="#tst_model/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577921308436" />
-    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1577923978513">
+    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1578057910538">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="494" y="100" key="CommitChangelistDialog2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923978513" />
     <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468848032" />
+    <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578057910538" />
     <state width="979" height="466" key="DebuggerActiveHint" timestamp="1578051398797">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
@@ -405,33 +395,33 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="598" y="373" key="Github.CreatePullRequestDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449234180" />
-    <state width="829" height="305" key="GridCell.Tab.0.bottom" timestamp="1578057736266">
+    <state width="829" height="305" key="GridCell.Tab.0.bottom" timestamp="1578057974161">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="829" height="181" key="GridCell.Tab.0.bottom/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924779503" />
     <state width="1659" height="161" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
-    <state width="829" height="305" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578057736266" />
+    <state width="829" height="305" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578057974161" />
     <state width="1659" height="161" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
-    <state width="829" height="305" key="GridCell.Tab.0.center" timestamp="1578057736266">
+    <state width="829" height="305" key="GridCell.Tab.0.center" timestamp="1578057974161">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="829" height="181" key="GridCell.Tab.0.center/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924779503" />
     <state width="1659" height="161" key="GridCell.Tab.0.center/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
-    <state width="829" height="305" key="GridCell.Tab.0.center/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578057736266" />
+    <state width="829" height="305" key="GridCell.Tab.0.center/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578057974161" />
     <state width="1659" height="161" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
-    <state width="829" height="305" key="GridCell.Tab.0.left" timestamp="1578057736266">
+    <state width="829" height="305" key="GridCell.Tab.0.left" timestamp="1578057974161">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="829" height="181" key="GridCell.Tab.0.left/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924779503" />
     <state width="1659" height="161" key="GridCell.Tab.0.left/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
-    <state width="829" height="305" key="GridCell.Tab.0.left/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578057736266" />
+    <state width="829" height="305" key="GridCell.Tab.0.left/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578057974161" />
     <state width="1659" height="161" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
-    <state width="829" height="305" key="GridCell.Tab.0.right" timestamp="1578057736266">
+    <state width="829" height="305" key="GridCell.Tab.0.right" timestamp="1578057974161">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="829" height="181" key="GridCell.Tab.0.right/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924779503" />
     <state width="1659" height="161" key="GridCell.Tab.0.right/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
-    <state width="829" height="305" key="GridCell.Tab.0.right/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578057736266" />
+    <state width="829" height="305" key="GridCell.Tab.0.right/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578057974161" />
     <state width="1659" height="161" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
     <state width="829" height="336" key="GridCell.Tab.1.bottom" timestamp="1578053309074">
       <screen x="0" y="0" width="1680" height="1010" />
@@ -471,11 +461,12 @@
     <state x="315" y="274" key="SettingsEditor/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924036631" />
     <state x="341" y="148" key="SettingsEditor/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577452354861" />
     <state x="315" y="274" key="SettingsEditor/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578054141622" />
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1577923981511">
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1578057917889">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923981511" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468849513" />
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578057917889" />
     <state x="536" y="330" key="com.intellij.ide.util.TipDialog" timestamp="1577450795113">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
@@ -510,6 +501,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Work/tools/csv_files_tools.py</url>
+          <line>75</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
