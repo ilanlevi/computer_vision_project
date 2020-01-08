@@ -18,6 +18,14 @@ def _get_suffix(filename, p='.'):
     return filename[pos + 1:]
 
 
+def _get_prefix(filename, p='.'):
+    """a.jpg -> a"""
+    pos = filename.rfind(p)
+    if pos == -1:
+        return ''
+    return filename[:pos]
+
+
 def _load(fp):
     suffix = _get_suffix(fp)
     if suffix == 'npy':

@@ -33,8 +33,9 @@ def read_csv(path, filename, print_data=False):
                     line_count += 1
 
     except Exception as e:
-        print 'Read csv failed!'
-        print 'Reason: ' + str(e)
+        if print_data:
+            print 'Read csv failed!'
+            print 'Reason: ' + str(e)
         return None
 
     if print_data:
@@ -80,8 +81,9 @@ def write_csv(data, fieldnames, path, filename, print_data=False):
                 line_count = line_count + 1
 
     except Exception as e:
-        print 'Write csv failed!'
-        print 'Reason: ' + str(e)
+        if print_data:
+            print 'Write csv failed!'
+            print 'Reason: ' + str(e)
         return False
 
     if print_data:

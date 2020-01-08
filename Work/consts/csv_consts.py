@@ -10,9 +10,9 @@ class CsvConsts:
     T_X = 'tx'
     T_Y = 'ty'
     T_Z = 'tz'
-    DUMMY = 'dummy'
+    THETA = 'theta'
 
-    CSV_LABELS = [COL_INDEX, PICTURE_NAME, R_X, R_Y, R_Z, T_X, T_Y, T_Z, DUMMY]
+    CSV_LABELS = [COL_INDEX, PICTURE_NAME, R_X, R_Y, R_Z, T_X, T_Y, T_Z, THETA]
 
     def __init__(self):
         pass

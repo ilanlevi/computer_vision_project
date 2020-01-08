@@ -29,7 +29,7 @@ class ImageTools:
         ims = []
         for image_path in images_path_list:
             try:
-                im = cv2.imread(image_path)
+                im = cv2.imread(image_path, 1)
                 im = ImageTools.convert_image(im, width, height)
                 ims.append(im)
             except Exception as e:

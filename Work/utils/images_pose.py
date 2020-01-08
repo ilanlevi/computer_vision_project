@@ -4,6 +4,7 @@ import numpy as np
 
 
 class ImagesPose:
+
     @staticmethod
     def parse_roi_box_from_landmark(pts):
         """calc roi box from landmark"""
@@ -57,13 +58,32 @@ class ImagesPose:
         return p, pose
 
     @staticmethod
+    def parse_pose_my(p_s):
+        """
+         decompositing camera matrix P.
+        Args:
+            :param p_s: (3, 4). Affine Camera Matrix.
+        Returns:
+            p:
+            x: pitch
+            y: yaw
+            z: roll
+        """
+        s, r, t3d = ImagesPose.P2sRt(p_s)
+        p = np.concatenate((r, t3d.reshape(3, -1)), axis=1)  # without scale
+        # P = Ps / s
+        pose = ImagesPose.matrix2angle(r)  # yaw, pitch, roll
+        # offset = p_[:, -1].reshape(3, 1)
+        return p, pose
+
+    @staticmethod
     def matrix2angle(R):
         """ compute three Euler angles from a Rotation Matrix. Ref: http://www.gregslabaugh.net/publications/euler.pdf
         Args:
             R: (3,3). rotation matrix
         Returns:
-            x: yaw
-            y: pitch
+            x: pitch
+            y: yaw
             z: roll
         """
         # assert(isRotationMatrix(R))
