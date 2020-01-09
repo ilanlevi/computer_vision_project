@@ -118,14 +118,17 @@ def calc_theta_score(s1, s2):
     rot_m_1, _ = cv2.Rodrigues(rot_v1)
     rot_m_2, _ = cv2.Rodrigues(rot_v2)
 
-    r, _ = cv2.Rodrigues(rot_m_2.dot(rot_m_1.T))
-    rotation_error_from_identity = np.linalg.norm(r)
+    # r, _ = cv2.Rodrigues(rot_m_2.dot(rot_m_1.T))
+    # rotation_error_from_identity = np.linalg.norm(r)
+    # r, _ = cv2.Rodrigues(rot_m_2.dot(rot_m_1.T))
+    # rotation_error_from_identity = np.linalg.norm(r)
     # r_matrix = np.dot(rot_m_1.T, rot_m_2)
     # r_matrix = np.dot(rot_m_1, rot_m_2)
     # theta = np.angle([rot_m_1.T, rot_m_2], True)
     # r_matrix = (rot_m_1.T * rot_m_2)
-    # angle = (np.trace(r_matrix) - 1) / 2
-    theta = np.arcsin(rotation_error_from_identity)
+    r_matrix = rot_m_2.dot(rot_m_1.T)
+    angle = (np.trace(r_matrix) - 1) / 2
+    theta = np.arccos(angle)
 
     theta = np.rad2deg(theta)
 
