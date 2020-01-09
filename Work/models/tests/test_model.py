@@ -128,6 +128,12 @@ def calc_theta_score(s1, s2):
     # r_matrix = (rot_m_1.T * rot_m_2)
     r_matrix = rot_m_2.dot(rot_m_1.T)
     angle = (np.trace(r_matrix) - 1) / 2
+    if 1 - abs(angle) < 0:
+        if angle < 0:
+            angle = -1
+        else:
+            angle = 1
+
     theta = np.arccos(angle)
 
     theta = np.rad2deg(theta)
