@@ -174,7 +174,7 @@ def plt_axs(axs, x, y, label, labels):
         if abs(y[x_s]) > 0.05:
             diff.append(labels[x_s])
     if len(diff) > 0:
-        print '> %s - diff in %s ' % (label, str(diff))
+        print '> %s - (total %d) diff in %s ' % (label, len(diff), str(diff))
 
 
 def plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV2, title='', print_scores=True):
@@ -210,7 +210,8 @@ def plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF
     ax2.grid(True)
     ax2.legend()
 
-    ax3.plot(x_s, THETA, label=CsvConsts.THETA, alpha=0.5)
+    # ax3.plot(x_s, THETA, label=CsvConsts.THETA, alpha=0.5)
+    plt_axs(ax3, x_s, THETA, CsvConsts.THETA, LABELS)
     ax3.grid(True)
     ax3.legend()
 
