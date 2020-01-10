@@ -1,5 +1,3 @@
-__author__ = 'Douglas and Iacopo'
-
 import cv2
 import numpy as np
 
@@ -14,7 +12,6 @@ def estimate_camera(model3D, fidu_XY):
 
 def calib_camera(model3D, fidu_XY):
     # compute pose using refrence 3D points + query 2D point
-    ret = []
 
     good_ind = np.setdiff1d(np.arange(68) + 1, model3D.indbad)
     good_ind = good_ind - 1

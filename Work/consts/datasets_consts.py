@@ -2,25 +2,24 @@ class DataFileConsts:
     def __init__(self):
         pass
 
-    DOWNLOAD_FOLDER = 'C:\\Work\\ComputerVision\\datasets\\'
+    DOWNLOAD_FOLDER = 'C:\\Work\\ComputerVision\\datasets\\data\\'
 
-    CONVERTED_FILE_NAME = 'formatted.csv'
+    OUTPUT_FILE_NAME = 'scores.csv'
 
     # helen dataset consts
-    HELEN_FOLDER = 'helen\\'
-
     NUMBER_OF_HELEN_LINKS = 5
 
-    HELEN_INFO_INFO = 'http://www.ifp.illinois.edu/~vuongle2/helen/'
+    HELEN_INFO_URL = 'http://www.ifp.illinois.edu/~vuongle2/helen/'
 
-    HELEN_FILES = ['helen_%d.zip' % i for i in range(1, 6)]
-
-    HELEN_DOWNLOAD_URLS = [
-        'http://www.ifp.illinois.edu/~vuongle2/helen/data/helen_' + filename for filename in HELEN_FILES
-    ]
-
-    HELEN_FORMATTED = 'helen_' + CONVERTED_FILE_NAME
-
-
-
+    HELEN_DATA = {
+        'FOLDER': 'helen\\',
+        'ANNOTATIONS': 'annotations\\',
+        'FILES': ['helen_%d.zip' % i for i in range(1, 1 + NUMBER_OF_HELEN_LINKS)],
+        'DOWNLOAD_URLS': [
+            HELEN_INFO_URL + 'data/helen_' + 'helen_%d.zip' % i for i in range(1, 1 + NUMBER_OF_HELEN_LINKS)
+        ],
+        'ANNOTATIONS_DOWNLOAD': (HELEN_INFO_URL + 'data/annotation.zip'),
+        'FORMATTED': 'helen_' + CONVERTED_FILE_NAME,
+        'IMAGE_SUFFIX': '.jpg'
+    }
 

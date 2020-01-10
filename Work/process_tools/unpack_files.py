@@ -35,4 +35,5 @@ def unzipped_data(files, to_dir=None, print_data=False):
 
     if print_data:
         print 'Extracting completed! (in: %.2f seconds)' % (time.time() - start)
+
     return True

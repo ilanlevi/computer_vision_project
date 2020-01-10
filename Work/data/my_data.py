@@ -1,10 +1,8 @@
-import os
 import numpy as np
 
 from abstract_read_data import AbstractReadData
-from ..consts.ds_consts import DataSetConsts
-from ..tools.csv_files_tools import read_csv
-from ..utils.image_tools import ImageTools as imT
+from ..consts import DataSetConsts
+from ..mytools import get_files, read_csv
 
 
 class DataSet(AbstractReadData):
@@ -30,13 +28,8 @@ class DataSet(AbstractReadData):
             return the dataset list of images from self.data_path +  self.original_sub
             :return self
         """
-
-        files = [os.path.join(r, file_) for r, d, f in os.walk(self.data_path) for file_ in f]
-        f_list = []
-        for file_name in files:
-            if self.picture_suffix in file_name:
-                f_list.append(file_name)
-        return f_list
+        files = get_files(self.data_path, self.picture_suffix)
+        return files
 
     @staticmethod
     def get_file_type(file_name):

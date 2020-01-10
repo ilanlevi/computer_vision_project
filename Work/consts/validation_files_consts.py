@@ -1,4 +1,4 @@
-class FileConsts:
+class ValidationFileConsts:
     def __init__(self):
         pass
 
