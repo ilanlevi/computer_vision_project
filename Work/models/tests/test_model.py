@@ -8,20 +8,53 @@ import Work.models.ThreeD_Model
 from Work.consts.csv_consts import CsvConsts
 from Work.consts.validation_files_consts import ValidationFileConsts as fConsts
 from Work.consts.fpn_model_consts import FPNConsts
-from Work.data.my_data import DataSet
+from Work.data.my_data import LabeledData
 from Work.mytools.csv_files_tools import write_csv, read_csv
-from Work.utils import camera_calibration as calib
-from Work.utils.facial_landmarks import FacialLandmarks
+from Work.utils import camera_calibration as calib, get_landmarks
 
 valid_csv = read_csv(fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_CSV, False)
 
 
 def generate_dataset():
-    ds = DataSet(data_path=fConsts.VALIDATION_FOLDER, label_file_name=fConsts.VALIDATION_CSV, to_gray=True,
-                 target_sub=fConsts.PROCESSED_SET_FOLDER, picture_suffix='png')
+    ds = LabeledData(data_path=fConsts.VALIDATION_FOLDER, label_file_name=fConsts.VALIDATION_CSV, to_gray=True,
+                     target_sub=fConsts.PROCESSED_SET_FOLDER, picture_suffix='png')
     ds.init()
     ds.read_data_set()
     return ds
+
+
+def test_align_image2():
+    ds = generate_dataset()
+    original_images = ds.original_file_list
+
+    model3D = Work.models.ThreeD_Model.FaceModel(FPNConsts.THIS_PATH + FPNConsts.MODELS_DIR + FPNConsts.POSE_P,
+                                                 'model3D',
+                                                 True)
+    allModels = dict()
+    allModels[FPNConsts.POSE] = model3D
+
+    score_vectors = []
+
+    for i in range(len(original_images)):
+        lmarks = ds.y_train_set[i]
+
+        if len(lmarks) > 0:
+            shape = np.shape(lmarks)
+            lmarks = np.reshape(lmarks, (shape[0], shape[1]))
+
+            splits = ds.original_file_list[i].split('\\')
+            name = splits[-1]
+
+            projection_matrix, model3D.out_A, rmat, t, r_exp = calib.estimate_camera(model3D, lmarks)
+            r_vect, _ = cv2.Rodrigues(rmat)
+            r_vect = np.squeeze(r_vect)
+
+            rx, ry, rz = r_vect[0], r_vect[1], r_vect[2]
+
+            tx, ty, tz = t[0][0], t[1][0], t[2][0]
+            score_vectors.append([i, name, rx, ry, rz, tx, ty, tz, 0])
+
+    return score_vectors
 
 
 def test_align_image():
@@ -45,7 +78,7 @@ def test_align_image():
         # print ("The Original #%d - %s" % (i, ds.original_file_list[i]))
 
         # lmarks = pr.get_landmarks(im)
-        lmarks = FacialLandmarks.get_landmarks(ds.original_file_list[i])
+        lmarks = ds.y_train_set[i]
         # if len(lmarks) == 0:
         #     print 'No faces in image!'
         if len(lmarks) > 0:
@@ -61,11 +94,22 @@ def test_align_image():
             projection_matrix, model3D.out_A, rmat, t, r_exp = calib.estimate_camera(model3D, lmarks)
             r_vect, _ = cv2.Rodrigues(rmat)
             r_vect = np.squeeze(r_vect)
+
             for q in range(len(r_vect)):
                 r_vect[q] = np.math.radians(np.math.degrees(r_vect[q]))
             # out_im = lmark * proj_matrix
             # eulerAngles = cv2.decomposeProjectionMatrix(proj_matrix)[6]
             rx, ry, rz = r_vect[0], r_vect[1], r_vect[2]
+
+            if name in ['image_03533.png', 'image_09333.png', 'image_05806.png', 'image_03584.png']:
+                # project 3D points to image plane
+                axis = np.float32([[3, 0, 0], [0, 3, 0], [0, 0, -3]]).reshape(-1, 3)
+                imgpts, jac = cv2.projectPoints(axis, r_vect, t, mtx, dist)
+
+                dst = cv2.warpAffine(im, rmat, (cols, rows))
+                plt.subplot(121), plt.imshow(im), plt.title('Input - ' + name)
+                plt.subplot(122), plt.imshow(dst), plt.title('Output')
+                plt.show()
 
             # rx, ry, rz = [math.radians(_) for _ in eulerAngles]
             # rx = math.degrees(math.asin(math.sin(rx)))
@@ -99,7 +143,8 @@ def test_align_image():
 
 
 def write_scores(folder, filename, print_scores=True):
-    s = test_align_image()
+    # s = test_align_image()
+    s = test_align_image2()
     write_csv(s, CsvConsts.CSV_LABELS_DIFF, folder, filename, print_scores)
 
 
@@ -173,7 +218,7 @@ def plt_axs(axs, x, y, label, labels):
     diff = []
     for x_s in x:
         if abs(y[x_s]) > 0.001:
-            diff.append(labels[x_s])   
+            diff.append(labels[x_s])
     if len(diff) > 0:
         print '> %s - (total %d) diff in %s ' % (label, len(diff), str(diff))
     bins = range(len(x))

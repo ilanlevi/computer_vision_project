@@ -2,51 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c01e69f1-dfde-4789-a00e-231c94c88efb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Work/mytools/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Untitled.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/datasets_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/datasets_consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/files_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/validation_files_consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/vgg_consts.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/data/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/data/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Work/data/my_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/data/my_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Work/models/tests/test_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/models/tests/test_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/csv_files_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/mytools/csv_files_tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/getdata/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/getdata/abstract_create_data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/getdata/helen_convert.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/images/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/my_io.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/mytools/my_io.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/preprocess/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/process_tools/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/preprocess/download_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/process_tools/download_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/tools/preprocess/unpack_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/process_tools/unpack_files.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/camera_calibration.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/camera_calibration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/facial_landmarks.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/facial_landmarks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/image_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/image_tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/images_pose.py" beforeDir="false" afterPath="$PROJECT_DIR$/images_pose.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/classification/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/classification/abstract_classifier.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/classification/bow.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/classification/knn_classifier.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/classification/pca.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/classification/svm_classifier.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/data/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/data/abstract_read_data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/data/mnist_data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/data/spatial_data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/knn_tools.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/run_knn.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/run_part1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/run_pca.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/run_svm.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/show_data/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/show_data/abstract_show_data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/show_data/accuracy_report.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/show_data/images_as_sub_plots.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/show_data/plot_points.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -411,7 +370,13 @@
       <option name="presentableId" value="LOCAL‎00020" />
       <updated>1578652326635</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL‎00021" summary="reformat code">
+      <created>1578661938646</created>
+      <option name="number" value="LOCAL‎00021" />
+      <option name="presentableId" value="LOCAL‎00021" />
+      <updated>1578661938646</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -436,7 +401,8 @@
     <MESSAGE value="added" />
     <MESSAGE value="changed formula" />
     <MESSAGE value="started working" />
-    <option name="LAST_COMMIT_MESSAGE" value="started working" />
+    <MESSAGE value="reformat code" />
+    <option name="LAST_COMMIT_MESSAGE" value="reformat code" />
   </component>
   <component name="WindowStateProjectService">
     <state x="432" y="164" key="#Notifications" timestamp="1577449094073">
@@ -493,10 +459,10 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="595" y="209" key="#xdebugger.evaluate/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578520136210" />
-    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1578652325931">
+    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1578661938031">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="494" y="100" key="CommitChangelistDialog2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578652325931" />
+    <state x="494" y="100" key="CommitChangelistDialog2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578661938031" />
     <state x="494" y="100" key="CommitChangelistDialog2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923978513" />
     <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468848032" />
     <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578074558668" />
@@ -518,34 +484,34 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="598" y="373" key="Github.CreatePullRequestDialog/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577449234180" />
-    <state width="1659" height="219" key="GridCell.Tab.0.bottom" timestamp="1578530665023">
+    <state width="1659" height="219" key="GridCell.Tab.0.bottom" timestamp="1578690839079">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1659" height="219" key="GridCell.Tab.0.bottom/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578530665023" />
+    <state width="1659" height="219" key="GridCell.Tab.0.bottom/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578690839079" />
     <state width="829" height="181" key="GridCell.Tab.0.bottom/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924779503" />
     <state width="1659" height="161" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
     <state width="1659" height="305" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578261374053" />
     <state width="1659" height="161" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
-    <state width="1659" height="219" key="GridCell.Tab.0.center" timestamp="1578530665023">
+    <state width="1659" height="219" key="GridCell.Tab.0.center" timestamp="1578690839079">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1659" height="219" key="GridCell.Tab.0.center/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578530665023" />
+    <state width="1659" height="219" key="GridCell.Tab.0.center/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578690839079" />
     <state width="829" height="181" key="GridCell.Tab.0.center/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924779503" />
     <state width="1659" height="161" key="GridCell.Tab.0.center/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
     <state width="1659" height="305" key="GridCell.Tab.0.center/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578261374053" />
     <state width="1659" height="161" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
-    <state width="1659" height="219" key="GridCell.Tab.0.left" timestamp="1578530665023">
+    <state width="1659" height="219" key="GridCell.Tab.0.left" timestamp="1578690839079">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1659" height="219" key="GridCell.Tab.0.left/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578530665023" />
+    <state width="1659" height="219" key="GridCell.Tab.0.left/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578690839079" />
     <state width="829" height="181" key="GridCell.Tab.0.left/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924779503" />
     <state width="1659" height="161" key="GridCell.Tab.0.left/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
     <state width="1659" height="305" key="GridCell.Tab.0.left/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578261374053" />
     <state width="1659" height="161" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
-    <state width="1659" height="219" key="GridCell.Tab.0.right" timestamp="1578530665023">
+    <state width="1659" height="219" key="GridCell.Tab.0.right" timestamp="1578690839079">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1659" height="219" key="GridCell.Tab.0.right/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578530665023" />
+    <state width="1659" height="219" key="GridCell.Tab.0.right/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578690839079" />
     <state width="829" height="181" key="GridCell.Tab.0.right/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924779503" />
     <state width="1659" height="161" key="GridCell.Tab.0.right/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
     <state width="1659" height="305" key="GridCell.Tab.0.right/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578261374053" />
@@ -601,10 +567,10 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="498" height="446" key="SwitcherDM/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578524578726" />
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1578652344260">
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1578661939949">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578652344260" />
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578661939949" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923981511" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468849513" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578074560466" />

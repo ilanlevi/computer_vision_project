@@ -3,14 +3,15 @@ import numpy as np
 from abstract_read_data import AbstractReadData
 from ..consts import DataSetConsts
 from ..mytools import get_files, read_csv
+from ..utils import load_images, get_landmarks
 
 
-class DataSet(AbstractReadData):
+class LabeledData(AbstractReadData):
 
     def __init__(self, data_path, target_sub, label_file_name=None, random_state=DataSetConsts.DEFAULT_RANDOM_STATE,
                  train_rate=DataSetConsts.DEFAULT_TRAIN_RATE, image_size=DataSetConsts.PICTURE_WIDTH,
                  picture_suffix=DataSetConsts.PICTURE_SUFFIX, split_data=False, to_gray=True):
-        super(DataSet, self).__init__(data_path, random_state, train_rate, image_size)
+        super(LabeledData, self).__init__(data_path, random_state, train_rate, image_size)
         self.data_path = data_path
         self.label_file_name = label_file_name
         self.target_sub = target_sub
@@ -42,16 +43,14 @@ class DataSet(AbstractReadData):
 
     # abstracts:
     def read_data_set(self):
-        if self.to_gray:
-            self.x_train_set = imT.load_converted_images(self.original_file_list)
-        else:
-            self.x_train_set = imT.load_images(self.original_file_list)
-
+        self.x_train_set = load_images(self.original_file_list, gray=self.to_gray)
         self.y_train_set = []
-        if self.label_file_name is not None:
-            labels = read_csv(self.data_path, self.label_file_name)
-            if labels:
-                self.y_train_set = np.asarray(labels)
+        for original_file in self.original_file_list:
+            ldmk_list = get_landmarks(original_file)
+            ldmk_list = np.asarray(ldmk_list)
+            self.y_train_set.append(ldmk_list)
+
+        self.y_train_set = np.asarray(self.y_train_set)
 
         return self
 
