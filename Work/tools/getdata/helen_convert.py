@@ -1,15 +1,12 @@
 import os
 import numpy as np
 
-from abstract_read_data import AbstractReadData
-from ..consts.ds_consts import DataSetConsts
-from ..tools.csv_files_tools import read_csv
-from ..utils.image_tools import ImageTools as imT
+from abstract_create_data import AbstractConvertData
 
 
-class HelenDataSet(AbstractReadData):
-
-    def __init__(self, data_path, target_sub, label_file_name=None, random_state=DataSetConsts.DEFAULT_RANDOM_STATE,
+class HelenDataSet(AbstractConvertData):
+    # def __init__(self, data_path='', output_file='', print_data=False):
+    def __init__(self, data_path, output_file_name, print_data=None, random_state=DataSetConsts.DEFAULT_RANDOM_STATE,
                  train_rate=DataSetConsts.DEFAULT_TRAIN_RATE, image_size=DataSetConsts.PICTURE_WIDTH,
                  picture_suffix=DataSetConsts.PICTURE_SUFFIX, split_data=False, to_gray=True):
         super(HelenDataSet, self).__init__(data_path, random_state, train_rate, image_size)

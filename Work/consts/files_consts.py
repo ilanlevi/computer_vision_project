@@ -2,16 +2,6 @@ class FileConsts:
     def __init__(self):
         pass
 
-    DS_DOWNLOAD_URLS = [
-        ('http://www.ifp.illinois.edu/~vuongle2/helen/data/helen_1.zip', 'helen_1.zip'),
-        ('http://www.ifp.illinois.edu/~vuongle2/helen/data/helen_2.zip', 'helen_2.zip'),
-        ('http://www.ifp.illinois.edu/~vuongle2/helen/data/helen_3.zip', 'helen_3.zip'),
-        ('http://www.ifp.illinois.edu/~vuongle2/helen/data/helen_4.zip', 'helen_4.zip'),
-        ('http://www.ifp.illinois.edu/~vuongle2/helen/data/helen_5.zip', 'helen_5.zip'),
-    ]
-
-    FACES_DATASET_INFO = 'http://www.ifp.illinois.edu/~vuongle2/helen/'
-
     DOWNLOAD_FOLDER = 'C:\\Work\\ComputerVision\\'
 
     DOWNLOAD_SUB_FOLDER = 'db\\'

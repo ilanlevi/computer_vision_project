@@ -1,5 +1,4 @@
-from my_io import _get_prefix
-import numpy as np
+from Work.tools.my_io import _get_prefix
 
 
 class FacialLandmarks:

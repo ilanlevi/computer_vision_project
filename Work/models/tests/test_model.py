@@ -8,7 +8,7 @@ import Work.models.ThreeD_Model
 from Work.consts.csv_consts import CsvConsts
 from Work.consts.files_consts import FileConsts as fConsts
 from Work.consts.fpn_model_consts import FPNConsts
-from Work.data.helen_data import HelenDataSet
+from Work.data.my_data import DataSet
 from Work.tools.csv_files_tools import write_csv, read_csv
 from Work.utils import camera_calibration as calib
 from Work.utils.facial_landmarks import FacialLandmarks
@@ -17,8 +17,8 @@ valid_csv = read_csv(fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_CSV, False)
 
 
 def generate_dataset():
-    ds = HelenDataSet(data_path=fConsts.VALIDATION_FOLDER, label_file_name=fConsts.VALIDATION_CSV, to_gray=True,
-                      target_sub=fConsts.PROCESSED_SET_FOLDER, picture_suffix='png')
+    ds = DataSet(data_path=fConsts.VALIDATION_FOLDER, label_file_name=fConsts.VALIDATION_CSV, to_gray=True,
+                 target_sub=fConsts.PROCESSED_SET_FOLDER, picture_suffix='png')
     ds.init()
     ds.read_data_set()
     return ds
@@ -100,7 +100,7 @@ def test_align_image():
 
 def write_scores(folder, filename, print_scores=True):
     s = test_align_image()
-    write_csv(s, CsvConsts.CSV_LABELS, folder, filename, print_scores)
+    write_csv(s, CsvConsts.CSV_LABELS_DIFF, folder, filename, print_scores)
 
 
 def print_param_details(param_name, param_index, arr):
@@ -118,14 +118,6 @@ def calc_theta_score(s1, s2):
     rot_m_1, _ = cv2.Rodrigues(rot_v1)
     rot_m_2, _ = cv2.Rodrigues(rot_v2)
 
-    # r, _ = cv2.Rodrigues(rot_m_2.dot(rot_m_1.T))
-    # rotation_error_from_identity = np.linalg.norm(r)
-    # r, _ = cv2.Rodrigues(rot_m_2.dot(rot_m_1.T))
-    # rotation_error_from_identity = np.linalg.norm(r)
-    # r_matrix = np.dot(rot_m_1.T, rot_m_2)
-    # r_matrix = np.dot(rot_m_1, rot_m_2)
-    # theta = np.angle([rot_m_1.T, rot_m_2], True)
-    # r_matrix = (rot_m_1.T * rot_m_2)
     r_matrix = rot_m_2.dot(rot_m_1.T)
     angle = (np.trace(r_matrix) - 1) / 2
     if 1 - abs(angle) < 0:
@@ -172,18 +164,21 @@ def compare_scores(folder, f1, f2, f_new):
     # print_param_details('tz', 5, total_arr)
     print_param_details('theta', 6, total_arr)
 
-    write_csv(total, CsvConsts.CSV_LABELS, folder, f_new, True)
+    write_csv(total, CsvConsts.CSV_LABELS_DIFF, folder, f_new, True)
 
 
 def plt_axs(axs, x, y, label, labels):
-    axs.plot(x, y, label=label, alpha=0.5)
+    # y = y[y != 0]
     # zip joins x and y coordinates in pairs
     diff = []
     for x_s in x:
-        if abs(y[x_s]) > 0.05:
-            diff.append(labels[x_s])
+        if abs(y[x_s]) > 0.001:
+            diff.append(labels[x_s])   
     if len(diff) > 0:
         print '> %s - (total %d) diff in %s ' % (label, len(diff), str(diff))
+    bins = range(len(x))
+    # axs.hist(bins, y, label=label, density=True, histtype='bar', rwidth=0.8)
+    axs.plot(x, y, label=label, alpha=0.5)
 
 
 def plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV2, title='', print_scores=True):
