@@ -63,7 +63,7 @@ def write_csv(data, fieldnames, path, filename, print_data=False):
     line_count = 0
     path = path + filename
     try:
-        with open(path, mode='w') as csv_file:
+        with open(path, mode='wb') as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
             # add header
             writer.writeheader()

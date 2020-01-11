@@ -43,14 +43,18 @@ class LabeledData(AbstractReadData):
 
     # abstracts:
     def read_data_set(self):
-        self.x_train_set = load_images(self.original_file_list, gray=self.to_gray)
+        tmp_x_train_set = load_images(self.original_file_list, gray=self.to_gray)
+        self.x_train_set = []
         self.y_train_set = []
-        for original_file in self.original_file_list:
-            ldmk_list = get_landmarks(original_file)
-            ldmk_list = np.asarray(ldmk_list)
-            self.y_train_set.append(ldmk_list)
+        for index in range(len(self.original_file_list)):
+            ldmk_list = get_landmarks(self.original_file_list[index])
+            if ldmk_list is not None:
+                ldmk_list = np.asarray(ldmk_list)
+                self.y_train_set.append(ldmk_list)
+                self.x_train_set.append(tmp_x_train_set[index])
 
         self.y_train_set = np.asarray(self.y_train_set)
+        self.x_train_set = np.asarray(self.x_train_set)
 
         return self
 

@@ -1,6 +1,8 @@
 import time
 
 import cv2
+import numpy as np
+import math
 
 
 def load_images(images_path_list, width=None, height=None, gray=True, print_data=False):
@@ -93,3 +95,54 @@ def transform_image3d(img, rotation_matrix, scale):
     center = (w / 2, h / 2)
 
     return cv2.warpAffine(img, rotation_matrix, (h, w))
+
+
+def matrix2angle(R):
+    """ compute three Euler angles from a Rotation Matrix. Ref: http://www.gregslabaugh.net/publications/euler.pdf
+    Args:
+        :param R: (3,3). rotation matrix
+    :returns:
+        x: yaw
+        y: pitch
+        z: roll
+    """
+
+    if R[2, 0] != 1 or R[2, 0] != -1:
+        x = -math.asin(R[2, 0])
+        # x = np.pi - x
+        y = math.atan2(R[2, 1] / math.cos(x), R[2, 2] / math.cos(x))
+        z = math.atan2(R[1, 0] / math.cos(x), R[0, 0] / math.cos(x))
+
+    else:  # Gimbal lock
+        z = 0  # can be anything
+        if R[2, 0] == -1:
+            x = np.pi / 2
+            y = z + math.atan2(R[0, 1], R[0, 2])
+        else:
+            x = -np.pi / 2
+            y = -z + math.atan2(-R[0, 1], -R[0, 2])
+
+    return x, y, z
+
+
+def P2sRt(P):
+    """
+    decompositing camera matrix P.
+    :param P: (3, 4). Affine Camera Matrix.
+    :returns
+        s: scale factor.
+        R: (3, 3). rotation matrix.
+        t2d: (2,). 2d translation.
+        t3d: (3,). 3d translation.
+    """
+    # t2d = P[:2, 3]
+    t3d = P[:, 3]
+    R1 = P[0:1, :3]
+    R2 = P[1:2, :3]
+    s = (np.linalg.norm(R1) + np.linalg.norm(R2)) / 2.0
+    r1 = R1 / np.linalg.norm(R1)
+    r2 = R2 / np.linalg.norm(R2)
+    r3 = np.cross(r1, r2)
+
+    R = np.concatenate((r1, r2, r3), 0)
+    return s, R, t3d
