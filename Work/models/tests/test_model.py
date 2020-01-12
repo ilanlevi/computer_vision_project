@@ -6,146 +6,95 @@ import numpy as np
 
 import Work.models.ThreeD_Model
 from Work.consts.csv_consts import CsvConsts
-from Work.consts.validation_files_consts import ValidationFileConsts as fConsts
 from Work.consts.fpn_model_consts import FPNConsts
+from Work.consts.validation_files_consts import ValidationFileConsts as fConsts
 from Work.data.my_data import LabeledData
 from Work.mytools.csv_files_tools import write_csv, read_csv
-from Work.utils import camera_calibration as calib, get_landmarks
+from Work.utils import camera_calibration as calib, matrix2angle, draw_axis_on_image, get_camarx_matrix, \
+    display_landmarks, estimate_camera
 
 valid_csv = read_csv(fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_CSV, False)
 
 
-def generate_dataset():
-    ds = LabeledData(data_path=fConsts.VALIDATION_FOLDER, label_file_name=fConsts.VALIDATION_CSV, to_gray=True,
+def generate_dataset(list_f):
+    ds = LabeledData(data_path=fConsts.VALIDATION_FOLDER, label_file_name=fConsts.VALIDATION_CSV, to_gray=False,
                      target_sub=fConsts.PROCESSED_SET_FOLDER, picture_suffix='png')
     ds.init()
+    list_f = [(fConsts.VALIDATION_FOLDER + fConsts.VALID_SET_SUB_FOLDER + file_name) for file_name in list_f]
+    ds.original_file_list = list_f
     ds.read_data_set()
     return ds
 
 
-def test_align_image2():
-    ds = generate_dataset()
-    original_images = ds.original_file_list
-
-    model3D = Work.models.ThreeD_Model.FaceModel(FPNConsts.THIS_PATH + FPNConsts.MODELS_DIR + FPNConsts.POSE_P,
-                                                 'model3D',
-                                                 True)
-    allModels = dict()
-    allModels[FPNConsts.POSE] = model3D
-
-    score_vectors = []
-
-    for i in range(len(original_images)):
-        lmarks = ds.y_train_set[i]
-
-        if len(lmarks) > 0:
-            shape = np.shape(lmarks)
-            lmarks = np.reshape(lmarks, (shape[0], shape[1]))
-
-            splits = ds.original_file_list[i].split('\\')
-            name = splits[-1]
-
-            projection_matrix, model3D.out_A, rmat, t, r_exp = calib.estimate_camera(model3D, lmarks)
-            r_vect, _ = cv2.Rodrigues(rmat)
-            r_vect = np.squeeze(r_vect)
-
-            rx, ry, rz = r_vect[0], r_vect[1], r_vect[2]
-
-            tx, ty, tz = t[0][0], t[1][0], t[2][0]
-            score_vectors.append([i, name, rx, ry, rz, tx, ty, tz, 0])
-
-    return score_vectors
+# def get_list(original):
+#     list_of_files = original[CsvConsts.PICTURE_NAME]
+#     for v in original:
+#         if v[CsvConsts.PICTURE_NAME] in name:
+#             return v
+#         if name in v[CsvConsts.PICTURE_NAME]:
+#             return v
+#     return None
 
 
 def test_align_image():
-    ds = generate_dataset()
-    original_images = ds.original_file_list
+    original = read_csv(fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_CSV)
+    m_list = [im[CsvConsts.PICTURE_NAME] for im in original]
+    ds = generate_dataset(m_list)
 
     model3D = Work.models.ThreeD_Model.FaceModel(FPNConsts.THIS_PATH + FPNConsts.MODELS_DIR + FPNConsts.POSE_P,
                                                  'model3D',
-                                                 True)
+                                                 False)
     allModels = dict()
     allModels[FPNConsts.POSE] = model3D
 
     score_vectors = []
 
-    # mean_img = np.mean(ds.x_train_set)
-    total_dff = 0
-
-    for i in range(len(original_images)):
-        im = ds.x_train_set[i]
-        # im = im - mean_img
-        # print ("The Original #%d - %s" % (i, ds.original_file_list[i]))
-
-        # lmarks = pr.get_landmarks(im)
+    for i in range(len(m_list)):
         lmarks = ds.y_train_set[i]
-        # if len(lmarks) == 0:
-        #     print 'No faces in image!'
-        if len(lmarks) > 0:
-            # lmarks = np.asarray(lmarks)
-            shape = np.shape(lmarks)
-            lmarks = np.reshape(lmarks, (shape[0], shape[1]))
-            # img, lmarks, yaw = calib.flip_in_case(im, lmarks, allModels)
 
-            # ret, rvec, tvec = cv2.solvePnP(model3D.model_TD, lmarks, model3D.out_A, None, None, None, False)
+        # if len(lmarks) > 0:
 
-            splits = ds.original_file_list[i].split('\\')
-            name = splits[-1]
-            projection_matrix, model3D.out_A, rmat, t, r_exp = calib.estimate_camera(model3D, lmarks)
-            r_vect, _ = cv2.Rodrigues(rmat)
-            r_vect = np.squeeze(r_vect)
+        # image = ds.x_train_set[i]
+        # camera_matrix, roi = get_camarx_matrix(image, lmarks)
+        # lmarks.astype(int)
+        # lmarks.astype('float32')
 
-            for q in range(len(r_vect)):
-                r_vect[q] = np.math.radians(np.math.degrees(r_vect[q]))
-            # out_im = lmark * proj_matrix
-            # eulerAngles = cv2.decomposeProjectionMatrix(proj_matrix)[6]
-            rx, ry, rz = r_vect[0], r_vect[1], r_vect[2]
+        splits = ds.original_file_list[i].split('\\')
+        name = splits[-1]
+        # _, r_exp, tvec = cv2.solvePnP(model3D.model_TD, lmarks, model3D.out_A, None, None, None, False)
+        projection_matrix, model3D.out_A, rmat, tvec = estimate_camera(model3D, lmarks)
+        r_exp = matrix2angle(rmat)
 
-            if name in ['image_03533.png', 'image_09333.png', 'image_05806.png', 'image_03584.png']:
-                # project 3D points to image plane
-                axis = np.float32([[3, 0, 0], [0, 3, 0], [0, 0, -3]]).reshape(-1, 3)
-                imgpts, jac = cv2.projectPoints(axis, r_vect, t, mtx, dist)
+        pose = np.squeeze(r_exp)
+        t3d = np.squeeze(tvec)
 
-                dst = cv2.warpAffine(im, rmat, (cols, rows))
-                plt.subplot(121), plt.imshow(im), plt.title('Input - ' + name)
-                plt.subplot(122), plt.imshow(dst), plt.title('Output')
-                plt.show()
+        # set pitch, yaw, roll
+        rx = pose[0]
+        ry = pose[1]
+        rz = pose[2]
 
-            # rx, ry, rz = [math.radians(_) for _ in eulerAngles]
-            # rx = math.degrees(math.asin(math.sin(rx)))
-            # ry = math.degrees(math.asin(math.sin(ry)))
-            # rz = math.degrees(math.asin(math.sin(rz)))
-            #
-            # rx, ry, rz = [math.radians(_) for _ in [rx, ry, rz]]
+        # set translation_x, translation_y, translation_z
+        tx = t3d[0]
+        ty = t3d[1]
+        tz = t3d[2]
 
-            # rx = rx + (rmat2[2][1] + rmat2[1][2])
-            # ry = ry + (rmat2[2][0] + rmat2[0][2])
-            # rz = rz + (rmat2[1][0] + rmat2[0][1])
-            # ImagesPose.P2sRt(proj_matrix)
-            # scale, rotation_m, proj_m = ImagesPose.P2sRt(proj_matrix)
-            # _, _, rz = rotationMatrixToEulerAngles(rmat)
-            # tx, ty, tz = tvec[0][0], tvec[1][0], tvec[2][0]
-            tx, ty, tz = t[0][0], t[1][0], t[2][0]
-            score_vectors.append([i, name, rx, ry, rz, tx, ty, tz, 0])
-            # valid = [item for item in valid_csv if item[CsvConsts.PICTURE_NAME] in name]
-            # if len(valid) > 0:
-            #     valid = valid[0]
-            # if len(valid) > 0 and (np.abs(rx - np.float(valid[CsvConsts.R_X])) > 0.2
-            #                        or np.abs(ry - np.float(valid[CsvConsts.R_Y])) > 0.2
-            #                        or np.abs(rz - np.float(valid[CsvConsts.R_Z])) > 0.2):
-            #     # print name
-            #     # cv2.imshow(name, im)
-            #     total_dff = total_dff + 1
+        this_score = [i, name, rx, ry, rz, tx, ty, tz]
 
-    # print ' >> total diff = %d' % total_dff
+        # if i in [25, 34, 35, 40, 41]:
+        # img = draw_axis_on_image(image, rx, ry, rz, tx, ty, tz, camera_matrix)
+        # display_landmarks(img, lmarks, name + '   -   ' + str(i))
 
+        score_vectors.append(this_score)
+
+    # cv2.waitKey(0)
     return score_vectors
 
 
 def write_scores(folder, filename, print_scores=True):
     # s = test_align_image()
-    s = test_align_image2()
-    write_csv(s, CsvConsts.CSV_LABELS_DIFF, folder, filename, print_scores)
+    s = test_align_image()
+    # print str(s[0])
+    write_csv(s, CsvConsts.CSV_LABELS, folder, filename, print_scores)
 
 
 def print_param_details(param_name, param_index, arr):
@@ -226,6 +175,25 @@ def plt_axs(axs, x, y, label, labels):
     axs.plot(x, y, label=label, alpha=0.5)
 
 
+def plot_diff2(folder, filename1, filename2, print_scores=True):
+    file1 = read_csv(folder, filename1, print_scores)
+    file2 = read_csv(folder, filename2, print_scores)
+
+    fields = CsvConsts.CSV_VALUES_LABELS
+    f_1_values = [[float(fileRow[field]) for fileRow in file1] for field in fields]
+    f_2_values = [[float(fileRow[field]) for fileRow in file2] for field in fields]
+
+    x_s = range(len(file1))
+
+    fig, axs = plt.subplots(len(fields), 1)
+
+    for i in range(len(fields)):
+        axs[i].plot(x_s, f_1_values[i], label=(fields[i] + '  ' + filename1), alpha=0.5)
+        axs[i].plot(x_s, f_2_values[i], label=(fields[i] + '  ' + filename2), alpha=0.5)
+        axs[i].grid(True)
+        axs[i].legend()
+
+
 def plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV2, title='', print_scores=True):
     diff = read_csv(folder, filename, print_scores)
     x_s = range(len(diff))
@@ -266,14 +234,20 @@ def plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF
 
 
 if __name__ == '__main__':
+    # write_scores(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.MY_VALIDATION_CSV, print_scores=False)
     write_scores(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.MY_VALIDATION_CSV, print_scores=False)
-    # plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.MY_VALIDATION_CSV, title='my',
-    #           print_scores=False)
-    # plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_CSV, title='validation',
-    #           print_scores=False)
     compare_scores(folder=fConsts.VALIDATION_FOLDER, f1=fConsts.VALIDATION_CSV, f2=fConsts.MY_VALIDATION_CSV,
                    f_new=fConsts.VALIDATION_DIFF_CSV)
+    # compare_scores(folder=fConsts.VALIDATION_FOLDER, f1=fConsts.VALIDATION_CSV, f2=fConsts.MY_VALIDATION_CSV,
+    #                f_new=fConsts.VALIDATION_DIFF_CSV)
+    # compare_scores(folder=fConsts.VALIDATION_FOLDER, f1=fConsts.MY_VALIDATION_CSV, f2=fConsts.MY_VALIDATION_CSV2,
+    #                f_new=fConsts.VALIDATION_DIFF_CSV3)
     plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV, title='diff',
               print_scores=False)
+    plot_diff2(fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_CSV, fConsts.MY_VALIDATION_CSV, print_scores=False)
+    # plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV2, title='diff - 2',
+    #           print_scores=False)
+    # plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV3, title='diff - 3',
+    #           print_scores=False)
 
     plt.show()

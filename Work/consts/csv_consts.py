@@ -12,6 +12,8 @@ class CsvConsts:
     T_Z = 'tz'
     THETA = 'theta'
 
+    CSV_VALUES_LABELS = [R_X, R_Y, R_Z, T_X, T_Y, T_Z]
+
     CSV_LABELS = [COL_INDEX, PICTURE_NAME, R_X, R_Y, R_Z, T_X, T_Y, T_Z]
 
     CSV_LABELS_DIFF = [COL_INDEX, PICTURE_NAME, R_X, R_Y, R_Z, T_X, T_Y, T_Z, THETA]

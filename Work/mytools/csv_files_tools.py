@@ -24,13 +24,13 @@ def read_csv(path, filename, print_data=False):
         with open(path, mode='r') as csv_file:
             csv_reader = csv.DictReader(csv_file)
             for row in csv_reader:
-                if line_count == 0:
-                    if print_data:
-                        print 'Column names are: %s' % str({", ".join(row)})
-                    line_count += 1
-                else:
-                    data.append(row)
-                    line_count += 1
+                # if line_count == 0:
+                #     if print_data:
+                #         print 'Column names are: %s' % str({", ".join(row)})
+                #     line_count += 1
+                # else:
+                data.append(row)
+                line_count += 1
 
     except Exception as e:
         if print_data:

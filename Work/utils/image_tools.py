@@ -76,27 +76,6 @@ def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
     return resized
 
 
-# todo - comment https://www.tutorialkart.com/opencv/python/opencv-python-rotate-image/
-# https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_geometric_transformations/py_geometric_transformations.html
-def transform_image(img, angle, scale):
-    (h, w) = img.shape[:2]
-
-    # calculate the center of the image
-    center = (w / 2, h / 2)
-
-    M = cv2.getRotationMatrix2D(center, angle, scale)
-    return cv2.warpAffine(img, M, (h, w))
-
-
-def transform_image3d(img, rotation_matrix, scale):
-    (h, w) = img.shape[:2]
-
-    # calculate the center of the image
-    center = (w / 2, h / 2)
-
-    return cv2.warpAffine(img, rotation_matrix, (h, w))
-
-
 def matrix2angle(R):
     """ compute three Euler angles from a Rotation Matrix. Ref: http://www.gregslabaugh.net/publications/euler.pdf
     Args:
@@ -132,17 +111,74 @@ def P2sRt(P):
     :returns
         s: scale factor.
         R: (3, 3). rotation matrix.
-        t2d: (2,). 2d translation.
         t3d: (3,). 3d translation.
     """
-    # t2d = P[:2, 3]
     t3d = P[:, 3]
     R1 = P[0:1, :3]
     R2 = P[1:2, :3]
     s = (np.linalg.norm(R1) + np.linalg.norm(R2)) / 2.0
     r1 = R1 / np.linalg.norm(R1)
     r2 = R2 / np.linalg.norm(R2)
-    r3 = np.cross(r1, r2)
+    r3 = np.cross(r2, r2)
 
     R = np.concatenate((r1, r2, r3), 0)
     return s, R, t3d
+
+
+def rect_to_bb(rect):
+    # take a bounding predicted by dlib and convert it
+    # to the format (x, y, w, h) as we would normally do
+    # with OpenCV
+    x = rect.left()
+    y = rect.top()
+    w = rect.right() - x
+    h = rect.bottom() - y
+
+    # return a tuple of (x, y, w, h)
+    return (x, y, w, h)
+
+
+def shape_to_np(shape, dtype="int"):
+    # initialize the list of (x, y)-coordinates
+    coords = np.zeros((shape.num_parts, 2), dtype=dtype)
+
+    # loop over all facial landmarks and convert them
+    # to a 2-tuple of (x, y)-coordinates
+    for i in range(0, shape.num_parts):
+        coords[i] = (shape.part(i).x, shape.part(i).y)
+
+    # return the list of (x, y)-coordinates
+    return coords
+
+
+def roi_from_landmarks(image, face_landmarks, height=250, width=250, d_type="int"):
+    shape = shape_to_np(face_landmarks, d_type)
+    (x, y, w, h) = cv2.boundingRect(np.array(shape))
+    roi = image[y:y + h, x:x + w]
+    roi = resize(roi, height, width)
+
+    return roi
+
+
+def get_camarx_matrix(image, landmarks, height=250, width=250, d_type="int"):
+    shape = np.shape(landmarks)
+    lmarks = np.reshape(landmarks, (shape[0], shape[1]))
+    lmarks = lmarks.astype(d_type)
+
+    (x, y, w, h) = cv2.boundingRect(np.array([lmarks]))
+
+    roi = image[y:y + h, x:x + w]
+    roi = resize(roi, height, width, inter=cv2.INTER_CUBIC)
+
+    size = np.shape(roi)
+
+    focal_length = size[1]
+    center = (size[1] / 2, size[0] / 2)
+
+    camera_matrix = np.array(
+        [[focal_length, 0, center[0]],
+         [0, focal_length, center[1]],
+         [0, 0, 1]], dtype="double"
+    )
+
+    return camera_matrix, roi
