@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 np.set_printoptions(formatter={'float_kind': lambda x: "%.4f" % x})
 
 
-# model from
+# model imported from
 # https://github.com/fengju514/Face-Pose-Net
 class FaceModel:
 

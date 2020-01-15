@@ -3,7 +3,7 @@ import numpy as np
 from abstract_read_data import AbstractReadData
 from ..consts import DataSetConsts
 from ..mytools import get_files
-from ..utils import load_images, get_landmarks
+from ..utils import load_images
 
 
 class LabeledData(AbstractReadData):

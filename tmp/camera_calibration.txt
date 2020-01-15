@@ -66,15 +66,15 @@ def get_yaw(rmat):
         angle_z = math.degrees(math.atan2(trY, trX))
 
     # Adjust to current mesh setting
-    angle_x = 180 - angle_x
+    angle_x = - angle_x
     angle_y = angle_y
     angle_z = -angle_z
 
-    out_pitch = angle_x
-    out_yaw = angle_y
-    out_roll = angle_z
+    out_pitch = np.deg2rad(angle_x)
+    out_yaw = np.deg2rad(angle_y)
+    out_roll = np.deg2rad(angle_z)
 
-    return out_yaw
+    return out_pitch, out_yaw, out_roll
 
 
 def get_opengl_matrices(camera_matrix, rmat, tvec, width, height):
