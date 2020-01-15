@@ -1,2 +1,2 @@
 from abstract_read_data import AbstractReadData
-from my_data import LabeledData
+from labeled_data import LabeledData

@@ -8,10 +8,8 @@ import Work.models.ThreeD_Model
 from Work.consts.csv_consts import CsvConsts
 from Work.consts.fpn_model_consts import FPNConsts
 from Work.consts.validation_files_consts import ValidationFileConsts as fConsts
-from Work.data.my_data import LabeledData
+from Work.data.labeled_data import LabeledData
 from Work.mytools.csv_files_tools import write_csv, read_csv
-from Work.utils import camera_calibration as calib, matrix2angle, draw_axis_on_image, get_camarx_matrix, \
-    display_landmarks, estimate_camera, P2sRt, get_yaw
 
 valid_csv = read_csv(fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_CSV, False)
 
@@ -24,16 +22,6 @@ def generate_dataset(list_f):
     ds.original_file_list = list_f
     ds.read_data_set()
     return ds
-
-
-# def get_list(original):
-#     list_of_files = original[CsvConsts.PICTURE_NAME]
-#     for v in original:
-#         if v[CsvConsts.PICTURE_NAME] in name:
-#             return v
-#         if name in v[CsvConsts.PICTURE_NAME]:
-#             return v
-#     return None
 
 
 def test_align_image():
@@ -50,62 +38,8 @@ def test_align_image():
     score_vectors = []
 
     for i in range(len(m_list)):
-        lmarks = ds.y_train_set[i]
+        # image = ds.x_train_set[i]
 
-        # if len(lmarks) > 0:
-
-        image = ds.x_train_set[i]
-        # camera_matrix, roi = get_camarx_matrix(image, lmarks)
-        # lmarks.astype(int)
-        # lmarks.astype('float32')
-
-        splits = ds.original_file_list[i].split('\\')
-        name = splits[-1]
-        _, r_exp, tvec = cv2.solvePnP(model3D.model_TD, lmarks, model3D.out_A, None, None, None, False)
-        # _, r_exp, tvec = cv2.solvePnP(model3D.model_TD, lmarks, camera_matrix, None, None, None, False)
-        # projection_matrix, model3D.out_A, rmat, tvec = estimate_camera(model3D, lmarks)
-        # r_exp = matrix2angle(rmat)
-        rmat, _ = cv2.Rodrigues(r_exp)
-
-        pose = np.squeeze(r_exp)
-        t3d = np.squeeze(tvec)
-
-        # set pitch, yaw, roll
-        # rx = pose[0]
-        # ry = pose[1]
-        # rz = pose[2]
-        rx, ry, rz = get_yaw(rmat)
-
-        tx = t3d[0]
-        ty = t3d[1]
-        tz = t3d[2]
-
-        this_score = [i, name, rx, ry, rz, tx, ty, tz]
-
-        # if i in [25, 34, 35, 40, 41]:
-        # img = draw_axis_on_image(image, rx, ry, rz, tx, ty, tz, camera_matrix)
-        # display_landmarks(img, lmarks, name + '   -   ' + str(i))
-
-        score_vectors.append(this_score)
-
-    # cv2.waitKey(0)
-    return score_vectors
-
-
-def test_align_image2():
-    original = read_csv(fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_CSV)
-    m_list = [im[CsvConsts.PICTURE_NAME] for im in original]
-    ds = generate_dataset(m_list)
-
-    model3D = Work.models.ThreeD_Model.FaceModel(FPNConsts.THIS_PATH + FPNConsts.MODELS_DIR + FPNConsts.POSE_P,
-                                                 'model3D',
-                                                 False)
-    allModels = dict()
-    allModels[FPNConsts.POSE] = model3D
-
-    score_vectors = []
-
-    for i in range(len(m_list)):
         lmarks = ds.y_train_set[i]
 
         splits = ds.original_file_list[i].split('\\')
@@ -134,14 +68,7 @@ def test_align_image2():
 
 
 def write_scores(folder, filename, print_scores=True):
-    # s = test_align_image()
     s = test_align_image()
-    # print str(s[0])
-    write_csv(s, CsvConsts.CSV_LABELS, folder, filename, print_scores)
-
-
-def write_scores2(folder, filename, print_scores=True):
-    s = test_align_image2()
     write_csv(s, CsvConsts.CSV_LABELS, folder, filename, print_scores)
 
 
@@ -200,12 +127,12 @@ def compare_scores(folder, f1, f2, f_new):
     total_arr = np.asarray(total_n, dtype=np.float)
     total_arr = np.reshape(total_arr, (len(total), 7))
 
-    # print_param_details('rx', 0, total_arr)
-    # print_param_details('ry', 1, total_arr)
-    # print_param_details('rz', 2, total_arr)
-    # print_param_details('tx', 3, total_arr)
-    # print_param_details('ty', 4, total_arr)
-    # print_param_details('tz', 5, total_arr)
+    print_param_details('rx', 0, total_arr)
+    print_param_details('ry', 1, total_arr)
+    print_param_details('rz', 2, total_arr)
+    print_param_details('tx', 3, total_arr)
+    print_param_details('ty', 4, total_arr)
+    print_param_details('tz', 5, total_arr)
     print_param_details('theta', 6, total_arr)
 
     write_csv(total, CsvConsts.CSV_LABELS_DIFF, folder, f_new, True)
@@ -225,7 +152,7 @@ def plt_axs(axs, x, y, label, labels):
     axs.plot(x, y, label=label, alpha=0.5)
 
 
-def plot_diff2(folder, filename1, filename2, print_scores=True):
+def plot_diff_each_param(folder, filename1, filename2, print_scores=True):
     file1 = read_csv(folder, filename1, print_scores)
     file2 = read_csv(folder, filename2, print_scores)
 
@@ -285,22 +212,10 @@ def plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF
 
 if __name__ == '__main__':
     write_scores(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.MY_VALIDATION_CSV, print_scores=False)
-    write_scores2(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.MY_VALIDATION_CSV2, print_scores=False)
-    compare_scores(folder=fConsts.VALIDATION_FOLDER, f1=fConsts.VALIDATION_CSV, f2=fConsts.MY_VALIDATION_CSV2,
-                   f_new=fConsts.VALIDATION_DIFF_CSV2)
     compare_scores(folder=fConsts.VALIDATION_FOLDER, f1=fConsts.VALIDATION_CSV, f2=fConsts.MY_VALIDATION_CSV,
-                   f_new=fConsts.VALIDATION_DIFF_CSV)
-    compare_scores(folder=fConsts.VALIDATION_FOLDER, f1=fConsts.MY_VALIDATION_CSV, f2=fConsts.MY_VALIDATION_CSV2,
-                   f_new=fConsts.VALIDATION_DIFF_CSV3)
+                   f_new=fConsts.VALIDATION_DIFF_CSV2)
     plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV, title='diff',
               print_scores=False)
-    plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV2, title='diff - 2',
-              print_scores=False)
-    plot_diff2(fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_CSV, fConsts.MY_VALIDATION_CSV, print_scores=False)
-    plot_diff2(fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_CSV, fConsts.MY_VALIDATION_CSV2, print_scores=False)
-    # plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV2, title='diff - 2',
-    #           print_scores=False)
-    # plot_diff(folder=fConsts.VALIDATION_FOLDER, filename=fConsts.VALIDATION_DIFF_CSV3, title='diff - 3',
-    #           print_scores=False)
+    plot_diff_each_param(fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_CSV, fConsts.MY_VALIDATION_CSV)
 
     plt.show()

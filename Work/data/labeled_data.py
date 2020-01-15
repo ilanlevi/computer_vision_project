@@ -3,7 +3,7 @@ import numpy as np
 from abstract_read_data import AbstractReadData
 from ..consts import DataSetConsts
 from ..mytools import get_files
-from ..utils import load_images
+from ..utils import load_images, get_landmarks
 
 
 class LabeledData(AbstractReadData):
@@ -31,15 +31,6 @@ class LabeledData(AbstractReadData):
         """
         files = get_files(self.data_path, self.picture_suffix)
         return files
-
-    @staticmethod
-    def get_file_type(file_name):
-        """
-            Split file label from the name (data set structure)
-            :return the file label
-        """
-        split, _ = file_name.split('_', 1)
-        return split
 
     # abstracts:
     def read_data_set(self):
