@@ -16,6 +16,7 @@ from Work.utils.draw_tools import draw_axis_on_image, display_landmarks, roi_fro
 
 valid_csv = read_csv(fConsts.VALIDATION_FOLDER, fConsts.VALIDATION_CSV, False)
 
+# todo - delete
 
 # np.set_printoptions(formatter={'float_kind': lambda x: "%.4f" % x})
 
