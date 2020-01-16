@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-from ..consts.ds_consts import DataSetConsts
+from consts.ds_consts import DataSetConsts
 
 
 class AbstractReadData:

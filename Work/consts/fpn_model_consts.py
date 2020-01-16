@@ -7,3 +7,4 @@ class FPNConsts:
     POSE_P = "model3D_aug_-00_00_01.mat"
     THIS_PATH = "C:\\Work\\ComputerVision\\Project"
     MODELS_DIR = "\\models3d_new\\"
+    MODEL_NAME = "model3D"
