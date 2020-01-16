@@ -43,7 +43,7 @@ def load_data_and_models():
     return camera_matrix, model_matrix, data_set
 
 
-def align_image(camera_matrix, model_matrix, data_set):
+def align_images(camera_matrix, model_matrix, data_set):
     scores_vectors = []
 
     for i in range(len(data_set.original_file_list)):
@@ -61,7 +61,7 @@ def align_image(camera_matrix, model_matrix, data_set):
 
 
 def write_scores(folder_path, filename, camera_matrix, model_matrix, data_set, print_scores=False):
-    s = align_image(camera_matrix, model_matrix, data_set)
+    s = align_images(camera_matrix, model_matrix, data_set)
     write_csv(s, CsvConsts.CSV_LABELS, folder_path, filename, print_scores)
 
 
