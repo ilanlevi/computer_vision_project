@@ -3,20 +3,18 @@ from abc import ABCMeta, abstractmethod
 import numpy as np
 from sklearn.model_selection import train_test_split
 
+from consts.ds_consts import DataSetConsts
+
 
 class AbstractReadData:
     __metaclass__ = ABCMeta
 
-    # const
-    DEFAULT_RANDOM_STATE = 0
-    DEFAULT_TRAIN_RATE = 1 / 7.0
-
-    def __init__(self, data_path=''):
-        self.file_name = data_path
+    def __init__(self, data_path='', random_state=DataSetConsts.DEFAULT_RANDOM_STATE,
+                 train_rate=DataSetConsts.DEFAULT_TRAIN_RATE, image_size=DataSetConsts.PICTURE_WIDTH):
         self.data_path = data_path
-        self.image_size = 0
-        self.random_state = AbstractReadData.DEFAULT_RANDOM_STATE
-        self.train_rate = AbstractReadData.DEFAULT_TRAIN_RATE
+        self.image_size = image_size
+        self.random_state = random_state
+        self.train_rate = train_rate
         self.x_train_set = self.y_train_set = self.x_test_set = self.y_test_set = self.valid_set = []
 
     def get_picture_size(self):
@@ -78,14 +76,6 @@ class AbstractReadData:
     def read_data_set(self):
         """
             Read file contents from file_name.
-        """
-        pass
-
-    @abstractmethod
-    def read_data_set_and_separate(self):
-        """"
-            Read file contents from file_name.
-            :returns and set to self the data as tuple
         """
         pass
 
