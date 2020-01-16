@@ -22,14 +22,14 @@ def load_fpn_model(path_to_model, model_file_name, model_name):
 
 def get_3d_pose(camera_matrix, model_matrix, landmarks):
     """
-    Calculate rotation and translation vectors
+    Calculate rotation and translation vectors using open-cv: solvePnP
     :param camera_matrix: the camera matrix from model
     :param model_matrix: the model matrix from model
     :param landmarks: image landmarks (68x2)
     :return: rx, ry, rz, tx, ty, tz - face pose estimation
     """
-    _, rotation_vec, translation_vec = cv2.solvePnP(model_matrix, landmarks, camera_matrix, None, None, None, False)
-
+    # _, rotation_vec, translation_vec, _ = cv2.solvePnPRansac(model_matrix, landmarks, camera_matrix, None)
+    _, rotation_vec, translation_vec = cv2.solvePnP(model_matrix, landmarks, camera_matrix, None)
     rotation_vec = np.squeeze(rotation_vec)
     translation_vec = np.squeeze(translation_vec)
 
@@ -42,5 +42,3 @@ def get_3d_pose(camera_matrix, model_matrix, landmarks):
     tz = translation_vec[2]
 
     return rx, ry, rz, tx, ty, tz
-
-

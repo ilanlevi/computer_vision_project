@@ -25,12 +25,14 @@ def calc_theta_score(A, B):
 
     # check possible NaN
     if abs(angle) > 1:
-        sign = angle / abs(angle)
-        angle = 1.0 * sign
+        angle = 1
 
     theta = np.arccos(angle)
 
     theta = np.rad2deg(theta)
+
+    if theta > 90:
+        theta = abs(180 - theta)
 
     return theta
 
@@ -60,8 +62,8 @@ def compare_scores(folder, f1, f2, f_new, print_data=False):
     :param print_data: print print_param_details or not (default is False)
     :return: None - save difference in file
     """
-    file1_csv = read_csv(folder, f1, True)
-    file2_csv = read_csv(folder, f2, True)
+    file1_csv = read_csv(folder, f1, print_data)
+    file2_csv = read_csv(folder, f2, print_data)
 
     total = []
     total_n = []
@@ -89,4 +91,4 @@ def compare_scores(folder, f1, f2, f_new, print_data=False):
 
         print_param_details('theta', 6, total_arr)
 
-    write_csv(total, CsvConsts.CSV_LABELS_DIFF, folder, f_new, True)
+    write_csv(total, CsvConsts.CSV_LABELS_DIFF, folder, f_new, print_data)

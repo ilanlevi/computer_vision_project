@@ -49,7 +49,7 @@ def align_image(camera_matrix, model_matrix, data_set):
     for i in range(len(data_set.original_file_list)):
         lmarks = data_set.y_train_set[i]
 
-        splits = ds.original_file_list[i].split('\\')
+        splits = data_set.original_file_list[i].split('\\')
         name = splits[-1]
 
         rx, ry, rz, tx, ty, tz = get_3d_pose(camera_matrix, model_matrix, lmarks)
@@ -66,14 +66,14 @@ def write_scores(folder_path, filename, camera_matrix, model_matrix, data_set, p
 
 
 if __name__ == '__main__':
-    cam_m, model_m, ds = load_data_and_models()
+    cam_m, model_m, data_s = load_data_and_models()
 
     folder = fConsts.VALIDATION_FOLDER
     filename_my = fConsts.MY_VALIDATION_CSV
     filename_valid = fConsts.VALIDATION_CSV
     filename_diff = fConsts.VALIDATION_DIFF_CSV
 
-    write_scores(folder, filename_my, cam_m, model_m, ds)
+    write_scores(folder, filename_my, cam_m, model_m, data_s)
 
     compare_scores(folder, filename_valid, filename_my, filename_diff, False)
     plot_diff(folder, filename_diff, title='diff')
