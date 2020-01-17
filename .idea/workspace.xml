@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c01e69f1-dfde-4789-a00e-231c94c88efb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Work/data/generate_labeled_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/datasets_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/datasets_consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/data/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/data/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/data/labeled_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/data/labeled_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generate_data/generate_labels.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/generate_data/generate_labels.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/models/fpn_wrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/models/fpn_wrapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/mytools/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/mytools/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/mytools/csv_files_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/mytools/csv_files_tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/mytools/facial_landmarks.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/mytools/facial_landmarks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/mytools/my_io.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/mytools/my_io.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/draw_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/draw_tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/utils/test_landmarks.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/utils/test_landmarks.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -443,7 +430,13 @@
       <option name="presentableId" value="LOCAL‎00033" />
       <updated>1579263728663</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL‎00034" summary="major refactor">
+      <created>1579270897096</created>
+      <option name="number" value="LOCAL‎00034" />
+      <option name="presentableId" value="LOCAL‎00034" />
+      <updated>1579270897096</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -527,10 +520,10 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="448" y="160" width="490" height="558" key="#xdebugger.evaluate/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578869152843" />
-    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1579263728061">
+    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1579270896571">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="494" y="100" key="CommitChangelistDialog2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1579263728061" />
+    <state x="494" y="100" key="CommitChangelistDialog2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1579270896571" />
     <state x="494" y="100" key="CommitChangelistDialog2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923978513" />
     <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468848032" />
     <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578074558668" />
@@ -670,10 +663,10 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="498" height="446" key="SwitcherDM/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578524578726" />
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1579263730163">
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1579270898489">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1579263730163" />
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1579270898489" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923981511" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468849513" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578074560466" />

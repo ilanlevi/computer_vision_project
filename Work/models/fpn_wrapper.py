@@ -32,10 +32,12 @@ def get_3d_pose(camera_matrix, model_matrix, landmarks):
     rotation_vec = np.squeeze(rotation_vec)
     translation_vec = np.squeeze(translation_vec)
 
+    # set pitch, yaw, roll
     rx = rotation_vec[0]
     ry = rotation_vec[1]
     rz = rotation_vec[2]
 
+    # set translation vector
     tx = translation_vec[0]
     ty = translation_vec[1]
     tz = translation_vec[2]
