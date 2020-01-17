@@ -18,8 +18,7 @@ from mytools.csv_files_tools import write_csv, read_csv
 
 def generate_dataset(files_list):
     # create dataset
-    ds = LabeledData(data_path=fConsts.VALIDATION_FOLDER, label_file_name=fConsts.VALIDATION_CSV, to_gray=True,
-                     target_sub=fConsts.PROCESSED_SET_FOLDER, picture_suffix='png').init()
+    ds = LabeledData(data_path=fConsts.VALIDATION_FOLDER, to_gray=True, picture_suffix='png').init()
 
     files_list = [(fConsts.VALIDATION_FOLDER + fConsts.VALID_SET_SUB_FOLDER + file_name) for file_name in files_list]
 

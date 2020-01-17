@@ -40,13 +40,14 @@ def read_csv(path, filename, print_data=False):
     return data
 
 
-def write_csv(data, fieldnames, path, filename, print_data=False):
+def write_csv(data, fieldnames, path, filename, append=False, print_data=False):
     """
     Write data to csv
     :param fieldnames: csv fields
     :param data: the data
     :param path: path to csv
     :param filename: the file name (with .csv suffix)
+    :param append: try append instead of creating new file
     :param print_data: boolean for print time data, default is False
     :return: Succeeded or failed as boolean
     """
@@ -57,12 +58,19 @@ def write_csv(data, fieldnames, path, filename, print_data=False):
     start = time.time()
     line_count = 0
     path = path + filename
+
+    if append:
+        mode = 'ab'
+    else:
+        mode = 'wb'
+
     try:
-        with open(path, mode='wb') as csv_file:
+        with open(path, mode=mode) as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
-            # add header
-            writer.writeheader()
+            if not append:
+                # add header
+                writer.writeheader()
 
             for row in data:
                 # check labels and data length

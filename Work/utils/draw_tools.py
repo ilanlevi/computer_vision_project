@@ -24,16 +24,22 @@ def roi_from_landmarks(image, face_landmarks, f=50, d_type="int"):
 
     (x, y, w, h) = cv2.boundingRect(np.array([lmarks]))
 
-    y = y - (f / 2)
-    x = x - (f / 2)
+    if y > f / 2:
+        y = y - (f / 2)
+    else:
+        y = 0
+    if x > f / 2:
+        x = x - (f / 2)
+    else:
+        x = 0
 
     h = h + f
     w = w + f
 
-    roi = image[y:y + h, x:x + w]
-    # roi = np.asarray(roi, dtype=d_type)
+    new_image = np.zeros(image.shape)
+    new_image[y:y + h, x:x + w] = image[y:y + h, x:x + w]
 
-    return roi
+    return new_image
 
 
 def get_camarx_matrix(image, landmarks, height=250, width=250, d_type="int"):
@@ -120,4 +126,3 @@ def rotate_image(image, rx, ry):
     image = cv2.warpAffine(image, rot_mat, image.shape[1::-1], flags=cv2.INTER_LINEAR)
 
     return image
-

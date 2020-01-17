@@ -29,16 +29,14 @@ def align_images(cam_m, model_m, dataset):
 
         this_score = [i, name, rx, ry, rz, tx, ty, tz]
 
-        roi = roi_from_landmarks(img, lmarks)
-
-        image_list.append((name, roi))
+        image_list.append((name, img))
         scores_vectors.append(this_score)
 
     return scores_vectors, image_list
 
 
-def write_scores(folder_path, filename, scores_vec, image_list, print_scores=True):
-    write_csv(scores_vec, CsvConsts.CSV_LABELS, folder_path, filename, print_scores)
+def write_scores(folder_path, filename, scores_vec, image_list, append=False, print_scores=True):
+    write_csv(scores_vec, CsvConsts.CSV_LABELS, folder_path, filename, append, print_scores)
     # todo add aug
     # todo check error
     # todo check genewration_name
@@ -66,7 +64,7 @@ if __name__ == '__main__':
         suffix = data_set['IMAGE_SUFFIX']
         print 'Generating data for: ' + folder_name
 
-        ds = LabeledData(data_path=folder + folder_name + '\\', picture_suffix=suffix).init()
-        ds.read_data_set()
+        ds = LabeledData(data_path=folder + folder_name + '\\', picture_suffix=suffix, image_size=500).init()
+        ds.read_data_set().filter_multiple_face()
         scores_vector, images_list = align_images(camera_matrix, model_matrix, ds)
-        write_scores(output_path, folder_name + output_file, scores_vector, images_list)
+        write_scores(output_path, output_file, scores_vector, images_list)
