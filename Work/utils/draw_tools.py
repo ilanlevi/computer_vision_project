@@ -24,13 +24,14 @@ def roi_from_landmarks(image, face_landmarks, f=50, d_type="int"):
 
     (x, y, w, h) = cv2.boundingRect(np.array([lmarks]))
 
-    y = y - f
-    x = x - f
+    y = y - (f / 2)
+    x = x - (f / 2)
 
     h = h + f
     w = w + f
 
     roi = image[y:y + h, x:x + w]
+    # roi = np.asarray(roi, dtype=d_type)
 
     return roi
 
@@ -77,7 +78,7 @@ def display_landmarks(img, landmarks, name='', show=False):
     return img
 
 
-def display_bbox(img, lndmarks, name='', factor=0.10):
+def display_bbox(img, lndmarks, name='', factor=0.2):
     shape = np.shape(img)
     bbox_add = (shape[0] + shape[1]) * factor / 2
 

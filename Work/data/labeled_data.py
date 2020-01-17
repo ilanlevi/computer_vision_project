@@ -9,7 +9,7 @@ from mytools import get_landmarks
 
 class LabeledData(AbstractReadData):
 
-    def __init__(self, data_path, target_sub, label_file_name=None, random_state=DataSetConsts.DEFAULT_RANDOM_STATE,
+    def __init__(self, data_path, target_sub=None, label_file_name=None, random_state=DataSetConsts.DEFAULT_RANDOM_STATE,
                  train_rate=DataSetConsts.DEFAULT_TRAIN_RATE, image_size=DataSetConsts.PICTURE_WIDTH,
                  picture_suffix=DataSetConsts.PICTURE_SUFFIX, split_data=False, to_gray=True):
         super(LabeledData, self).__init__(data_path, random_state, train_rate, image_size)

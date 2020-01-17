@@ -4,22 +4,22 @@ class DataFileConsts:
 
     DOWNLOAD_FOLDER = 'C:\\Work\\ComputerVision\\datasets\\data\\'
 
+    OUTPUT_FOLDER = 'output\\'
+
     OUTPUT_FILE_NAME = 'scores.csv'
 
-    # helen dataset consts
-    NUMBER_OF_HELEN_LINKS = 5
+    W300_DATA = {
+        'FOLDER': '300W',
+        'IMAGE_SUFFIX': '.png'
+    }
 
-    HELEN_INFO_URL = 'http://www.ifp.illinois.edu/~vuongle2/helen/'
+    AFW_DATA = {
+        'FOLDER': 'afw',
+        'IMAGE_SUFFIX': '.jpg'
+    }
 
-    HELEN_DATA = {
-        'FOLDER': 'helen\\',
-        'ANNOTATIONS': 'annotations\\',
-        'FILES': ['helen_%d.zip' % i for i in range(1, 1 + NUMBER_OF_HELEN_LINKS)],
-        'DOWNLOAD_URLS': [
-            HELEN_INFO_URL + 'data/helen_' + 'helen_%d.zip' % i for i in range(1, 1 + NUMBER_OF_HELEN_LINKS)
-        ],
-        'ANNOTATIONS_DOWNLOAD': (HELEN_INFO_URL + 'data/annotation.zip'),
-        'FORMATTED': 'helen_' + CONVERTED_FILE_NAME,
+    IBUG_DATA = {
+        'FOLDER': 'ibug',
         'IMAGE_SUFFIX': '.jpg'
     }
 

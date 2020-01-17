@@ -20,7 +20,7 @@ def load_images(images_path_list, width=None, height=None, gray=True, print_data
     for image_path in images_path_list:
         try:
             if gray:
-                im = cv2.imread(image_path, 1)
+                im = cv2.imread(image_path, 0)
             else:
                 im = cv2.imread(image_path)
             im = resize(im, width, height)
@@ -30,6 +30,32 @@ def load_images(images_path_list, width=None, height=None, gray=True, print_data
 
     if print_data:
         print 'Loading images took: %.2f seconds' % (time.time() - start)
+
+    return ims
+
+
+def save_images(images, path, print_data=False):
+    """
+    for each image: save image with name
+    :param print_data: print duration data (default is false)
+    :param images: images list of tuples: (image, name)
+    :param path: images path to save (directory)
+    :return: None
+    """
+
+    start = time.time()
+
+    ims = []
+    for name, image in images:
+        try:
+            name = path + name
+            cv2.imwrite(name, image)
+        except Exception as e:
+            if print_data:
+                print ('Error while saving image!Path= %s\nError= %s' % (name, str(e)))
+
+    if print_data:
+        print 'Saving images took: %.2f seconds' % (time.time() - start)
 
     return ims
 

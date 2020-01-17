@@ -42,3 +42,4 @@ def get_3d_pose(camera_matrix, model_matrix, landmarks):
     tz = translation_vec[2]
 
     return rx, ry, rz, tx, ty, tz
+
