@@ -6,6 +6,7 @@ class DataFileConsts:
 
     OUTPUT_FOLDER = 'output\\'
 
+    OUTPUT_FILE_SUFFIX = '.param'
     OUTPUT_FILE_NAME = 'scores.csv'
 
     W300_DATA = {

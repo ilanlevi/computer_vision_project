@@ -1,12 +1,9 @@
-import cv2
-
 from consts.csv_consts import CsvConsts
 from consts.datasets_consts import DataFileConsts as dConsts
 from consts.fpn_model_consts import FPNConsts
 from data.labeled_data import LabeledData
 from models.fpn_wrapper import load_fpn_model, get_3d_pose
 from mytools.csv_files_tools import write_csv
-from utils.draw_tools import roi_from_landmarks
 from utils.image_tools import save_images
 
 """
@@ -35,12 +32,16 @@ def align_images(cam_m, model_m, dataset):
     return scores_vectors, image_list
 
 
-def write_scores(folder_path, filename, scores_vec, image_list, append=False, print_scores=True):
-    write_csv(scores_vec, CsvConsts.CSV_LABELS, folder_path, filename, append, print_scores)
+def calc_and_write_scores(folder_path, scores_vec, image_list):
+    for csv_row in scores_vec:
+        filename = csv_row[1]
+        write_csv([csv_row], CsvConsts.CSV_LABELS, folder_path, filename + '.csv')
+
     # todo add aug
     # todo check error
     # todo check genewration_name
-    save_images(image_list, folder_path, print_scores)
+    # todo - add run from console
+    save_images(image_list, folder_path)
 
 
 if __name__ == '__main__':
@@ -67,4 +68,4 @@ if __name__ == '__main__':
         ds = LabeledData(data_path=folder + folder_name + '\\', picture_suffix=suffix, image_size=500).init()
         ds.read_data_set().filter_multiple_face()
         scores_vector, images_list = align_images(camera_matrix, model_matrix, ds)
-        write_scores(output_path, output_file, scores_vector, images_list)
+        calc_and_write_scores(output_path, scores_vector, images_list)

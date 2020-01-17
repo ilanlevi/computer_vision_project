@@ -2,34 +2,31 @@ import numpy as np
 
 from abstract_read_data import AbstractReadData
 from consts import DataSetConsts
-from mytools import get_files
+from mytools import get_files_list
 from utils import load_images, resize_image_and_landmarks
 from mytools import get_landmarks
 
 
 class LabeledData(AbstractReadData):
 
-    def __init__(self, data_path, image_size=None, random_state=DataSetConsts.DEFAULT_RANDOM_STATE,
-                 train_rate=DataSetConsts.DEFAULT_TRAIN_RATE,
-                 picture_suffix=DataSetConsts.PICTURE_SUFFIX, split_data=False, to_gray=True):
-        super(LabeledData, self).__init__(data_path, random_state, train_rate, image_size)
+    def __init__(self, data_path, image_size=None, picture_suffix=DataSetConsts.PICTURE_SUFFIX, to_gray=True):
+        super(LabeledData, self).__init__(data_path, image_size=image_size)
 
         self.data_path = data_path
-        self.random_state = random_state
-        self.train_rate = train_rate
         self.image_size = image_size
         self.original_file_list = []
         self.target_file_list = []
         self.picture_suffix = picture_suffix
-        self.split_data = split_data
         self.to_gray = to_gray
+        if not isinstance(picture_suffix, list):
+            self.picture_suffix = [picture_suffix]
 
     def get_original_list(self):
         """
             return the dataset list of images from self.data_path +  self.original_sub
             :return self
         """
-        files = get_files(self.data_path, self.picture_suffix)
+        files = get_files_list(self.data_path, self.picture_suffix)
         return files
 
     def filter_multiple_face(self):
@@ -70,6 +67,6 @@ class LabeledData(AbstractReadData):
 
         return self
 
-    def _init(self, unzip_file=True, path_to_use=None):
+    def _init(self):
         self.original_file_list = self.get_original_list()
         return self

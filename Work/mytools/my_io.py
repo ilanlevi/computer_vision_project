@@ -4,16 +4,27 @@ import pickle
 import numpy as np
 
 
-def get_files(path, suffix=None):
+def get_files_list(path, suffixes=None):
     """
-        return file list from path with the same suffix (if none all of the returned)
+        return file list from path with the same
+         suffixes (if none all of the returned)
     """
+
+    if suffixes is None:
+        suffixes = []
+
+    if not isinstance(suffixes, list):
+        suffixes = [suffixes]
 
     files = [os.path.join(r, file_) for r, d, f in os.walk(path) for file_ in f]
     f_list = []
     for file_name in files:
-        if suffix is None or suffix in file_name:
+        if len(suffixes) == 0:
             f_list.append(file_name)
+        else:
+            for suffix in suffixes:
+                if suffix in file_name:
+                    f_list.append(file_name)
     return f_list
 
 

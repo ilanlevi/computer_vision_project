@@ -4,6 +4,7 @@ from utils import resize
 import copy
 
 
+# todo - delete
 def shape_to_np(shape, d_type="int"):
     # initialize the list of (x, y)-coordinates
     coords = np.zeros((len(shape), 2), dtype=d_type)

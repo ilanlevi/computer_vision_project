@@ -2,7 +2,7 @@ import csv
 import time
 
 
-def read_csv(path, filename, print_data=False):
+def read_csv(path, filename='', print_data=False):
     """
     Read data from csv
     :param path: path to csv

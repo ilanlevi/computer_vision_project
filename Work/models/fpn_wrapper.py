@@ -28,7 +28,6 @@ def get_3d_pose(camera_matrix, model_matrix, landmarks):
     :param landmarks: image landmarks (68x2)
     :return: rx, ry, rz, tx, ty, tz - face pose estimation
     """
-    # _, rotation_vec, translation_vec, _ = cv2.solvePnPRansac(model_matrix, landmarks, camera_matrix, None)
     _, rotation_vec, translation_vec = cv2.solvePnP(model_matrix, landmarks, camera_matrix, None)
     rotation_vec = np.squeeze(rotation_vec)
     translation_vec = np.squeeze(translation_vec)
