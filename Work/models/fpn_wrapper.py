@@ -1,3 +1,5 @@
+from math import asin, atan2, cos
+
 import cv2
 import numpy as np
 
@@ -29,6 +31,7 @@ def get_3d_pose(camera_matrix, model_matrix, landmarks):
     :return: rx, ry, rz, tx, ty, tz - face pose estimation
     """
     _, rotation_vec, translation_vec = cv2.solvePnP(model_matrix, landmarks, camera_matrix, None)
+
     rotation_vec = np.squeeze(rotation_vec)
     translation_vec = np.squeeze(translation_vec)
 
@@ -43,4 +46,3 @@ def get_3d_pose(camera_matrix, model_matrix, landmarks):
     tz = translation_vec[2]
 
     return rx, ry, rz, tx, ty, tz
-

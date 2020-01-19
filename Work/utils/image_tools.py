@@ -107,3 +107,10 @@ def resize_image_and_landmarks(image, landmarks, new_size=None, inter=cv2.INTER_
 
     # return the resized image
     return resized, resized_landmarks
+
+# todo
+# Translations
+# Rotations
+# Changes in scale
+# Shearing
+# Horizontal (and in some cases, vertical) flips
