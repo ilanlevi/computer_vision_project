@@ -10,6 +10,8 @@ class MyModelConsts:
     MODEL_STATES_FILE_PATH = MODEL_DIR + '/' + MODEL_STATES_FILE
 
     # model file consts
-    MODEL_NAME = "myModel.pkl"
+    MODEL_NAME = "myModel.h5"
     MODEL_NAME_PATH = MODEL_DIR + '/' + MODEL_NAME
 
+    BATCH_SIZE = 64
+    EPOCHS = 100

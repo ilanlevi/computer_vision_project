@@ -48,11 +48,23 @@ class ModelData(AbstractReadData):
 
         return self
 
-    def pre_process_data(self, sigma=None):
-        """
-        Preprocess data (canny and size if defined)
-        :return: self
-        """
+    # todo - delete
+    def print_data_sizes(self):
+        print 'self.x_train_set.shape: '
+        print self.x_train_set.shape
+        print 'self.x_test_set.shape: '
+        print self.x_test_set.shape
+        print 'self.y_train_set.shape: '
+        print self.y_train_set.shape
+        print 'self.y_test_set.shape: '
+        print self.y_test_set.shape
+
+
+    # def pre_process_data(self, sigma=None):
+    #     """
+    #     Preprocess data (canny and size if defined)
+    #     :return: self
+    #     """
 
         # variables = []
         # todo - delete?
@@ -66,14 +78,8 @@ class ModelData(AbstractReadData):
         # mkdir(mC.MODEL_DIR)
         # model_dump(mC.MODEL_STATES_FILE_PATH, variables)
 
-        # split data
-        self.split_dataset()
-
-        # normalize
-        self.normalize_data()
-
         # canny
-        self.canny_filter(sigma)
+        # self.canny_filter(sigma)
 
     def normalize_data(self):
         # normalize the data

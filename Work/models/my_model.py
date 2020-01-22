@@ -1,70 +1,82 @@
-from data import
+from keras.layers import Dense
+from keras.models import load_model, save_model, Sequential
+from sympy.printing.theanocode import theano
+
+from consts import MyModelConsts as myC, DataSetConsts as dsC
+from data import ModelData
 
 
 class MyModel:
 
-    def __init__(self, data, path, name=):
-        self.load_model(path, name)
-        self.eyemask = None
-        if getMask:
-            self.eyemask = self.getEyeMask(width=8, plot=False)
+    def __init__(self, data_path, picture_suffix, rate=dsC.DEFAULT_TRAIN_RATE, image_size=dsC.PICTURE_SIZE,
+                 sigma=0.33, path=myC.MODEL_DIR, name=myC.MODEL_NAME, gpu=False, batch_size=myC.BATCH_SIZE,
+                 epochs=myC.EPOCHS):
+        """
+        :type self.data: ModelData
+        """
+        self.data = None
+        self.data_path = data_path
+        self.picture_suffix = picture_suffix
 
-    def load_model(self, path, name):
-        model = scio.loadmat(path)[name]
-        self.out_A = np.asmatrix(model['outA'][0, 0], dtype='float32')  # 3x3
-        self.size_U = model['sizeU'][0, 0][0]  # 1x2
-        self.model_TD = np.asarray(model['threedee'][0, 0], dtype='float32')  # 68x3
-        self.indbad = model['indbad'][0, 0]  # 0x1
-        self.ref_U = np.asarray(model['refU'][0, 0])
-        self.facemask = np.asarray(model['facemask'][0, 0])
-        self.facemask -= 1  # matlab indexing
+        if not isinstance(picture_suffix, list):
+            self.picture_suffix = [picture_suffix]
 
-    def getEyeMask(self, width=1, plot=False):
-        X = self.ref_U[:, :, 0]
-        X = X.reshape((-1), order='F')
-        Y = self.ref_U[:, :, 1]
-        Y = Y.reshape((-1), order='F')
-        Z = self.ref_U[:, :, 2]
-        Z = Z.reshape((-1), order='F')
-        cloud = np.vstack((X, Y, Z)).transpose()
-        [idxs, dist] = sklearn.metrics.pairwise_distances_argmin_min(self.model_TD, cloud)
-        eyeLeft = idxs[36:42]
-        eyeRight = idxs[42:48]
-        output1 = self.createMask(eyeLeft, width=width)
-        output2 = self.createMask(eyeRight, width=width)
-        output = output1 + output2
-        if plot:
-            plt.figure()
-            plt.imshow(output)
-            plt.draw()
-            plt.pause(0.001)
-            enter = raw_input("Press [enter] to continue.")
+        self.rate = rate
+        self.image_size = image_size
+        self.sigma = sigma
 
-        output[output == 255] = 1
-        return output
+        self.path = path
+        self.name = name
+        self.model = None
+        self.gpu = gpu
 
-    def createMask(self, eyeLeft, width=1):
-        eyeLefPix = np.unravel_index(eyeLeft, dims=self.ref_U.shape[::-1][1:3])
-        eyeLefPix = np.asarray(eyeLefPix)
-        eyemask = np.zeros((self.ref_U.shape[0] * self.ref_U.shape[1], 3))
-        eyemask[eyeLeft, :] = 255
-        eyemask = eyemask.reshape((self.ref_U.shape[0], self.ref_U.shape[1], 3), order='F')
-        eyemask = eyemask.astype('uint8')
-        eyemask = cv2.cvtColor(eyemask, cv2.COLOR_BGR2GRAY)
+        self.epochs = epochs
+        self.batch_size = batch_size
 
-        for i in range(eyeLefPix.shape[1]):
-            cv2.line(eyemask, (eyeLefPix[0, i], eyeLefPix[1, i]), (eyeLefPix[0, (i + 1) % eyeLefPix.shape[1]], \
-                                                                   eyeLefPix[1, (i + 1) % eyeLefPix.shape[1]]),
-                     (255, 255, 255), width)
+        # set keras config
+        theano.config.floatX = 'float32'
+        if self.gpu:
+            theano.config.device = 'gpu'
 
-        contours, hierarchy = cv2.findContours(eyemask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        eyemaskfill = np.zeros((self.ref_U.shape[0], self.ref_U.shape[1], 3))
 
-        for r in range(self.ref_U.shape[0]):
-            for c in range(self.ref_U.shape[1]):
-                if cv2.pointPolygonTest(contours[0], (c, r), False) > 0:
-                    eyemaskfill[r, c, :] = 255
+    def crete(self):
+        model = Sequential()
+        size = self.data.x_train_set.shape[1]
+        model.add(Dense(units=20, activation='relu', kernel_regularizer='l2', input_dim=(size, size))
+        model.add(Dense(units=10, activation='relu', kernel_regularizer='l2'))
+        model.add(Dense(units=6, activation='linear'))
 
-        eyemaskfill = eyemaskfill.astype('uint8')
+        print(model.summary())
 
-        return eyemaskfill
+    def load(self):
+        self.model = load_model(self.get_full_path())
+
+    def save(self):
+        save_model(self.get_full_path())
+
+    def get_full_path(self):
+        return self.path + '/' + self.name
+
+    def load_data(self, data_path=None, image_size=None, picture_suffix=None, rate=None, sigma=None):
+        if data_path is None:
+            data_path = self.data_path
+        if image_size is None:
+            image_size = self.image_size
+        if picture_suffix is None:
+            picture_suffix = self.picture_suffix
+        if rate is None:
+            rate = self.rate
+        if sigma is None:
+            sigma = self.sigma
+
+        self.data = ModelData(data_path=data_path, image_size=image_size, picture_suffix=picture_suffix,
+                              train_rate=rate,
+                              to_gray=True, to_hog=True, sigma=sigma)
+
+    def pre_process_data(self):
+        self.data.init()
+        self.data.split_dataset()
+        self.data.normalize_data()
+        self.data.canny_filter()
+
+    def train_model(self):
