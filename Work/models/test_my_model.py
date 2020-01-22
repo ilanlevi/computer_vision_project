@@ -7,7 +7,7 @@ if __name__ == '__main__':
 
     start = time.time()
     model.load_data()
-    model.pre_process_data()
+    # model.pre_process_data()
 
     print('> reading images completed! (in: %.2f seconds)' % (time.time() - start))
     start = time.time()

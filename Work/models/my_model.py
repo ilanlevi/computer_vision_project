@@ -1,12 +1,13 @@
+import os
+
 from keras.callbacks import EarlyStopping
 from keras.layers import Dense
 from keras.models import load_model, save_model, Sequential
-from sympy.printing.theanocode import theano
+from matplotlib import pyplot as plt
 
 from consts import MyModelConsts as myC, DataSetConsts as dsC
 from data import ModelData
-from matplotlib import pyplot as plt
-from mytools import write_csv, mkdir
+from mytools import mkdir
 
 
 class MyModel:
@@ -38,13 +39,14 @@ class MyModel:
 
         # set keras config
         # theano.config.floatX = 'float32'
+        # todo
         if self.gpu:
-            theano.config.device = 'gpu'
+            os.environ["CUDA_VISIBLE_DEVICES"]="1"
 
     def create(self):
         self.model = Sequential()
-        size = (self.data.x_train_set.shape[0], self.data.x_train_set.shape[1])
-        self.model.add(Dense(units=150, activation='relu', kernel_regularizer='l2', input_dim=size))
+
+        self.model.add(Dense(units=120, activation='relu', kernel_regularizer='l2', input_dim=160 * 160))
         self.model.add(Dense(units=40, activation='relu', kernel_regularizer='l2'))
         self.model.add(Dense(units=20, activation='relu', kernel_regularizer='l2'))
         self.model.add(Dense(units=6, activation='linear'))
@@ -58,7 +60,7 @@ class MyModel:
 
     def save(self):
         mkdir(self.path)
-        save_model(self.get_full_path())
+        # save_model(self.model, self.get_full_path())
 
     def get_full_path(self):
         return self.path + '/' + self.name
@@ -77,10 +79,10 @@ class MyModel:
 
         self.data = ModelData(data_path=data_path, image_size=image_size, picture_suffix=picture_suffix,
                               train_rate=rate,
-                              to_gray=True, to_hog=True, sigma=sigma)
+                              to_gray=True, to_hog=True, sigma=sigma).init()
 
     def pre_process_data(self):
-        self.data.init()
+        # self.data.init()
         self.data.split_dataset()
         self.data.normalize_data()
         self.data.canny_filter()
@@ -89,10 +91,14 @@ class MyModel:
 
         callback_list = [EarlyStopping(monitor='val_loss', patience=25)]
 
-        hist = self.model.fit(x=self.data.x_train_set, y=self.data.y_train_set,
-                              validation_data=(self.data.x_valid_set, self.data.y_valid_set),
-                              batch_size=self.batch_size, epochs=self.epochs,
-                              callbacks=callback_list)
+        has_more = self.data.read_data_set()
+        while has_more:
+            self.pre_process_data()
+            hist = self.model.fit(x=self.data.x_train_set, y=self.data.y_train_set,
+                                  validation_data=(self.data.x_valid_set, self.data.y_valid_set),
+                                  batch_size=self.batch_size, epochs=self.epochs,
+                                  callbacks=callback_list)
+            has_more = self.data.read_data_set()
 
         if save:
             self.save()

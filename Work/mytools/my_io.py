@@ -18,6 +18,7 @@ def get_files_list(path, suffixes=None):
 
     suffixes = np.unique(suffixes)
 
+    print('Starting to walk on files..')
     files = [os.path.join(r, file_) for r, d, f in os.walk(path) for file_ in f]
     f_list = []
     for file_name in files:
