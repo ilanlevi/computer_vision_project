@@ -51,7 +51,7 @@ class AbstractReadData:
         self.x_train_set, self.x_test_set, self.y_train_set, self.y_test_set = train_test_split(
             data, labels, test_size=split_rate, random_state=random_state)
         self.x_test_set, self.x_valid_set, self.y_test_set, self.y_valid_set = train_test_split(
-            data, labels, test_size=valid_rate, random_state=random_state)
+            self.x_test_set, self.y_test_set, test_size=valid_rate, random_state=random_state)
         return self
 
     def init(self, **kwargs):

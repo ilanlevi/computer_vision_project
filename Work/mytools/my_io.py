@@ -34,7 +34,8 @@ def get_files_list(path, suffixes=None):
 def mkdir(d):
     """only works on *nix system"""
     if not os.path.isdir(d) and not os.path.exists(d):
-        os.system('mkdir -p {}'.format(d))
+        os.mkdir(d)
+        # os.system('mkdir -p {}'.format(d))
 
 
 def get_suffix(filename, p='.'):
@@ -63,11 +64,16 @@ def model_load(fp):
         return d
 
 
-def model_dump(wfp, obj):
+def model_dump(wfp, obj, append=False):
     suffix = get_suffix(wfp)
     if suffix == 'npy':
         np.save(wfp, obj)
     elif suffix == 'pkl':
-        pickle.dump(obj, open(wfp, 'wb'))
+
+        if append:
+            style = 'ab'
+        else:
+            style = 'wb'
+        pickle.dump(obj, open(wfp, style))
     else:
         raise Exception('Unknown Type: {}'.format(suffix))

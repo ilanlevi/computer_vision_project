@@ -51,20 +51,29 @@ class ModelData(AbstractReadData):
             self.x_valid_set[index] = auto_canny(np.asarray(self.x_valid_set[index], dtype=np.uint8), sigma)
 
         self.x_train_set = self.my_flatten(self.x_train_set)
-        self.x_test_set = self.my_flatten(self.x_test_set)
-        self.x_valid_set = self.my_flatten(self.x_valid_set)
+        if self.x_test_set:
+            self.x_test_set = self.my_flatten(self.x_test_set)
+        if self.x_valid_set:
+            self.x_valid_set = self.my_flatten(self.x_valid_set)
 
         return self
 
     def normalize_data(self):
         # normalize the data
         scaler = StandardScaler()
+
+        self.x_train_set = np.asarray(self.x_train_set)
+
         self.x_train_set = scaler.fit_transform(self.x_train_set.reshape(-1, self.x_train_set.shape[-1])) \
             .reshape(self.x_train_set.shape)
-        self.x_test_set = scaler.transform(self.x_test_set.reshape(-1, self.x_test_set.shape[-1])) \
-            .reshape(self.x_test_set.shape)
-        self.x_valid_set = scaler.transform(self.x_valid_set.reshape(-1, self.x_valid_set.shape[-1])) \
-            .reshape(self.x_valid_set.shape)
+        if self.x_test_set:
+            self.x_test_set = scaler.transform(self.x_test_set.reshape(-1, self.x_test_set.shape[-1])) \
+                .reshape(self.x_test_set.shape)
+        if self.x_valid_set:
+            self.x_valid_set = scaler.transform(self.x_valid_set.reshape(-1, self.x_valid_set.shape[-1])) \
+                .reshape(self.x_valid_set.shape)
+
+
 
     def my_flatten(self, threeD):
         shape = threeD.shape

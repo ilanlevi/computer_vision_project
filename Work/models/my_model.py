@@ -53,7 +53,7 @@ class MyModel:
 
         print(self.model.summary())
 
-        self.model.compile(optimizer='adam', loss='mean_squared_error')
+        self.model.compile(optimizer='adam', loss='mean_squared_error', use_multiprocessing=True)
 
     def load(self):
         self.model = load_model(self.get_full_path())
