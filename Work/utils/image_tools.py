@@ -113,6 +113,25 @@ def resize_image_and_landmarks(image, landmarks, new_size=None, inter=cv2.INTER_
     # return the resized image
     return resized, resized_landmarks
 
+
+def auto_canny(image, sigma=0.33):
+    """
+    Apply canny filter in image
+    :param image: the image
+    :param sigma: sigma threshold factor - default is 0.33
+    :return: the canny edge detected image
+    """
+    # compute the median of the single channel pixel intensities
+    v = np.median(image)
+
+    # apply automatic Canny edge detection using the computed median
+    lower = int(max(0, (1.0 - sigma) * v))
+    upper = int(min(255, (1.0 + sigma) * v))
+    edged = cv2.Canny(image, lower, upper)
+
+    # return the edged image
+    return edged
+
 # todo
 # Translations
 # Rotations

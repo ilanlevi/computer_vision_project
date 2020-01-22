@@ -1,17 +1,17 @@
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 
 from abstract_read_data import AbstractReadData
 from consts import DataSetConsts
 from mytools import get_files_list
-from utils import load_images, resize_image_and_landmarks
-from mytools import get_pose, model_load, model_dump, mkdir
-from consts import CsvConsts
+from mytools import get_pose
+from utils import load_images, auto_canny
 
 
 class ModelData(AbstractReadData):
 
     def __init__(self, data_path, image_size=None, picture_suffix=DataSetConsts.PICTURE_SUFFIX, to_gray=True,
-                 to_hog=True, train_rate=DataSetConsts.DEFAULT_TRAIN_RATE, ):
+                 to_hog=True, train_rate=DataSetConsts.DEFAULT_TRAIN_RATE, sigma=0.33):
         super(ModelData, self).__init__(data_path, image_size=image_size, train_rate=train_rate)
 
         self.data_path = data_path
@@ -21,6 +21,7 @@ class ModelData(AbstractReadData):
         self.picture_suffix = picture_suffix
         self.to_gray = to_gray
         self.to_hog = to_hog
+        self.sigma = sigma
         if not isinstance(picture_suffix, list):
             self.picture_suffix = [picture_suffix]
 
@@ -32,23 +33,53 @@ class ModelData(AbstractReadData):
         files = get_files_list(self.data_path, self.picture_suffix)
         return files
 
-    def pre_process_data(self):
+    def canny_filter(self, sigma=None):
         """
-        Preprocess data (hog and size if defined)
+        Apply canny edge detection on both train and test set
+        :param sigma: sigma threshold factor - default is self
         :return: self
         """
-        variables = []
-        for index in range(len(CsvConsts.CSV_VALUES_LABELS)):
-            var = self.y_train_set[:, index]
-            print '%s: [min: %.4f, max: %.4f, mean: %.4f, std: %.4f]' \
-                  % (CsvConsts.CSV_VALUES_LABELS[index], var.min(), var.max(), var.mean(), var.std())
-            variables.append([var.min(), var.max(), var.mean(), var.std()])
+        if sigma is None:
+            sigma = self.sigma
+        for index in range(len(self.x_test_set)):
+            self.x_test_set[index] = auto_canny(self.x_test_set[index], sigma)
+        for index in range(len(self.x_train_set)):
+            self.x_train_set[index] = auto_canny(self.x_train_set[index], sigma)
 
-        variables = np.asarray(variables)
-        mkdir('/mymodel')
-        model_dump('/mymodel/stats.npy')
+        return self
 
+    def pre_process_data(self, sigma=None):
+        """
+        Preprocess data (canny and size if defined)
+        :return: self
+        """
 
+        # variables = []
+        # todo - delete?
+        # for index in range(len(CsvConsts.CSV_VALUES_LABELS)):
+        #     var = self.y_train_set[:, index]
+        #     print '%s: [min: %.4f, max: %.4f, mean: %.4f, std: %.4f]' \
+        #           % (CsvConsts.CSV_VALUES_LABELS[index], var.min(), var.max(), var.mean(), var.std())
+        #     variables.append([var.min(), var.max(), var.mean(), var.std()])
+        #
+        # variables = np.asarray(variables)
+        # mkdir(mC.MODEL_DIR)
+        # model_dump(mC.MODEL_STATES_FILE_PATH, variables)
+
+        # split data
+        self.split_dataset()
+
+        # normalize
+        self.normalize_data()
+
+        # canny
+        self.canny_filter(sigma)
+
+    def normalize_data(self):
+        # normalize the data
+        std = StandardScaler()
+        self.x_train_set = std.fit(self.x_train_set)
+        self.x_test_set = std.fit(self.x_test_set)
 
     # abstracts:
     def read_data_set(self):
@@ -71,8 +102,4 @@ class ModelData(AbstractReadData):
     def _init(self, preprocess=False):
         self.original_file_list = self.get_original_list()
         self.read_data_set()
-        if preprocess:
-            self.pre_process_data()
-        # todo - reload from npy file data
-        # self.load_data()
         return self
