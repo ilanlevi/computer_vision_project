@@ -34,3 +34,25 @@ def get_landmarks(img_path, landmarks_suffix='.pts', print_data=False):
         if print_data:
             print 'Error: ' + str(e)
     return None
+
+
+def get_pose(img_path, pose_suffix='.pose', delimiter=', ', print_data=False):
+    """
+    Read and return pose from file for given image
+    :param delimiter: the delimiter of file. Default is ', '
+    :param img_path: the full image path
+    :param pose_suffix: the pose file suffix
+    :param print_data: print data or not (default is false)
+    :return: facial 6Dof pose as array or None of failed
+    """
+    prefix = get_prefix(img_path)
+    path = prefix + pose_suffix
+    try:
+        data = np.loadtxt(path, delimiter=delimiter)
+        if print_data:
+            'Data shape: %s (loaded from: %s)' % (str(np.shape(data)), path)
+        return data
+    except Exception as e:
+        if print_data:
+            print 'Error: ' + str(e)
+    return None

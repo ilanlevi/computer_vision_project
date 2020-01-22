@@ -1,15 +1,13 @@
 import time
 from multiprocessing import Pool
 from random import randint
+
 import numpy as np
 
-from consts.csv_consts import CsvConsts
 from consts.datasets_consts import DataFileConsts as dConsts
 from consts.fpn_model_consts import FPNConsts
 from data.labeled_data import LabeledData
 from models.fpn_wrapper import load_fpn_model, get_3d_pose
-from mytools.csv_files_tools import write_csv
-from mytools.my_io import get_prefix
 from utils.image_tools import save_images
 
 """
@@ -30,20 +28,24 @@ def align_images(cam_m, model_m, dataset, prefix_string=''):
 
         rx, ry, rz, tx, ty, tz = get_3d_pose(cam_m, model_m, lmarks)
 
-        this_score = [i, name, rx, ry, rz, tx, ty, tz]
+        # save: (pitch, yaw, roll, tx, ty, tz)
+        this_score = [rx, ry, rz, tx, ty, tz]
 
         image_list.append((name, img, lmarks))
-        scores_vectors.append(this_score)
+        scores_vectors.append(name, this_score)
 
     return scores_vectors, image_list
 
 
 def calc_and_write_scores(folder_path, scores_vec, image_list):
-    for csv_row in scores_vec:
+    for img_name, data_row in scores_vec:
         # gen name
-        filename = get_prefix(csv_row[1])
-        if filename != '':
-            write_csv([csv_row], CsvConsts.CSV_LABELS, folder_path, filename + '.csv')
+        # save: (pitch, yaw, roll, tx, ty, tz)
+        np.savetxt(folder_path + img_name + '.pose', data_row, fmt='%.4f', delimiter=', ',
+                   header='pitch, yaw, roll, tx, ty, tz')
+        # filename = get_prefix(data_row[1])
+        # if filename != '':
+        #     write_csv([data_row], CsvConsts.CSV_LABELS, folder_path, filename + '.csv')
 
     save_images(image_list, folder_path)
 
@@ -83,6 +85,8 @@ data_sets_list = dConsts.ALL_DATASETS
 folder = dConsts.DOWNLOAD_FOLDER
 output_folder = dConsts.OUTPUT_FOLDER
 output_path = folder + output_folder
+
+# this will generate a test set
 
 if __name__ == '__main__':
     start_time = time.time()

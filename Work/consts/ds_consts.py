@@ -6,7 +6,7 @@ class DataSetConsts:
     PICTURE_WIDTH = 500
     PICTURE_SIZE = 256
 
-    PICTURE_SUFFIX = 'jpg'
+    PICTURE_SUFFIX = ['jpg', 'png']
 
     def __init__(self):
         pass
