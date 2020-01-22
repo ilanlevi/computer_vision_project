@@ -37,7 +37,7 @@ class MyModel:
         self.batch_size = batch_size
 
         # set keras config
-        theano.config.floatX = 'float32'
+        # theano.config.floatX = 'float32'
         if self.gpu:
             theano.config.device = 'gpu'
 
