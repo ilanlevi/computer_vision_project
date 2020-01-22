@@ -1,9 +1,12 @@
+from keras.callbacks import EarlyStopping
 from keras.layers import Dense
 from keras.models import load_model, save_model, Sequential
 from sympy.printing.theanocode import theano
 
 from consts import MyModelConsts as myC, DataSetConsts as dsC
 from data import ModelData
+from matplotlib import pyplot as plt
+from mytools import write_csv, mkdir
 
 
 class MyModel:
@@ -38,20 +41,23 @@ class MyModel:
         if self.gpu:
             theano.config.device = 'gpu'
 
+    def create(self):
+        self.model = Sequential()
+        size = (self.data.x_train_set.shape[0], self.data.x_train_set.shape[1])
+        self.model.add(Dense(units=150, activation='relu', kernel_regularizer='l2', input_dim=(size, size)))
+        self.model.add(Dense(units=40, activation='relu', kernel_regularizer='l2'))
+        self.model.add(Dense(units=20, activation='relu', kernel_regularizer='l2'))
+        self.model.add(Dense(units=6, activation='linear'))
 
-    def crete(self):
-        model = Sequential()
-        size = self.data.x_train_set.shape[1]
-        model.add(Dense(units=20, activation='relu', kernel_regularizer='l2', input_dim=(size, size))
-        model.add(Dense(units=10, activation='relu', kernel_regularizer='l2'))
-        model.add(Dense(units=6, activation='linear'))
+        print(self.model.summary())
 
-        print(model.summary())
+        self.model.compile(optimizer='adam', loss='mean_squared_error')
 
     def load(self):
         self.model = load_model(self.get_full_path())
 
     def save(self):
+        mkdir(self.path)
         save_model(self.get_full_path())
 
     def get_full_path(self):
@@ -79,4 +85,61 @@ class MyModel:
         self.data.normalize_data()
         self.data.canny_filter()
 
-    def train_model(self):
+    def train_model(self, save=True, plot=True):
+
+        callback_list = [EarlyStopping(monitor='val_loss', patience=25)]
+
+        hist = self.model.fit(x=self.data.x_train_set, y=self.data.y_train_set,
+                              validation_data=(self.data.x_valid_set, self.data.y_valid_set),
+                              batch_size=self.batch_size, epochs=self.epochs,
+                              callbacks=callback_list)
+
+        if save:
+            self.save()
+
+        print()
+        print('Train loss:', self.model.evaluate(self.data.x_train_set, self.data.y_train_set, verbose=0))
+        print('  Val loss:', self.model.evaluate(self.data.x_valid_set, self.data.y_valid_set, verbose=0))
+        print(' Test loss:', self.model.evaluate(self.data.x_test_set, self.data.y_test_set, verbose=0))
+
+        if plot:
+            history = hist.history
+            loss_train = history['loss']
+            loss_val = history['val_loss']
+
+            plt.figure()
+            plt.plot(loss_train, label='train')
+            plt.plot(loss_val, label='val_loss', color='red')
+            plt.legend()
+
+    def model_predict(self, plot=True, save_score=True):
+        y_pred = self.model.predict(self.data.x_test_set)
+        diff = self.data.y_test_set - y_pred
+
+        if plot:
+            diff_roll = diff[:, 0]
+            diff_pitch = diff[:, 1]
+            diff_yaw = diff[:, 2]
+
+            plt.figure(figsize=(16, 10))
+
+            plt.subplot(3, 1, 1)
+            plt.plot(diff_roll, color='red')
+            plt.title('roll')
+
+            plt.subplot(3, 1, 2)
+            plt.plot(diff_pitch, color='red')
+            plt.title('pitch')
+
+            plt.subplot(3, 1, 3)
+            plt.plot(diff_yaw, color='red')
+            plt.title('yaw')
+
+            plt.tight_layout()
+        #
+        # if save_score:
+        #     mkdir(self.path)
+        #     csv_data = []
+        #     for index in range(len(y_pred)):
+        #         csv_data.append()
+        #     write_csv()

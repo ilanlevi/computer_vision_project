@@ -48,39 +48,6 @@ class ModelData(AbstractReadData):
 
         return self
 
-    # todo - delete
-    def print_data_sizes(self):
-        print 'self.x_train_set.shape: '
-        print self.x_train_set.shape
-        print 'self.x_test_set.shape: '
-        print self.x_test_set.shape
-        print 'self.y_train_set.shape: '
-        print self.y_train_set.shape
-        print 'self.y_test_set.shape: '
-        print self.y_test_set.shape
-
-
-    # def pre_process_data(self, sigma=None):
-    #     """
-    #     Preprocess data (canny and size if defined)
-    #     :return: self
-    #     """
-
-        # variables = []
-        # todo - delete?
-        # for index in range(len(CsvConsts.CSV_VALUES_LABELS)):
-        #     var = self.y_train_set[:, index]
-        #     print '%s: [min: %.4f, max: %.4f, mean: %.4f, std: %.4f]' \
-        #           % (CsvConsts.CSV_VALUES_LABELS[index], var.min(), var.max(), var.mean(), var.std())
-        #     variables.append([var.min(), var.max(), var.mean(), var.std()])
-        #
-        # variables = np.asarray(variables)
-        # mkdir(mC.MODEL_DIR)
-        # model_dump(mC.MODEL_STATES_FILE_PATH, variables)
-
-        # canny
-        # self.canny_filter(sigma)
-
     def normalize_data(self):
         # normalize the data
         std = StandardScaler()
