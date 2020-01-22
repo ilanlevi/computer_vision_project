@@ -37,4 +37,4 @@ if __name__ == '__main__':
     output_file_path = folder + dConst.INPUT_FILE_NAME
 
     np.savetxt(output_file_path, input_file_list, fmt='%s,%s,%s')
-    print '> Wrote %d lines to: %s' % (len(input_file_list), output_file_path)
+    print('> Wrote %d lines to: %s' % (len(input_file_list), output_file_path))

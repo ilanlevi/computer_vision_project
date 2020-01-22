@@ -32,7 +32,7 @@ def get_landmarks(img_path, landmarks_suffix='.pts', print_data=False):
 
     except Exception as e:
         if print_data:
-            print 'Error: ' + str(e)
+            print('Error: ' + str(e))
     return None
 
 
@@ -54,5 +54,5 @@ def get_pose(img_path, pose_suffix='.pose', delimiter=', ', print_data=False):
         return data
     except Exception as e:
         if print_data:
-            print 'Error: ' + str(e)
+            print('Error: ' + str(e))
     return None

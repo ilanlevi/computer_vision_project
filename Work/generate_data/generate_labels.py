@@ -8,7 +8,7 @@ from consts.datasets_consts import DataFileConsts as dConsts
 from consts.fpn_model_consts import FPNConsts
 from data.labeled_data import LabeledData
 from models.fpn_wrapper import load_fpn_model, get_3d_pose
-from utils.image_tools import save_images
+from image_utils.image_tools import save_images
 
 """
     This is a generating for checking validation set scores
@@ -61,7 +61,7 @@ def generate_images(data_type):
     folder_name = data_type['FOLDER']
     suffix = data_type['IMAGE_SUFFIX']
 
-    print '> Generating images for: ' + folder_name
+    print('> Generating images for: ' + folder_name)
 
     ds = LabeledData(data_path=folder + folder_name + '\\', picture_suffix=suffix, image_size=500).init()
     ds.read_data_set()
@@ -95,4 +95,5 @@ if __name__ == '__main__':
     # pool.imap_unordered(generate_images, (data_set), )
     pool.map(generate_images, data_sets_list)
 
-    print '> Write images completed! (in: %.2f seconds)' % (time.time() - start_time)
+    print
+    '> Write images completed! (in: %.2f seconds)' % (time.time() - start_time)

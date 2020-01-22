@@ -11,8 +11,8 @@ def read_csv(path, filename='', print_data=False):
     :return: the data or None if failed
     """
     if print_data:
-        print 'Starting to read data!'
-        print 'From: ' + path + filename
+        print('Starting to read data!')
+        print('From: ' + path + filename)
 
     start = time.time()
     data = []
@@ -29,13 +29,13 @@ def read_csv(path, filename='', print_data=False):
 
     except Exception as e:
         if print_data:
-            print 'Read csv failed!'
-            print 'Reason: ' + str(e)
+            print('Read csv failed!')
+            print('Reason: ' + str(e))
         return None
 
     if print_data:
-        print 'Read CSV completed! (in: %.2f seconds)' % (time.time() - start)
-        print 'Total lines: %d' % line_count
+        print('Read CSV completed! (in: %.2f seconds)' % (time.time() - start))
+        print('Total lines: %d' % line_count)
 
     return data
 
@@ -52,8 +52,8 @@ def write_csv(data, fieldnames, path, filename, append=False, print_data=False):
     :return: Succeeded or failed as boolean
     """
     if print_data:
-        print 'Starting to write data!'
-        print 'To: ' + path + filename
+        print('Starting to write data!')
+        print('To: ' + path + filename)
 
     start = time.time()
     line_count = 0
@@ -75,7 +75,7 @@ def write_csv(data, fieldnames, path, filename, append=False, print_data=False):
             for row in data:
                 # check labels and data length
                 if len(fieldnames) is not len(row):
-                    print 'Data and fieldnames error! Line: %d' % line_count
+                    print('Data and fieldnames error! Line: %d' % line_count)
                     return False
                 row_to_write = dict()
                 for i in range(len(row)):
@@ -86,12 +86,12 @@ def write_csv(data, fieldnames, path, filename, append=False, print_data=False):
 
     except Exception as e:
         if print_data:
-            print 'Write csv failed!'
-            print 'Reason: ' + str(e)
+            print('Write csv failed!')
+            print('Reason: ' + str(e))
         return False
 
     if print_data:
-        print 'Write CSV completed! (in: %.2f seconds)' % (time.time() - start)
-        print 'Total lines: %d' % line_count
+        print('Write CSV completed! (in: %.2f seconds)' % (time.time() - start))
+        print('Total lines: %d' % line_count)
 
     return True

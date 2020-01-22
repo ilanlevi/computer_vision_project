@@ -44,7 +44,7 @@ class MyModel:
     def create(self):
         self.model = Sequential()
         size = (self.data.x_train_set.shape[0], self.data.x_train_set.shape[1])
-        self.model.add(Dense(units=150, activation='relu', kernel_regularizer='l2', input_dim=(size, size)))
+        self.model.add(Dense(units=150, activation='relu', kernel_regularizer='l2', input_dim=size))
         self.model.add(Dense(units=40, activation='relu', kernel_regularizer='l2'))
         self.model.add(Dense(units=20, activation='relu', kernel_regularizer='l2'))
         self.model.add(Dense(units=6, activation='linear'))

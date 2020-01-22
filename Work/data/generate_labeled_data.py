@@ -1,11 +1,11 @@
 import numpy as np
 
-from abstract_read_data import AbstractReadData
+from .abstract_read_data import AbstractReadData
 from consts import CsvConsts
 from consts import DataFileConsts
 from consts import DataSetConsts
 from mytools import read_csv, get_files_list
-from utils import load_images
+from image_utils import load_images
 
 
 class GenerateLabeledData(AbstractReadData):

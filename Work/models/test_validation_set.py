@@ -2,7 +2,7 @@ from random import randint
 
 import matplotlib.pyplot as plt
 import cv2
-from utils.draw_tools import roi_from_landmarks, display_landmarks
+# from image_utils.draw_tools import roi_from_landmarks, display_landmarks
 from compare_utils import plot_diff, plot_diff_each_param, compare_scores
 from consts.csv_consts import CsvConsts
 from consts.fpn_model_consts import FPNConsts

@@ -28,10 +28,10 @@ def load_images(images_path_list, size=None, gray=True, print_data=False):
             im = resize(im, size, size)
             ims.append(im)
         except Exception as e:
-            print ('Error while reading image!Path= %s\nError= %s' % (image_path, str(e)))
+            print('Error while reading image!Path= %s\nError= %s' % (image_path, str(e)))
 
     if print_data:
-        print 'Loading images took: %.2f seconds' % (time.time() - start)
+        print('Loading images took: %.2f seconds' % (time.time() - start))
 
     return ims
 
@@ -57,10 +57,10 @@ def save_images(images, path, print_data=False):
                 np.savetxt(pts_file + '.pts', landmarks, fmt="%.4f")
         except Exception as e:
             if print_data:
-                print ('Error while saving image!Path= %s\nError= %s' % (name, str(e)))
+                print('Error while saving image!Path= %s\nError= %s' % (name, str(e)))
 
     if print_data:
-        print 'Saving images took: %.2f seconds' % (time.time() - start)
+        print('Saving images took: %.2f seconds' % (time.time() - start))
 
     return ims
 

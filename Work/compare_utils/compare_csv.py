@@ -77,11 +77,11 @@ def print_param_details(param_name, param_index, arr):
     :param arr: the difference array
     :return: None - print data
     """
-    print '#####'
-    print 'avg_' + param_name + ' = ' + str(np.mean(arr[:, param_index]))
-    print 'max_' + param_name + ' = ' + str(np.max(arr[:, param_index]))
-    print 'min_' + param_name + ' = ' + str(np.min(arr[:, param_index]))
-    print '#####'
+    print('#####')
+    print('avg_' + param_name + ' = ' + str(np.mean(arr[:, param_index])))
+    print('max_' + param_name + ' = ' + str(np.max(arr[:, param_index])))
+    print('min_' + param_name + ' = ' + str(np.min(arr[:, param_index])))
+    print('#####')
 
 
 def compare_scores(folder, f1, f2, f_new, print_data=False):

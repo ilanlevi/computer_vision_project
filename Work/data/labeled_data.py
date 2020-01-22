@@ -1,9 +1,9 @@
 import numpy as np
 
-from abstract_read_data import AbstractReadData
+from .abstract_read_data import AbstractReadData
 from consts import DataSetConsts
 from mytools import get_files_list
-from utils import load_images, resize_image_and_landmarks
+from image_utils import load_images, resize_image_and_landmarks
 from mytools import get_landmarks
 
 

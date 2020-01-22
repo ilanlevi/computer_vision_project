@@ -63,7 +63,7 @@ class AbstractReadData:
         start = time.time()
         r = self._init(**kwargs)
         end = time.time()
-        print 'loading and init data took: %.2f sec.' % (end - start)
+        print('loading and init data took: %.2f sec.' % (end - start))
         return r
 
     def set_size(self, train_size, test_size):

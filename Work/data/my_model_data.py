@@ -1,11 +1,11 @@
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 
-from abstract_read_data import AbstractReadData
+from .abstract_read_data import AbstractReadData
 from consts import DataSetConsts
 from mytools import get_files_list
 from mytools import get_pose
-from utils import load_images, auto_canny
+from image_utils import load_images, auto_canny
 
 
 class ModelData(AbstractReadData):
@@ -65,7 +65,7 @@ class ModelData(AbstractReadData):
                 self.y_train_set.append(img_pose)
                 self.x_train_set.append(tmp_x_train_set[index])
             else:
-                print '> Cannot find pose, ignoring image: ' + self.original_file_list[index]
+                print('> Cannot find pose, ignoring image: ' + self.original_file_list[index])
 
         self.y_train_set = np.asarray(self.y_train_set)
         self.x_train_set = np.asarray(self.x_train_set)
