@@ -3,6 +3,8 @@ import time
 import numpy as np
 import cv2
 
+from mytools.my_io import get_prefix
+
 
 def load_images(images_path_list, size=None, gray=True, print_data=False):
     """
@@ -46,10 +48,13 @@ def save_images(images, path, print_data=False):
     start = time.time()
 
     ims = []
-    for name, image in images:
+    for name, image, landmarks in images:
         try:
             full_path = path + name
             cv2.imwrite(full_path, image)
+            if len(landmarks) > 0:
+                pts_file = get_prefix(full_path)
+                np.savetxt(pts_file + '.pts', landmarks, fmt="%.4f")
         except Exception as e:
             if print_data:
                 print ('Error while saving image!Path= %s\nError= %s' % (name, str(e)))

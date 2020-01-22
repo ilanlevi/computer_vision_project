@@ -16,6 +16,8 @@ def get_files_list(path, suffixes=None):
     if not isinstance(suffixes, list):
         suffixes = [suffixes]
 
+    suffixes = np.unique(suffixes)
+
     files = [os.path.join(r, file_) for r, d, f in os.walk(path) for file_ in f]
     f_list = []
     for file_name in files:
