@@ -4,7 +4,8 @@ from abstract_read_data import AbstractReadData
 from consts import DataSetConsts
 from mytools import get_files_list
 from utils import load_images, resize_image_and_landmarks
-from mytools import get_pose
+from mytools import get_pose, model_load, model_dump, mkdir
+from consts import CsvConsts
 
 
 class ModelData(AbstractReadData):
@@ -36,7 +37,16 @@ class ModelData(AbstractReadData):
         Preprocess data (hog and size if defined)
         :return: self
         """
-        if self.to_hog:
+        variables = []
+        for index in range(len(CsvConsts.CSV_VALUES_LABELS)):
+            var = self.y_train_set[:, index]
+            print '%s: [min: %.4f, max: %.4f, mean: %.4f, std: %.4f]' \
+                  % (CsvConsts.CSV_VALUES_LABELS[index], var.min(), var.max(), var.mean(), var.std())
+            variables.append([var.min(), var.max(), var.mean(), var.std()])
+
+        variables = np.asarray(variables)
+        mkdir('/mymodel')
+        model_dump('/mymodel/stats.npy')
 
 
 
@@ -58,8 +68,11 @@ class ModelData(AbstractReadData):
 
         return self
 
-    def _init(self):
+    def _init(self, preprocess=False):
         self.original_file_list = self.get_original_list()
         self.read_data_set()
-        self.pre_process_data()
+        if preprocess:
+            self.pre_process_data()
+        # todo - reload from npy file data
+        # self.load_data()
         return self
