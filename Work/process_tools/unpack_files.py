@@ -11,9 +11,9 @@ def unzipped_data(files, to_dir=None, print_data=False):
     :return: True if succeed or false other wise
     """
     if print_data:
-        print 'Starting to unzip data!'
-        print 'From: ' + files
-        print 'To: ' + to_dir
+        print('Starting to unzip data!')
+        print('From: ' + files)
+        print('To: ' + to_dir)
 
     # convert to lists if needed
     if not isinstance(files, list):
@@ -29,11 +29,11 @@ def unzipped_data(files, to_dir=None, print_data=False):
             # both files are closed at this point
         except Exception as e:
             if print_data:
-                print 'Extracting failed! (in: %.2f seconds)' % (time.time() - start)
-                print 'Reason: ' + str(e)
+                print('Extracting failed! (in: %.2f seconds)' % (time.time() - start))
+                print('Reason: ' + str(e))
             return False
 
     if print_data:
-        print 'Extracting completed! (in: %.2f seconds)' % (time.time() - start)
+        print('Extracting completed! (in: %.2f seconds)' % (time.time() - start))
 
     return True

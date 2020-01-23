@@ -14,9 +14,9 @@ def download_data(download_urls, file_names, to_path='', print_data=False):
     """
 
     if print_data:
-        print 'Starting to download data!'
-        print 'From: ' + download_urls
-        print 'To: ' + file_names
+        print('Starting to download data!')
+        print('From: ' + download_urls)
+        print('To: ' + file_names)
 
     # convert to lists if needed
     if not isinstance(download_urls, list):
@@ -27,7 +27,7 @@ def download_data(download_urls, file_names, to_path='', print_data=False):
     # check length
     if len(download_urls) != len(file_names):
         if print_data:
-            print 'The list sizes doesnt match, ignoring!'
+            print('The list sizes doesnt match, ignoring!')
         return False
 
     start = time.time()
@@ -37,10 +37,10 @@ def download_data(download_urls, file_names, to_path='', print_data=False):
             urllib.urlretrieve(download_url, to_path + f_name)
         except Exception as e:
             if print_data:
-                print 'Download failed! (in: %.2f seconds)' % (time.time() - start)
-                print 'Reason: ' + str(e)
+                print('Download failed! (in: %.2f seconds)' % (time.time() - start))
+                print('Reason: ' + str(e))
             return False
 
     if print_data:
-        print 'Download completed! (in: %.2f seconds)' % (time.time() - start)
+        print('Download completed! (in: %.2f seconds)' % (time.time() - start))
     return True

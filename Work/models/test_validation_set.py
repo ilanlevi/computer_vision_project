@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 
+# from image_utils.draw_tools import roi_from_landmarks, display_landmarks
 from compare_utils import plot_diff, plot_diff_each_param, compare_scores
 from consts.csv_consts import CsvConsts
 from consts.fpn_model_consts import FPNConsts
@@ -15,8 +16,7 @@ from mytools.csv_files_tools import write_csv, read_csv
 
 def generate_dataset(files_list):
     # create dataset
-    ds = LabeledData(data_path=fConsts.VALIDATION_FOLDER, label_file_name=fConsts.VALIDATION_CSV, to_gray=False,
-                     target_sub=fConsts.PROCESSED_SET_FOLDER, picture_suffix='png').init()
+    ds = LabeledData(data_path=fConsts.VALIDATION_FOLDER, to_gray=True, picture_suffix='png').init()
 
     files_list = [(fConsts.VALIDATION_FOLDER + fConsts.VALID_SET_SUB_FOLDER + file_name) for file_name in files_list]
 
@@ -45,7 +45,7 @@ def load_data_and_models():
 
 def align_images(camera_matrix, model_matrix, data_set):
     scores_vectors = []
-
+    # rnd = randint(0, len(data_set.original_file_list) - 1)
     for i in range(len(data_set.original_file_list)):
         lmarks = data_set.y_train_set[i]
 
@@ -54,6 +54,12 @@ def align_images(camera_matrix, model_matrix, data_set):
 
         rx, ry, rz, tx, ty, tz = get_3d_pose(camera_matrix, model_matrix, lmarks)
         this_score = [i, name, rx, ry, rz, tx, ty, tz]
+
+        # if i == rnd:
+        #     img = data_set.x_train_set[i]
+        #     img = display_landmarks(img, lmarks)
+        #     roi = roi_from_landmarks(img, lmarks)
+        #     cv2.imshow("Output - %s" % name, roi)
 
         scores_vectors.append(this_score)
 

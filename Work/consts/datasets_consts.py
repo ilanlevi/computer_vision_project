@@ -4,22 +4,39 @@ class DataFileConsts:
 
     DOWNLOAD_FOLDER = 'C:\\Work\\ComputerVision\\datasets\\data\\'
 
+    OUTPUT_FOLDER = 'output\\'
+
+    OUTPUT_FILE_SUFFIX = '.param'
     OUTPUT_FILE_NAME = 'scores.csv'
 
-    # helen dataset consts
-    NUMBER_OF_HELEN_LINKS = 5
+    INPUT_FILE_NAME = 'input.txt'
 
-    HELEN_INFO_URL = 'http://www.ifp.illinois.edu/~vuongle2/helen/'
+    # all of the data was downloaded from:
+    # https://ibug.doc.ic.ac.uk/resources
 
-    HELEN_DATA = {
-        'FOLDER': 'helen\\',
-        'ANNOTATIONS': 'annotations\\',
-        'FILES': ['helen_%d.zip' % i for i in range(1, 1 + NUMBER_OF_HELEN_LINKS)],
-        'DOWNLOAD_URLS': [
-            HELEN_INFO_URL + 'data/helen_' + 'helen_%d.zip' % i for i in range(1, 1 + NUMBER_OF_HELEN_LINKS)
-        ],
-        'ANNOTATIONS_DOWNLOAD': (HELEN_INFO_URL + 'data/annotation.zip'),
-        'FORMATTED': 'helen_' + CONVERTED_FILE_NAME,
+    W300_DATA = {
+        'FOLDER': '300W',
+        'IMAGE_SUFFIX': '.png'
+    }
+
+    AFW_DATA = {
+        'FOLDER': 'afw',
         'IMAGE_SUFFIX': '.jpg'
     }
 
+    IBUG_DATA = {
+        'FOLDER': 'ibug',
+        'IMAGE_SUFFIX': '.jpg',
+    }
+
+    HELEN_DATA = {
+        'FOLDER': 'helen',
+        'IMAGE_SUFFIX': '.jpg',
+    }
+
+    LFPW_DATA = {
+        'FOLDER': 'lfpw',
+        'IMAGE_SUFFIX': '.png',
+    }
+
+    ALL_DATASETS = [W300_DATA, AFW_DATA, IBUG_DATA, HELEN_DATA, LFPW_DATA]

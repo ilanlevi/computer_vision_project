@@ -2,6 +2,9 @@
   <dictionary name="ilan_">
     <words>
       <w>dataset</w>
+      <w>keras</w>
+      <w>preprocess</w>
+      <w>scaler</w>
     </words>
   </dictionary>
 </component>

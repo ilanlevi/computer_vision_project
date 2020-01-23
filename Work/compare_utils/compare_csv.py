@@ -37,6 +37,38 @@ def calc_theta_score(A, B):
     return theta
 
 
+def calc_theta_score_no_csv(A, B):
+    """
+    Calculate the difference between to images 6DoF:
+        theta = np.rad2deg(np.arccos( ( np.trace(A.T @ B) - 1 )/ 2))
+
+    :param A: rotation matrix #1
+    :param B: rotation matrix #2
+    :return: theta score
+    """
+    rot_v1 = np.asarray([A[0], A[1], A[2]])
+    rot_v2 = np.asarray([B[0], B[1], B[2]])
+
+    rot_m_1, _ = cv2.Rodrigues(rot_v1)
+    rot_m_2, _ = cv2.Rodrigues(rot_v2)
+
+    r_matrix = rot_m_2.dot(rot_m_1.T)
+    angle = (np.trace(r_matrix) - 1) / 2
+
+    # check possible NaN
+    if abs(angle) > 1:
+        angle = 1
+
+    theta = np.arccos(angle)
+
+    theta = np.rad2deg(theta)
+
+    if theta > 90:
+        theta = abs(180 - theta)
+
+    return theta
+
+
 def print_param_details(param_name, param_index, arr):
     """
     print the result differences for a param
@@ -45,11 +77,11 @@ def print_param_details(param_name, param_index, arr):
     :param arr: the difference array
     :return: None - print data
     """
-    print '#####'
-    print 'avg_' + param_name + ' = ' + str(np.mean(arr[:, param_index]))
-    print 'max_' + param_name + ' = ' + str(np.max(arr[:, param_index]))
-    print 'min_' + param_name + ' = ' + str(np.min(arr[:, param_index]))
-    print '#####'
+    print('#####')
+    print('avg_' + param_name + ' = ' + str(np.mean(arr[:, param_index])))
+    print('max_' + param_name + ' = ' + str(np.max(arr[:, param_index])))
+    print('min_' + param_name + ' = ' + str(np.min(arr[:, param_index])))
+    print('#####')
 
 
 def compare_scores(folder, f1, f2, f_new, print_data=False):

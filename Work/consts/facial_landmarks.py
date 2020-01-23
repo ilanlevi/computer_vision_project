@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+# TODO - DELTE
 
 class FacialLandmarksConsts:
     FACIAL_LANDMARKS_68_INDEXES = OrderedDict([
