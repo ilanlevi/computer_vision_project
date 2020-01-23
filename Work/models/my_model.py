@@ -1,7 +1,7 @@
 import os
 
 from keras.callbacks import EarlyStopping
-from keras.layers import Dense, MaxPooling2D, Dropout, Conv2D
+from keras.layers import Dense, Dropout
 from keras.models import load_model, save_model, Sequential
 from matplotlib import pyplot as plt
 
@@ -37,20 +37,19 @@ class MyModel:
         self.epochs = epochs
         self.batch_size = batch_size
 
-        # set keras config
-        # theano.config.floatX = 'float32'
-        # todo
         if self.gpu:
-            os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+            os.environ['KERAS_BACKEND'] = 'tensorflow'
+            os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
     def create(self):
         self.model = Sequential()
-
+        # todo = mean?
         # self.model.add(Dense(units=120, activation='relu', kernel_regularizer='l2', input_dim=160 * 160))
-        conv_size = int(self.image_size * 0.8)
-        self.model.add(Conv2D(conv_size, (3, 3), activation='relu', input_shape=(1, self.image_size, self.image_size)))
-        self.model.add(Conv2D(conv_size, (3, 3), activation='relu'))
-        self.model.add(MaxPooling2D(pool_size=(2, 2)))
+        input_size = self.image_size * self.image_size
+        conv_size = int(input_size * 0.5)
+        self.model.add(Dense(units=conv_size, activation='relu', kernel_regularizer='l2', input_dim=input_size))
+        # self.model.add(Conv2D(conv_size, (3, 3), activation='relu'))
+        # self.model.add(MaxPooling2D(pool_size=(2, 2)))
         self.model.add(Dropout(0.25))
         self.model.add(Dense(units=120, activation='relu', kernel_regularizer='l2'))
         self.model.add(Dense(units=40, activation='relu', kernel_regularizer='l2'))
@@ -59,7 +58,7 @@ class MyModel:
 
         print(self.model.summary())
 
-        self.model.compile(optimizer='adam', loss='mean_squared_error', use_multiprocessing=True)
+        self.model.compile(optimizer='adam', loss='mean_squared_error')
 
     def load(self):
         self.model = load_model(self.get_full_path())
@@ -89,7 +88,8 @@ class MyModel:
                                    to_gray=True, to_hog=True, sigma=sigma, test_rate=t_rate, valid_rate=v_rate)
 
     def train_model(self, save=True, plot=True):
-
+        # mark to fit
+        self.data.to_fit = True
         test_files, validation_files = self.data.split_to_train_and_validation()
 
         self.test_data = KerasModelData(self.data_path, original_file_list=test_files)
@@ -97,15 +97,16 @@ class MyModel:
 
         callback_list = [EarlyStopping(monitor='val_loss', patience=25)]
 
-        hist = self.model.fit_generator(generator=self.data, validation_data=validation_data, callbacks=callback_list)
+        hist = self.model.fit_generator(generator=self.data, validation_data=validation_data, callbacks=callback_list,
+                                        epochs=self.epochs, use_multiprocessing=True, verbose=0, )
 
         if save:
             self.save()
 
         print()
-        print('Train loss:', self.model.evaluate(self.data.x_train_set, self.data.y_train_set, verbose=0))
-        print('  Val loss:', self.model.evaluate(self.data.x_valid_set, self.data.y_valid_set, verbose=0))
-        print(' Test loss:', self.model.evaluate(self.data.x_test_set, self.data.y_test_set, verbose=0))
+        print('Train loss:', self.model.evaluate_generator(self.data, use_multiprocessing=True))
+        print('  Val loss:', self.model.evaluate_generator(validation_data, use_multiprocessing=True))
+        print(' Test loss:', self.model.evaluate_generator(self.test_data, use_multiprocessing=True))
 
         if plot:
             history = hist.history
@@ -144,6 +145,7 @@ class MyModel:
             plt.title('yaw')
 
             plt.tight_layout()
+            print('blabla')
         #
         # if save_score:
         #     mkdir(self.path)

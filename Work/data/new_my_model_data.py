@@ -4,8 +4,7 @@ from tensorflow.keras.utils import Sequence
 
 from consts import DataSetConsts
 from image_utils import load_image, auto_canny
-from mytools import get_files_list
-from mytools import get_pose
+from mytools import get_files_list, get_pose
 
 
 # todo - comments
@@ -15,12 +14,13 @@ class KerasModelData(Sequence):
     """
 
     def __init__(self, data_path, dim=160, picture_suffix=DataSetConsts.PICTURE_SUFFIX, to_gray=True,
-                 to_hog=True, sigma=0.33, batch_size=500, shuffle=True, to_fit=False, out_dim=6,
+                 to_hog=True, sigma=0.33, batch_size=100, shuffle=True, to_fit=False, out_dim=6,
                  test_rate=DataSetConsts.DEFAULT_TEST_RATE, valid_rate=DataSetConsts.DEFAULT_VALID_RATE,
                  original_file_list=None):
 
         self.data_path = data_path
-        self.dim = (dim, dim)
+        self.dim = dim * dim
+        self.picture_size = dim
         self.out_dim = out_dim
         self.picture_suffix = picture_suffix
         self.to_gray = to_gray
@@ -106,12 +106,12 @@ class KerasModelData(Sequence):
         :return: batch of images
         """
         # Initialization
-        X = np.empty((self.batch_size, *self.dim, self.n_channels))
+        X = np.empty((self.batch_size, self.dim))
 
         # Generate data
         for i, ID in enumerate(list_IDs_temp):
             # Store sample
-            X[i,] = self._load_image(self.image_path)
+            X[i,] = self._load_image(ID)
 
         return X
 
@@ -120,7 +120,7 @@ class KerasModelData(Sequence):
         :param list_IDs_temp: list of label ids to load
         :return: batch if masks
         """
-        y = np.empty((self.batch_size, *self.out_dim), dtype=int)
+        y = np.empty((self.batch_size, self.out_dim), dtype=np.float)
 
         # Generate data
         for i, ID in enumerate(list_IDs_temp):
@@ -134,10 +134,11 @@ class KerasModelData(Sequence):
         :param image_path: path to image to load
         :return: loaded image
         """
-        tmp_image = load_image(image_path, size=self.dim[0], gray=self.to_gray)
+        tmp_image = load_image(image_path, size=self.picture_size, gray=self.to_gray)
         tmp_image = np.asarray(tmp_image, dtype=np.uint8)
-        # todo - normalize?
         if self.to_hog:
             tmp_image = auto_canny(tmp_image, self.sigma)
-        tmp_image = np.asarray(tmp_image, (1, self.dim[0], self.dim[1]))
+        tmp_image = np.asarray(tmp_image, dtype=np.float)
+        tmp_image = tmp_image.flatten()
+        tmp_image = tmp_image / 255
         return tmp_image

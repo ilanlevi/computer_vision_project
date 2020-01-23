@@ -1,6 +1,6 @@
 import numpy as np
 
-from mytools import get_prefix
+from .my_io import get_prefix
 
 
 def get_landmarks(img_path, landmarks_suffix='.pts', print_data=False):
