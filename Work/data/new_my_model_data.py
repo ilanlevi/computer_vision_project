@@ -14,7 +14,7 @@ class KerasModelData(Sequence):
     """
 
     def __init__(self, data_path, dim=160, picture_suffix=DataSetConsts.PICTURE_SUFFIX, to_gray=True,
-                 to_hog=True, sigma=0.33, batch_size=100, shuffle=True, to_fit=False, out_dim=6,
+                 to_hog=True, sigma=0.33, batch_size=64, shuffle=True, to_fit=False, out_dim=6,
                  test_rate=DataSetConsts.DEFAULT_TEST_RATE, valid_rate=DataSetConsts.DEFAULT_VALID_RATE,
                  original_file_list=None):
 

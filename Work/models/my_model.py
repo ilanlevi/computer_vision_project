@@ -46,7 +46,7 @@ class MyModel:
         # todo = mean?
         # self.model.add(Dense(units=120, activation='relu', kernel_regularizer='l2', input_dim=160 * 160))
         input_size = self.image_size * self.image_size
-        conv_size = int(input_size * 0.5)
+        conv_size = int(input_size * 0.01)
         self.model.add(Dense(units=conv_size, activation='relu', kernel_regularizer='l2', input_dim=input_size))
         # self.model.add(Conv2D(conv_size, (3, 3), activation='relu'))
         # self.model.add(MaxPooling2D(pool_size=(2, 2)))
@@ -98,7 +98,7 @@ class MyModel:
         callback_list = [EarlyStopping(monitor='val_loss', patience=25)]
 
         hist = self.model.fit_generator(generator=self.data, validation_data=validation_data, callbacks=callback_list,
-                                        epochs=self.epochs, use_multiprocessing=True, verbose=0, )
+                                        epochs=self.epochs, use_multiprocessing=True, )
 
         if save:
             self.save()
