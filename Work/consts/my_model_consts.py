@@ -25,4 +25,5 @@ class MyModelConsts:
     MODEL_NAME_PATH = MODEL_DIR + '/' + 'Model.h5'
 
     BATCH_SIZE = 64
-    EPOCHS = 120
+    # todo change
+    EPOCHS = 5

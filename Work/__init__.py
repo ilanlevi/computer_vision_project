@@ -1,5 +1,5 @@
 # create pyimagesearch.com/2018/03/12/python-argparse-command-line-arguments/
-
+# todo
 # construct the argument parser and parse the arguments
 # ap = argparse.ArgumentParser()
 # ap.add_argument("-d", "--dataset", required=True,
