@@ -28,7 +28,7 @@ class KerasModelData(Sequence):
         self.sigma = sigma
         self.batch_size = batch_size
         self.shuffle = shuffle
-        self.to_fit = to_fit
+        self._to_fit = to_fit
         self.test_rate = test_rate
         self.valid_rate = valid_rate
 
@@ -72,6 +72,8 @@ class KerasModelData(Sequence):
         :return: number of batches per epoch
         """
         return int(np.floor(len(self.original_file_list) / self.batch_size))
+        # todo remove
+        # return 3
 
     def __getitem__(self, index):
         """Generate one batch of data
@@ -87,7 +89,7 @@ class KerasModelData(Sequence):
         # Generate data
         X, delete_indexes = self._generate_x(list_IDs_temp)
 
-        if self.to_fit:
+        if self._to_fit:
             y = self._generate_y(list_IDs_temp, delete_indexes)
             return X, y
         else:
