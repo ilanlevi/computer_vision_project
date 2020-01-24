@@ -46,12 +46,12 @@ class MyModel:
         # todo = mean?
         # self.model.add(Dense(units=120, activation='relu', kernel_regularizer='l2', input_dim=160 * 160))
         input_size = self.image_size * self.image_size
-        conv_size = int(input_size * 0.01)
-        self.model.add(Dense(units=conv_size, activation='relu', kernel_regularizer='l2', input_dim=input_size))
+        conv_size = int(input_size / 100)
+        self.model.add(Dense(units=conv_size, activation='relu', kernel_regularizer='l1', input_dim=input_size))
         # self.model.add(Conv2D(conv_size, (3, 3), activation='relu'))
         # self.model.add(MaxPooling2D(pool_size=(2, 2)))
         self.model.add(Dropout(0.25))
-        self.model.add(Dense(units=120, activation='relu', kernel_regularizer='l2'))
+        self.model.add(Dense(units=50, activation='relu', kernel_regularizer='l2'))
         self.model.add(Dense(units=40, activation='relu', kernel_regularizer='l2'))
         self.model.add(Dense(units=20, activation='relu', kernel_regularizer='l2'))
         self.model.add(Dense(units=6, activation='linear'))

@@ -85,10 +85,10 @@ class KerasModelData(Sequence):
         list_IDs_temp = [self.original_file_list[k] for k in indexes]
 
         # Generate data
-        X = self._generate_X(list_IDs_temp)
+        X, delete_indexes = self._generate_x(list_IDs_temp)
 
         if self.to_fit:
-            y = self._generate_y(list_IDs_temp)
+            y = self._generate_y(list_IDs_temp, delete_indexes)
             return X, y
         else:
             return X
@@ -100,7 +100,7 @@ class KerasModelData(Sequence):
         if self.shuffle:
             np.random.shuffle(self.indexes)
 
-    def _generate_X(self, list_IDs_temp):
+    def _generate_x(self, list_IDs_temp):
         """Generates data containing batch_size images
         :param list_IDs_temp: list of label ids to load
         :return: batch of images
@@ -109,13 +109,22 @@ class KerasModelData(Sequence):
         X = np.empty((self.batch_size, self.dim))
 
         # Generate data
+        delete_indexes = []
         for i, ID in enumerate(list_IDs_temp):
             # Store sample
-            X[i,] = self._load_image(ID)
+            try:
+                x = self._load_image(ID)
+                X[i,] = x
+            except Exception as e:
+                delete_indexes.append(i)
+                print("_load_image for %s, error: %s" % (ID, str(e)))
 
-        return X
+        for index in delete_indexes:
+            X = np.delete(X, index)
 
-    def _generate_y(self, list_IDs_temp):
+        return X, delete_indexes
+
+    def _generate_y(self, list_IDs_temp, delete_indexes=None):
         """Generates data containing batch_size masks
         :param list_IDs_temp: list of label ids to load
         :return: batch if masks
@@ -125,7 +134,10 @@ class KerasModelData(Sequence):
         # Generate data
         for i, ID in enumerate(list_IDs_temp):
             # Store sample
-            y[i,] = np.asarray(get_pose(self.original_file_list[i]), dtype=np.float)
+            y[i,] = np.asarray(get_pose(ID), dtype=np.float)
+
+        for index in delete_indexes:
+            y = np.delete(y, index)
 
         return y
 
@@ -134,6 +146,7 @@ class KerasModelData(Sequence):
         :param image_path: path to image to load
         :return: loaded image
         """
+
         tmp_image = load_image(image_path, size=self.picture_size, gray=self.to_gray)
         tmp_image = np.asarray(tmp_image, dtype=np.uint8)
         if self.to_hog:
