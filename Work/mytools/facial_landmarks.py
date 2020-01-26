@@ -38,8 +38,7 @@ def get_landmarks(img_path, landmarks_suffix=DataSetConsts.LANDMARKS_FILE_SUFFIX
     return None
 
 
-# todo delete
-def save_landmarks(img_path, lmarks, landmarks_suffix='.ptsm', print_data=False):
+def save_landmarks(img_path, lmarks, landmarks_suffix=DataSetConsts.LANDMARKS_FILE_SUFFIX, print_data=False):
     """
         Save landmarks from file for given image
         :param img_path: the full image path
@@ -52,7 +51,7 @@ def save_landmarks(img_path, lmarks, landmarks_suffix='.ptsm', print_data=False)
     path = prefix + landmarks_suffix
     try:
         lmarks = np.asarray(lmarks)
-        np.savetxt(path, lmarks, fmt='%.4f', delimiter=' ')
+        np.savetxt(path, lmarks, fmt='%.4f', delimiter=' ', header='{', footer='}')
 
     except Exception as e:
         if print_data:
@@ -60,6 +59,7 @@ def save_landmarks(img_path, lmarks, landmarks_suffix='.ptsm', print_data=False)
     return None
 
 
+# todo delete
 def get_pose(img_path, pose_suffix='.pose', delimiter=', ', print_data=False):
     """
     Read and return pose from file for given image

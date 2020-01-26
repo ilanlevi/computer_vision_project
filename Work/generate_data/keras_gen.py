@@ -6,6 +6,7 @@ from models import load_fpn_model
 from mytools import get_landmarks
 
 
+# todo - delete
 def gen_lmarks_and_image(image_path):
     image = load_image(image_path, gray=False)
     shape = image.shape

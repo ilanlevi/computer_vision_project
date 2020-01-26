@@ -7,6 +7,8 @@ from data import ModelData
 from mytools.my_io import mkdir
 
 
+# todo - delete
+
 def update_pickle():
     data = np.load(DATA)
     print(data['arr_0'].mean())

@@ -5,6 +5,8 @@ import numpy as np
 from consts import DataFileConsts as dConst
 from mytools import get_files_list, get_prefix, get_suffix, get_landmarks, save_landmarks
 
+# todo - delete
+
 if __name__ == '__main__':
 
     folder = dConst.DOWNLOAD_FOLDER

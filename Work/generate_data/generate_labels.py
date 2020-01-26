@@ -14,6 +14,7 @@ from models.fpn_wrapper import load_fpn_model, get_3d_pose
     This is a generating for checking validation set scores
 """
 
+# todo - delete
 
 def align_images(cam_m, model_m, dataset, prefix_string=''):
     scores_vectors = []

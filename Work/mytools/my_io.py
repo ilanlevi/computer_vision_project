@@ -31,6 +31,14 @@ def get_files_list(path, suffixes=None):
     return f_list
 
 
+def count_files_in_dir(dir_path):
+    """:return number of files in dir (avoiding subdirectories)"""
+    if dir_path is None or dir_path is '':
+        return None
+    only_files = next(os.walk(dir_path))[2]
+    return len(only_files)
+
+
 def mkdir(d):
     """only works on *nix system"""
     if not os.path.isdir(d) and not os.path.exists(d):

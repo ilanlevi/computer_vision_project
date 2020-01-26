@@ -3,8 +3,6 @@ import time
 import cv2
 import numpy as np
 
-from mytools.my_io import get_prefix
-
 
 def load_images(images_path_list, size=None, gray=True, print_data=False):
     """
@@ -57,6 +55,7 @@ def load_image(image_path, size=None, gray=True, print_data=False):
     return im
 
 
+# todo - check this (i think it wont work)
 def save_images(images, path, print_data=False):
     """
     for each image: save image with name
@@ -69,13 +68,10 @@ def save_images(images, path, print_data=False):
     start = time.time()
 
     ims = []
-    for name, image, landmarks in images:
+    for name, image in images:
         try:
             full_path = path + name
             cv2.imwrite(full_path, image)
-            if len(landmarks) > 0:
-                pts_file = get_prefix(full_path)
-                np.savetxt(pts_file + '.pts', landmarks, fmt="%.4f")
         except Exception as e:
             if print_data:
                 print('Error while saving image!Path= %s\nError= %s' % (name, str(e)))
@@ -84,6 +80,26 @@ def save_images(images, path, print_data=False):
         print('Saving images took: %.2f seconds' % (time.time() - start))
 
     return ims
+
+
+def save_image(image, image_name_with_path, print_data=False):
+    """
+    save image with name
+    :param print_data: print duration data (default is false)
+    :param image: the image to save
+    :param image_name_with_path: the image path + name
+    """
+
+    start = time.time()
+
+    try:
+        cv2.imwrite(image_name_with_path, image)
+    except Exception as e:
+        if print_data:
+            print('Error while saving image!Path= %s\nError= %s' % (image_name_with_path, str(e)))
+
+    if print_data:
+        print('Saving images took: %.2f seconds' % (time.time() - start))
 
 
 def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
@@ -152,10 +168,3 @@ def auto_canny(image, sigma=0.33):
 
     # return the edged image
     return edged
-
-# todo
-# Translations
-# Rotations
-# Changes in scale
-# Shearing
-# Horizontal (and in some cases, vertical) flips

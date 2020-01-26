@@ -1,12 +1,13 @@
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
 import scipy.io as scio
 import sklearn.metrics
-import cv2
-import numpy as np
-import matplotlib.pyplot as plt
 
 np.set_printoptions(formatter={'float_kind': lambda x: "%.4f" % x})
 
 
+# todo - delete
 # model imported from
 # https://github.com/fengju514/Face-Pose-Net
 class FaceModel:

@@ -12,7 +12,7 @@ class DataSetConsts:
     BATCH_SIZE = 64
     OUT_DIM = 6
 
-    LANDMARKS_PREFIX = 'landmarks_'
+    LANDMARKS_PREFIX = '_landmarks_'
 
     LANDMARKS_FILE_SUFFIX = '.pts'
 

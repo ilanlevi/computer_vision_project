@@ -106,6 +106,7 @@ class MyModel:
                                    to_fit=True)
 
     def train_model(self, save=True, plot=False):
+        # todo - change to vgg format
         # mark to fit
         test_files, validation_files = self.data.split_to_train_and_validation()
 

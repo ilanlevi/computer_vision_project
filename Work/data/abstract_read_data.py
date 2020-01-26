@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from consts.ds_consts import DataSetConsts
 
 
+# todo - remove
 class AbstractReadData:
     __metaclass__ = ABCMeta
 

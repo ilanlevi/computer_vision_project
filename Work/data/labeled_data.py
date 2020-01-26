@@ -7,6 +7,7 @@ from mytools import get_landmarks
 from .abstract_read_data import AbstractReadData
 
 
+# todo - copy AbstractReadData and remove AbstractReadData
 class LabeledData(AbstractReadData):
 
     def __init__(self, data_path, image_size=None, picture_suffix=DataSetConsts.PICTURE_SUFFIX, to_gray=True):

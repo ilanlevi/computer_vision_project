@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-
+# todo - delete
 class ImageDataGeneratorMy(object):
     def __init__(self,
                  datagen,

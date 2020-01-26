@@ -7,6 +7,7 @@ from mytools import read_csv, get_files_list
 from .abstract_read_data import AbstractReadData
 
 
+# todo - remove
 class GenerateLabeledData(AbstractReadData):
     """
     This class will be used for generating new labels for images
