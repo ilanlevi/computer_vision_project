@@ -1,7 +1,7 @@
 import os
 
 from keras.callbacks import EarlyStopping
-from keras.layers import Dense, Dropout
+from keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Flatten, Activation
 from keras.models import load_model, save_model, Sequential
 from matplotlib import pyplot as plt
 
@@ -14,7 +14,7 @@ class MyModel:
 
     def __init__(self, data_path, picture_suffix, image_size, test_rate=dsC.DEFAULT_TRAIN_RATE,
                  valid_rate=dsC.DEFAULT_VALID_RATE, sigma=0.33, path=myC.MODEL_DIR, name=myC.MODEL_NAME_160_4l,
-                 gpu=False, batch_size=myC.BATCH_SIZE, epochs=myC.EPOCHS, number_of_dense=None):
+                 gpu=False, batch_size=myC.BATCH_SIZE, epochs=myC.EPOCHS):
         self.data = None
         self.test_data = None
         self.labels = None
@@ -36,8 +36,6 @@ class MyModel:
 
         self.epochs = epochs
         self.batch_size = batch_size
-        # todo -delete
-        self.number_of_dense = number_of_dense
 
         if self.gpu:
             os.environ['KERAS_BACKEND'] = 'tensorflow'
@@ -45,18 +43,31 @@ class MyModel:
 
     def create(self):
         self.model = Sequential()
-        # todo = mean?
-        # self.model.add(Dense(units=120, activation='relu', kernel_regularizer='l2', input_dim=160 * 160))
-        input_size = self.image_size * self.image_size
-        conv_size = int(input_size / 100)
-        self.model.add(Dense(units=conv_size, activation='relu', kernel_regularizer='l2', input_dim=input_size))
-        # self.model.add(Conv2D(conv_size, (3, 3), activation='relu'))
-        # self.model.add(MaxPooling2D(pool_size=(2, 2)))
+
+        channels = 1
+
+        input_shape = (channels, self.image_size, self.image_size)
+
+        self.model.add(Conv2D(32, (3, 3), data_format='channels_first', input_shape=input_shape))
+        self.model.add(Activation('relu'))
+        self.model.add(MaxPooling2D(pool_size=(2, 2)))
+
+        self.model.add(Conv2D(32, (3, 3)))
+        self.model.add(Activation('relu'))
+        self.model.add(MaxPooling2D(pool_size=(2, 2)))
+
+        self.model.add(Conv2D(64, (3, 3)))
+        self.model.add(Activation('relu'))
+        self.model.add(MaxPooling2D(pool_size=(2, 2)))
+
+        # flatten the input
+        self.model.add(Flatten(data_format='channels_first'))
         self.model.add(Dropout(0.5))
-        if (self.number_of_dense is not None) and (self.number_of_dense > 3):
-            self.model.add(Dense(units=50, activation='relu', kernel_regularizer='l2'))
-        self.model.add(Dense(units=40, activation='relu', kernel_regularizer='l2'))
+
+        self.model.add(Dense(units=64, activation='relu', kernel_regularizer='l2'))
         self.model.add(Dense(units=20, activation='relu', kernel_regularizer='l2'))
+
+        # output is 6DoF
         self.model.add(Dense(units=6, activation='linear'))
 
         print(self.model.summary())
@@ -69,6 +80,7 @@ class MyModel:
     def save(self):
         mkdir(self.path)
         save_model(self.model, self.get_full_path())
+        self.model.save_weights(self.get_full_path() + '.wh')
 
     def get_full_path(self):
         return self.path + '/' + self.name
@@ -90,7 +102,7 @@ class MyModel:
             sigma = self.sigma
 
         self.data = KerasModelData(data_path=data_path, dim=image_size, picture_suffix=picture_suffix,
-                                   to_gray=True, to_hog=True, sigma=sigma, test_rate=t_rate, valid_rate=v_rate,
+                                   to_gray=True, do_canny=True, sigma=sigma, test_rate=t_rate, valid_rate=v_rate,
                                    to_fit=True)
 
     def train_model(self, save=True, plot=False):

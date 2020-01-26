@@ -10,6 +10,7 @@ from data.labeled_data import LabeledData
 """
 
 
+# todo remove
 def align_images(data_set, indexes, prefix=''):
     for i in indexes:
         lmarks = data_set.y_train_set[i]

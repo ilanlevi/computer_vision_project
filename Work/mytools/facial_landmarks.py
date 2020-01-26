@@ -1,9 +1,10 @@
 import numpy as np
 
+from consts import DataSetConsts
 from .my_io import get_prefix
 
 
-def get_landmarks(img_path, landmarks_suffix='.pts', print_data=False):
+def get_landmarks(img_path, landmarks_suffix=DataSetConsts.LANDMARKS_FILE_SUFFIX, print_data=False):
     """
     Read and return landmarks from file for given image
     :param img_path: the full image path
@@ -26,9 +27,32 @@ def get_landmarks(img_path, landmarks_suffix='.pts', print_data=False):
         coords_set = [point.split() for point in raw_points]
 
         """Convert entries from lists of strings to tuples of floats"""
+        # todo - check if flipped
         points = [tuple([np.float_(point) for point in coords]) for coords in coords_set]
 
         return points
+
+    except Exception as e:
+        if print_data:
+            print('Error: ' + str(e))
+    return None
+
+
+# todo delete
+def save_landmarks(img_path, lmarks, landmarks_suffix='.ptsm', print_data=False):
+    """
+        Save landmarks from file for given image
+        :param img_path: the full image path
+        :param lmarks: the landmarks on image
+        :param landmarks_suffix: the landmarks file suffix
+        :param print_data: print data or not (default is false)
+        :return: facial landmarks as list or None of failed
+        """
+    prefix = get_prefix(img_path)
+    path = prefix + landmarks_suffix
+    try:
+        lmarks = np.asarray(lmarks)
+        np.savetxt(path, lmarks, fmt='%.4f', delimiter=' ')
 
     except Exception as e:
         if print_data:

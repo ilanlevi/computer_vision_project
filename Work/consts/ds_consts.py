@@ -7,7 +7,14 @@ class DataSetConsts:
     DEFAULT_VALID_RATE = 0.01
 
     PICTURE_WIDTH = 500
-    PICTURE_SIZE = 160
+    # PICTURE_SIZE = 160
+    PICTURE_SIZE = 100
+    BATCH_SIZE = 64
+    OUT_DIM = 6
+
+    LANDMARKS_PREFIX = 'landmarks_'
+
+    LANDMARKS_FILE_SUFFIX = '.pts'
 
     PICTURE_SUFFIX = ['jpg', 'png']
 

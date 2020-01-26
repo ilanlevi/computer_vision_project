@@ -1,44 +1,51 @@
 import numpy as np
+from keras_preprocessing.image import NumpyArrayIterator
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.utils import Sequence
 
 from consts import DataSetConsts
 from image_utils import load_image, auto_canny
 from mytools import get_files_list, get_pose
 
 
-# todo - comments
-class KerasModelData(Sequence):
-    """Generates data for Keras
-    Sequence based data generator. Suitable for building data generator for training and prediction.
-    """
+class MyDataGenerator(NumpyArrayIterator):
 
-    def __init__(self, data_path, dim=DataSetConsts.PICTURE_SIZE, picture_suffix=DataSetConsts.PICTURE_SUFFIX,
-                 to_gray=True, do_canny=True, sigma=0.33, batch_size=64, shuffle=True, to_fit=False, out_dim=6,
-                 test_rate=DataSetConsts.DEFAULT_TEST_RATE, valid_rate=DataSetConsts.DEFAULT_VALID_RATE,
-                 original_file_list=None):
+    def __init__(self,
+                 data_path,
+                 image_data_generator,
+                 picture_suffix=DataSetConsts.PICTURE_SUFFIX,
+                 image_landmarks_generator=None,
+                 image_6DoF_generator=None,
+                 original_file_list=None,
+                 shuffle=True,
+                 test_rate=DataSetConsts.DEFAULT_TEST_RATE,
+                 valid_rate=DataSetConsts.DEFAULT_VALID_RATE,
+                 sample_weight=None,
+                 seed=None,
+                 data_format='channels_last',
+                 save_to_dir=None,
+                 save_prefix='',
+                 save_format='png'):
 
-        self.data_path = data_path
-        self.dim = dim * dim
-        self.picture_size = dim
-        self.out_dim = out_dim
-        self.picture_suffix = picture_suffix
-        self.to_gray = to_gray
-        self.do_canny = do_canny
-        self.sigma = sigma
-        self.batch_size = batch_size
-        self.shuffle = shuffle
-        self._to_fit = to_fit
-        self.test_rate = test_rate
+        self.save_format = save_format
+        self.save_prefix = save_prefix
+        self.save_to_dir = save_to_dir
+        self.data_format = data_format
+        self.seed = seed
+        self.sample_weight = sample_weight
         self.valid_rate = valid_rate
+        self.test_rate = test_rate
+        self.shuffle = shuffle
+        self.image_data_generator = image_data_generator
+        self.image_landmarks_generator = image_landmarks_generator
+        self.image_6DoF_generator = image_6DoF_generator
+        self.data_path = data_path
 
         if not isinstance(picture_suffix, list):
             self.picture_suffix = [picture_suffix]
         if original_file_list is None:
-            self.original_file_list = self._get_original_list()
+            self.n = self._get_original_list()
         else:
-            self.original_file_list = original_file_list
-        self.indexes = np.arange(len(self.original_file_list))
+            self.n = original_file_list
 
         self.on_epoch_end()
 
@@ -62,19 +69,10 @@ class KerasModelData(Sequence):
             t_size = self.test_rate
         if v_size is None:
             v_size = self.valid_rate
-        self.original_file_list, test_files = train_test_split(self.original_file_list, test_size=t_size,
-                                                               shuffle=True)
-        test_files, validation_files = train_test_split(test_files, test_size=v_size, shuffle=True)
+        self.n, test_files = train_test_split(self.n, test_size=t_size, shuffle=self.shuffle)
+        test_files, validation_files = train_test_split(test_files, test_size=v_size, shuffle=self.shuffle)
         self.on_epoch_end()
         return test_files, validation_files
-
-    def __len__(self):
-        """Denotes the number of batches per epoch
-        :return: number of batches per epoch
-        """
-        return int(np.floor(len(self.original_file_list) / self.batch_size))
-        # todo remove
-        # return 3
 
     def __getitem__(self, index):
         """Generate one batch of data

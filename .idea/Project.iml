@@ -6,7 +6,6 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/aug" />
       <excludeFolder url="file://$MODULE_DIR$/blabla" />
-      <excludeFolder url="file://$MODULE_DIR$/models3d_new" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>

@@ -12,7 +12,7 @@ class DataFileConsts:
     INPUT_FILE_NAME = 'input.txt'
 
     # all of the data was downloaded from:
-    # https://ibug.doc.ic.ac.uk/resources
+    # https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/
 
     W300_DATA = {
         'FOLDER': '300W',
