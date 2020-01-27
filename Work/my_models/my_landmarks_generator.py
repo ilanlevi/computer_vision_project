@@ -25,6 +25,7 @@ class LandmarkWrapper:
         self.landmark_suffix = landmark_suffix
         self.out_image_size = out_image_size
 
+    # todo - delete
     def get_transform_landmarks(self, path, landmarks_image, should_save=False):
         """
         :param path: the original image path
