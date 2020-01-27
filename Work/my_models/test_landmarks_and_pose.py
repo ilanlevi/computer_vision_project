@@ -27,8 +27,8 @@ if __name__ == '__main__':
         tmp_img = load_image(im)
         shape = np.shape(tmp_img)
         shape = max(shape)
-        lm_img = lm_wrap.get_landmark_image(im, shape, should_save=True)
-        lm_wrap.get_transform_landmarks(im, lm_img, should_save=True)
+        lm_img = lm_wrap.get_landmark_image(im, shape)
+        lm_wrap.get_transform_landmarks(im, lm_img)
 
     write_csv(score, CsvConsts.CSV_VALUES_LABELS, folder, fConsts.MY_VALIDATION_CSV, print_data=True)
     # test read csv
