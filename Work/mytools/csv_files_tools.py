@@ -21,7 +21,8 @@ def read_csv(path, filename='', print_data=False):
     try:
         path = path + filename
 
-        with open(path, mode='r') as csv_file:
+        # with open(path, mode='r') as csv_file:
+        with open(path, newline='') as csv_file:
             csv_reader = csv.DictReader(csv_file)
             for row in csv_reader:
                 data.append(row)
@@ -60,12 +61,12 @@ def write_csv(data, fieldnames, path, filename, append=False, print_data=False):
     path = path + filename
 
     if append:
-        mode = 'ab'
+        mode = 'a'
     else:
-        mode = 'wb'
+        mode = 'w'
 
     try:
-        with open(path, mode=mode) as csv_file:
+        with open(path, mode=mode, newline='') as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
             if not append:

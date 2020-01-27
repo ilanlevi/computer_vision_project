@@ -1,7 +1,7 @@
 import numpy as np
 
 from consts import DataSetConsts
-from image_utils import save_images
+from image_utils import save_image
 from mytools import get_landmarks, count_files_in_dir, get_suffix, get_prefix, save_landmarks
 
 
@@ -25,20 +25,18 @@ class LandmarkWrapper:
         self.landmark_suffix = landmark_suffix
         self.out_image_size = out_image_size
 
-    def get_transform_landmarks(self, image_path, landmarks_image, save_points=False):
+    def get_transform_landmarks(self, path, landmarks_image, should_save=False):
         """
-        :param image_path: the original image path
+        :param path: the original image path
         :param landmarks_image: the landmark image
-        :param save_points: should save point on disk
+        :param should_save: should save point on disk
         :return: image landmarks as np array
         """
-        landmarks_points = np.where(landmarks_image != [0])
-        landmarks_points = zip(landmarks_points[0], landmarks_points[1])
-
-        landmarks_points = np.asarray(landmarks_points)
-        landmarks_points = landmarks_points.reshape((68, 2))
-        if save_points:
-            self._save_points_if_needed(image_path, landmarks_points)
+        landmarks_points = np.argwhere(landmarks_image != [0])
+        # should be (68, 2)
+        landmarks_points = np.reshape(landmarks_points, (68, 2))
+        if should_save:
+            self._save_points_if_needed(path, landmarks_points)
         return landmarks_points
 
     def get_landmark_image(self, image_path, image_size=None, should_save=False):
@@ -52,14 +50,15 @@ class LandmarkWrapper:
         if image_size is None:
             image_size = self.out_image_size
         landmarks_image = np.zeros((image_size, image_size))
-        landmarks = self._load_image_landmarks(image_path)
+        landmarks = self.load_image_landmarks(image_path)
+        landmarks = landmarks.astype(np.int)
         for point in landmarks:
             landmarks_image[point[1], point[0]] = 255
         if should_save:
             self._save_image_if_needed(image_path, landmarks_image)
         return landmarks_image
 
-    def _load_image_landmarks(self, image_path):
+    def load_image_landmarks(self, image_path):
         """
         :param image_path: full path to image
         :exception ValueError: When cannot find landmarks file for image
@@ -73,31 +72,34 @@ class LandmarkWrapper:
 
     def _save_points_if_needed(self, image_path, landmark):
         """
+        (This method will be used mainly is testing)
         Saves landmark image if needed (self.save_to_dir != None)
         :param image_path: the original_image_name
         :param landmark: the landmark array to save
         """
         if self.save_to_dir is None:
             return
-        image_dir = get_prefix(image_path, '\\')
+        image_dir = get_prefix(image_path, '\\') + '\\'
         image_name = get_suffix(image_path, '\\')
         image_name = get_prefix(image_name)
 
-        next_index = count_files_in_dir(image_path)
-        landmark_image_name = image_dir + str(next_index) + image_name + DataSetConsts.LANDMARKS_FILE_SUFFIX
+        next_index = count_files_in_dir(image_dir, DataSetConsts.LANDMARKS_FILE_SUFFIX)
+        landmark_image_name = image_dir + str(next_index) + '_' + image_name + DataSetConsts.LANDMARKS_FILE_SUFFIX
         save_landmarks(landmark_image_name, landmark)
 
     def _save_image_if_needed(self, image_path, landmark_image):
         """
+        (This method will be used mainly is testing)
         Saves landmark image if needed (self.save_to_dir != None)
         :param image_path: the original_image_name
         :param landmark_image: the landmark image to save
         """
         if self.save_to_dir is None:
             return
-        image_dir = get_prefix(image_path, '\\')
+        image_dir = get_prefix(image_path, '\\') + '\\'
         image_name = get_suffix(image_path, '\\')
+        image_suffix = get_suffix(image_name)
 
-        next_index = count_files_in_dir(image_path)
+        next_index = count_files_in_dir(image_dir, image_suffix)
         landmark_image_name = image_dir + str(next_index) + DataSetConsts.LANDMARKS_PREFIX + image_name
-        save_images(landmark_image_name, landmark_image)
+        save_image(landmark_image, landmark_image_name)

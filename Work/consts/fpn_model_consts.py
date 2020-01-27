@@ -12,4 +12,4 @@ class FPNConsts:
 
     MODEL_NAME = "model3D"
 
-    LOCAL_PATH = '/models3d_new/'
+    LOCAL_PATH = "../models3d_new/"

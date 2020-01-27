@@ -1,3 +1,4 @@
+# todo - merger with ds_consts
 class DataFileConsts:
     def __init__(self):
         pass

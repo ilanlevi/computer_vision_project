@@ -2,7 +2,7 @@ from consts import FPNConsts
 from models import get_3d_pose, load_fpn_model
 
 
-class FacePoseWrapper:
+class FpnWrapper:
 
     def __init__(self,
                  path_to_model=FPNConsts.LOCAL_PATH,
@@ -19,7 +19,7 @@ class FacePoseWrapper:
         self.model_file_name = model_file_name
         self.path_to_model = path_to_model
         try:
-            cam_m, m = load_fpn_model(self.model_name, self.model_file_name, self.model_name)
+            cam_m, m = load_fpn_model(self.path_to_model, self.model_file_name, self.model_name)
         except Exception as e:
             error_msg = "Exception was raised while loading model! Error = %s" % str(e)
             raise ValueError(error_msg)

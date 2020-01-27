@@ -4,7 +4,7 @@ import pickle
 import numpy as np
 
 
-def get_files_list(path, suffixes=None):
+def get_files_list(path, suffixes=None, exclude_strings=None):
     """
         return file list from path with the same
          suffixes (if none all of the returned)
@@ -15,6 +15,9 @@ def get_files_list(path, suffixes=None):
 
     if not isinstance(suffixes, list):
         suffixes = [suffixes]
+
+    if exclude_strings is not None and not isinstance(exclude_strings, list):
+        exclude_strings = [exclude_strings]
 
     suffixes = np.unique(suffixes)
 
@@ -28,14 +31,16 @@ def get_files_list(path, suffixes=None):
             for suffix in suffixes:
                 if suffix in file_name:
                     f_list.append(file_name)
+    if exclude_strings is not None:
+        f_list = [f_name for f_name in f_list if all(excluded not in f_name for excluded in exclude_strings)]
     return f_list
 
 
-def count_files_in_dir(dir_path):
-    """:return number of files in dir (avoiding subdirectories)"""
+def count_files_in_dir(dir_path, suffix):
+    """:return number of files with same suffixes in dir (avoiding subdirectories)"""
     if dir_path is None or dir_path is '':
         return None
-    only_files = next(os.walk(dir_path))[2]
+    only_files = get_files_list(dir_path, suffix)
     return len(only_files)
 
 
