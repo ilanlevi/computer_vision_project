@@ -8,9 +8,12 @@ class DataSetConsts:
 
     PICTURE_WIDTH = 500
     # PICTURE_SIZE = 160
+    LANDMARKS_SHAPE = (68, 2)
     PICTURE_SIZE = 100
     BATCH_SIZE = 64
     OUT_DIM = 6
+
+    SIGMA = 0.33
 
     LANDMARKS_PREFIX = '_landmarks_'
 

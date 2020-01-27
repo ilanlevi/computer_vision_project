@@ -25,6 +25,19 @@ class LandmarkWrapper:
         self.landmark_suffix = landmark_suffix
         self.out_image_size = out_image_size
 
+    @staticmethod
+    def apply_matrix_to_landmarks(matrix_to_apply, landmarks):
+        new_image_map = np.zeros((68, 2), dtype=np.float)
+
+        for i, landmark in enumerate(landmarks):
+            curr_pixel = [landmark[0], landmark[1], 1]
+
+            curr_pixel = np.dot(matrix_to_apply, curr_pixel)
+            new_image_map[i][0] = curr_pixel[0]
+            new_image_map[i][1] = curr_pixel[1]
+
+        return new_image_map
+
     # todo - delete
     def get_transform_landmarks(self, path, landmarks_image):
         """
@@ -45,14 +58,25 @@ class LandmarkWrapper:
         :param image_size: the output size (image_size, image_size)
         :return: the landmark image (black image with landmarks in white)
         """
+        landmarks = self.load_image_landmarks(image_path)
+        landmarks_image = self.get_landmark_image_from_landmarks(landmarks, image_size)
+        self._save_image_if_needed(image_path, landmarks_image)
+        return landmarks_image
+
+    def get_landmark_image_from_landmarks(self, landmarks, image_size=None):
+        """
+        creates the landmark image and saves if wished
+        :param landmarks: the image landmarks
+        :param image_size: the output size (image_size, image_size)
+        :return: the landmark image (black image with landmarks in white)
+        """
         if image_size is None:
             image_size = self.out_image_size
         landmarks_image = np.zeros((image_size, image_size))
-        landmarks = self.load_image_landmarks(image_path)
-        landmarks = landmarks.astype(np.int)
-        for point in landmarks:
+        copy_l = landmarks.copy()
+        copy_l = copy_l.astype(np.int)
+        for point in copy_l:
             landmarks_image[point[1], point[0]] = 255
-        self._save_image_if_needed(image_path, landmarks_image)
         return landmarks_image
 
     def load_image_landmarks(self, image_path):

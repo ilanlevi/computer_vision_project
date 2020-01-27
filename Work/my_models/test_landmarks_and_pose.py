@@ -26,6 +26,7 @@ if __name__ == '__main__':
 
         tmp_img = load_image(im)
         shape = np.shape(tmp_img)
+        print(shape)
         shape = max(shape)
         lm_img = lm_wrap.get_landmark_image(im, shape)
         lm_wrap.get_transform_landmarks(im, lm_img)
