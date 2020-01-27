@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 
 from consts import DataSetConsts as dsConsts, ValidationFileConsts as fConsts, CsvConsts
@@ -28,6 +30,13 @@ if __name__ == '__main__':
         lm_img = lm_wrap.get_landmark_image(im, shape, should_save=True)
         lm_wrap.get_transform_landmarks(im, lm_img, should_save=True)
 
-    write_csv(score, CsvConsts.CSV_VALUES_LABELS, folder, fConsts.MY_VALIDATION_CSV, print_data=True, append=True)
+    write_csv(score, CsvConsts.CSV_VALUES_LABELS, folder, fConsts.MY_VALIDATION_CSV, print_data=True)
+    # test read csv
     s = read_csv(folder, fConsts.MY_VALIDATION_CSV, print_data=True)
     print(s)
+    images.append('.csv')
+    images.append('\\image_03219.pts')
+    to_remove = get_files_list(folder, exclude_strings=images)
+    print(to_remove)
+    for remove_file in to_remove:
+        os.remove(remove_file)

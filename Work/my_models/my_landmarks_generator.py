@@ -26,26 +26,23 @@ class LandmarkWrapper:
         self.out_image_size = out_image_size
 
     # todo - delete
-    def get_transform_landmarks(self, path, landmarks_image, should_save=False):
+    def get_transform_landmarks(self, path, landmarks_image):
         """
         :param path: the original image path
         :param landmarks_image: the landmark image
-        :param should_save: should save point on disk
         :return: image landmarks as np array
         """
         landmarks_points = np.argwhere(landmarks_image != [0])
         # should be (68, 2)
         landmarks_points = np.reshape(landmarks_points, (68, 2))
-        if should_save:
-            self._save_points_if_needed(path, landmarks_points)
+        self._save_points_if_needed(path, landmarks_points)
         return landmarks_points
 
-    def get_landmark_image(self, image_path, image_size=None, should_save=False):
+    def get_landmark_image(self, image_path, image_size=None):
         """
         creates the landmark image and saves if wished
         :param image_path: the image full path to get the landmark image
         :param image_size: the output size (image_size, image_size)
-        :param should_save: should save the landmarks_image or not (also check self.save_to_dir)
         :return: the landmark image (black image with landmarks in white)
         """
         if image_size is None:
@@ -55,8 +52,7 @@ class LandmarkWrapper:
         landmarks = landmarks.astype(np.int)
         for point in landmarks:
             landmarks_image[point[1], point[0]] = 255
-        if should_save:
-            self._save_image_if_needed(image_path, landmarks_image)
+        self._save_image_if_needed(image_path, landmarks_image)
         return landmarks_image
 
     def load_image_landmarks(self, image_path):
