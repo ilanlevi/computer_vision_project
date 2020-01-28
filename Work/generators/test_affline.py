@@ -5,8 +5,8 @@ import numpy as np
 from keras_preprocessing.image.affine_transformations import apply_affine_transform
 
 from consts import DataSetConsts as dsConsts, ValidationFileConsts as fConsts, CsvConsts
-from image_utils import load_image, resize_image_and_landmarks
-from my_models import LandmarkWrapper, FpnWrapper
+from generators import LandmarkWrapper, MyFpnWrapper
+from image_utils import load_image
 from mytools import get_files_list, write_csv, read_csv, get_projection_matrix, my_flip
 
 """Please ignore! This will be used for testing LandmarkWrapper, FpnWrapper classes"""
@@ -17,34 +17,38 @@ if __name__ == '__main__':
     suffixes = dsConsts.PICTURE_SUFFIX
     images = get_files_list(folder, suffixes, [dsConsts.LANDMARKS_FILE_SUFFIX, dsConsts.LANDMARKS_PREFIX])
 
-    lm_wrap = LandmarkWrapper(save_to_dir=True, out_image_size=250)
-    fpn_wrap = FpnWrapper()
+    lm_wrap = LandmarkWrapper(save_to_dir=True)
+    fpn_wrap = MyFpnWrapper()
 
     score = []
     for im in images:
-        lmarks = lm_wrap.load_image_landmarks(im)
+        lmarks = lm_wrap.load_image_landmarks(im, (250, 250))
         rx, ry, rz, tx, ty, tz = fpn_wrap.get_3d_vectors(lmarks)
         score.append([rx, ry, rz, tx, ty, tz])
 
         img = load_image(im)
-        img, lmarks = resize_image_and_landmarks(img, lmarks, 250)
+        img = cv2.resize(img, (250, 250))
 
-        lm_img = lm_wrap.get_landmark_image_from_landmarks(lmarks, 250)
+        lm_img = lm_wrap.create_mask(lmarks, (250, 250))
         # לבדוק את הלנדמרק מול שלו
         cv2.imshow('image before', img)
         cv2.imshow('points before', lm_img)
-
+        cv2.waitKey(0)
         image_shape = (250, 250, 1,)
         lmarks_shpae = (1, 1, 1,)
         # 3 השוואות -> מקורי מול מקורי (שלו), POSE ללנדמרק אחרי הפיכה והשוואה מול POSE אחרי טרנפורמציה
-        theta = 1
+        theta = 0
         img = np.reshape(img, image_shape)
         new_img = apply_affine_transform(img, theta=theta)
-        new_img = my_flip(new_img, 0)
+        new_img = my_flip(new_img, 1)
         transform_matrix = get_projection_matrix(250, 250, theta=theta)
 
         new_lmarks = LandmarkWrapper.apply_matrix_to_landmarks(transform_matrix, lmarks)
-        new_lmarks = my_flip(new_lmarks, 0)
+        # new_lmarks = np.flip(new_lmarks, 1)
+        # new_lmarks = np.flip(new_lmarks, 1)
+        new_lmarks = new_lmarks.T
+        new_lmarks = np.fliplr(new_lmarks)
+        new_lmarks = new_lmarks.T
         new_lmarks_image = lm_wrap.get_landmark_image_from_landmarks(new_lmarks, 250)
 
         cv2.imshow('image after', new_img)

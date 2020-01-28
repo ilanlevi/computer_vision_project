@@ -10,6 +10,7 @@ class DataSetConsts:
     # PICTURE_SIZE = 160
     LANDMARKS_SHAPE = (68, 2)
     PICTURE_SIZE = 100
+    TARGET_PICTURE_SHAPE = 250
     BATCH_SIZE = 64
     OUT_DIM = 6
 

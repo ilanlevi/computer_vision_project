@@ -1,10 +1,8 @@
-import numpy as np
-
 from consts import FPNConsts
 from models import get_3d_pose, load_fpn_model
 
 
-class FpnWrapper:
+class MyFpnWrapper:
 
     def __init__(self,
                  path_to_model=FPNConsts.LOCAL_PATH,
@@ -39,31 +37,34 @@ class FpnWrapper:
 
         return rx, ry, rz, tx, ty, tz
 
-    @staticmethod
-    def apply_transformation_matrix_on_pose(pose_6DoF, matrix, flip_horizontal=False):
-        rx, ry, rz, tx, ty, tz = pose_6DoF
-        # matrix is in deg
-        matrix = np.deg2rad(matrix)
-        rotation_vector = np.asarray([rx, ry, rz])
-        rotation_vector = np.reshape(rotation_vector, (3, 1))
-        rotation_vector = matrix.dot(rotation_vector)
-        rotation_vector = rotation_vector.flatten()
-
-        if flip_horizontal:
-            # flip yaw (ry), roll (rz)
-            rotation_vector[1] = -rotation_vector[1]
-            rotation_vector[2] = -rotation_vector[2]
-
-        translation_vector = np.asarray([tx, ty, tz])
-        translation_vector = np.reshape(translation_vector, (3, 1))
-        translation_vector = matrix.dot(translation_vector)
-        translation_vector = translation_vector.flatten()
-
-        new_pose = (rotation_vector[0],
-                    rotation_vector[1],
-                    rotation_vector[2],
-                    translation_vector[0],
-                    translation_vector[1],
-                    translation_vector[2],
-                    )
-        return new_pose
+    # @staticmethod
+    # def apply_transformation_matrix_on_pose(pose_6DoF, matrix, flip_horizontal=False):
+    #     if matrix is None:
+    #         return pose_6DoF
+    #
+    #     rx, ry, rz, tx, ty, tz = pose_6DoF
+    #     # matrix is in deg
+    #     matrix = np.deg2rad(matrix)
+    #     rotation_vector = np.asarray([rx, ry, rz])
+    #     rotation_vector = np.reshape(rotation_vector, (3, 1))
+    #     rotation_vector = matrix.dot(rotation_vector)
+    #     rotation_vector = rotation_vector.flatten()
+    #
+    #     if flip_horizontal:
+    #         # flip yaw (ry), roll (rz)
+    #         rotation_vector[1] = -rotation_vector[1]
+    #         rotation_vector[2] = -rotation_vector[2]
+    #
+    #     translation_vector = np.asarray([tx, ty, tz])
+    #     translation_vector = np.reshape(translation_vector, (3, 1))
+    #     translation_vector = matrix.dot(translation_vector)
+    #     translation_vector = translation_vector.flatten()
+    #
+    #     new_pose = (rotation_vector[0],
+    #                 rotation_vector[1],
+    #                 rotation_vector[2],
+    #                 translation_vector[0],
+    #                 translation_vector[1],
+    #                 translation_vector[2],
+    #                 )
+    #     return new_pose

@@ -3,8 +3,8 @@ import os
 import numpy as np
 
 from consts import DataSetConsts as dsConsts, ValidationFileConsts as fConsts, CsvConsts
+from generators import LandmarkWrapper, MyFpnWrapper
 from image_utils import load_image
-from my_models import LandmarkWrapper, FpnWrapper
 from mytools import get_files_list, write_csv, read_csv
 
 """Please ignore! This will be used for testing LandmarkWrapper, FpnWrapper classes"""
@@ -16,7 +16,7 @@ if __name__ == '__main__':
     images = get_files_list(folder, suffixes, [dsConsts.LANDMARKS_FILE_SUFFIX, dsConsts.LANDMARKS_PREFIX])
 
     lm_wrap = LandmarkWrapper(save_to_dir=True)
-    fpn_wrap = FpnWrapper()
+    fpn_wrap = MyFpnWrapper()
 
     score = []
     for im in images:

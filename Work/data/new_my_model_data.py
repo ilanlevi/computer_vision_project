@@ -4,7 +4,7 @@ from tensorflow.keras.utils import Sequence
 
 from consts import DataSetConsts
 from image_utils import load_image, auto_canny
-from mytools import get_files_list, get_pose
+from mytools import get_files_list
 
 
 # todo - comments

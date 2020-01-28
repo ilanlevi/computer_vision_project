@@ -3,7 +3,7 @@ import numpy as np
 from consts import DataSetConsts
 from image_utils import load_images, resize_image_and_landmarks
 from mytools import get_files_list
-from mytools import get_landmarks
+# from mytools import get_landmarks
 from .abstract_read_data import AbstractReadData
 
 
