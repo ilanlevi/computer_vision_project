@@ -42,10 +42,11 @@ def get_landmarks_from_mask(landmarks_image):
     :param landmarks_image: the landmark image mask
     :return: image landmarks as np array
     """
-
+    im_copy = landmarks_image.copy()
+    im_copy = im_copy.astype(np.int)
     landmarks_points = []
     for i in range(68):
-        ix, iy = np.where(landmarks_image == i)
+        ix, iy = np.where(im_copy == i)
         if len(ix) == 0:
             return None
         landmarks_points.extend([np.mean(iy), np.mean(ix)])
@@ -66,12 +67,13 @@ def _adjust_horizontal_flip(landmarks_points):
         # horizontal flip happened!
         for a, b in FACIAL_LANDMARKS_68_IDXS_FLIP:
             landmarks_points[a], landmarks_points[b] = (landmarks_points[b], landmarks_points[a])
+    landmarks_points = np.asarray(landmarks_points)
     return landmarks_points
 
 
 def create_landmark_mask(landmarks, image_shape):
     """
-    creates the mask landmark image and saves if wished
+    creates the mask landmark image
     :param landmarks: the image landmark
     :param image_shape: the output mask size (image_size, image_size)
     :return: the landmark image mask
@@ -79,7 +81,25 @@ def create_landmark_mask(landmarks, image_shape):
     shape = (image_shape[0], image_shape[1])
 
     landmarks_mask = np.zeros(shape)
-    landmarks_mask[:] = -1
+    # landmarks_mask[:] = -1
+
+    for index, (ix, iy) in enumerate(landmarks):
+        landmarks_mask[int(iy), int(ix)] = index
+
+    return landmarks_mask
+
+
+def create_landmark_image(landmarks, image_shape):
+    """
+    creates landmark only image (intensity is 1)
+    :param landmarks: the image landmark
+    :param image_shape: the output mask size (image_size, image_size)
+    :return: the landmark image mask
+    """
+    shape = (image_shape[0], image_shape[1])
+
+    landmarks_mask = np.zeros(shape)
+    # landmarks_mask[:] = -1
 
     for index, (ix, iy) in enumerate(landmarks):
         landmarks_mask[int(iy), int(ix)] = index

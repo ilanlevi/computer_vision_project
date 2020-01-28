@@ -95,11 +95,16 @@ class MyDataIterator(Iterator):
     def _get_batches_of_transformed_samples(self, index_array):
         batch_x = np.zeros(tuple([len(index_array)] + list(self.image_shape)), dtype=self.dtype)
         batch_mask = np.zeros(tuple([len(index_array)] + list(self.image_shape)), dtype=self.dtype)
+        tmp_delete = np.zeros(tuple([len(index_array)] + list(self.image_shape)), dtype=self.dtype)
         batch_y = np.zeros((len(index_array), 6), dtype=self.dtype)
+        filled_indexes = np.zeros(len(index_array))
 
-        for i, image_path in enumerate(index_array):
+        # for i, image_path in enumerate(index_array):
+        for i in np.where(filled_indexes == 0)[0]:
+            image_path = index_array[i]
             image, landmarks, y = self._get_samples(image_path)
             image = np.reshape(image, self.image_shape)
+            # todo - check if noise is added
             random_params = self.image_data_generator.get_random_transform(self.image_shape)
             image = self.image_data_generator.apply_transform(image.astype(self.dtype), random_params)
             image = self.image_data_generator.standardize(image)
@@ -107,15 +112,21 @@ class MyDataIterator(Iterator):
             image = self._do_canny(image)
             image = np.reshape(image, self.image_shape)
             if self.gen_y:
-                mask = create_landmark_mask(landmarks, self.image_shape)
+                mask = create_landmark_mask(landmarks, self.image_shape[1:])
                 mask = np.reshape(mask, self.image_shape)
                 mask = self.image_data_generator.apply_transform(mask.astype(self.dtype), random_params)
+                mask = np.reshape(mask, self.image_shape[1:])
                 batch_mask[i] = mask
                 new_landmarks = get_landmarks_from_mask(mask)
-                new_pose = self.fpn_model.get_3d_vectors(new_landmarks)
-                new_pose = np.asarray(new_pose)
-                new_pose = np.resize(new_pose, (1, 6))
-                batch_y[i] = new_pose
+                if new_landmarks is None or len(new_landmarks) < 68:
+                    filled_indexes[i] = 0
+                else:
+                    filled_indexes[i] = 1
+                    new_landmarks = np.asarray(new_landmarks, dtype=self.dtype)
+                    new_pose = self.fpn_model.get_3d_vectors(new_landmarks)
+                    new_pose = np.asarray(new_pose)
+                    new_pose = np.resize(new_pose, (1, 6))
+                    batch_y[i] = new_pose
             batch_x[i] = image
 
         if self.save_to_dir is not None:
@@ -131,7 +142,7 @@ class MyDataIterator(Iterator):
                 img.save(os.path.join(self.save_to_dir, fname))
                 if self.gen_y:
                     mask_name = '{prefix}_{index}_{hash}.{format}'.format(
-                        prefix=self.save_prefix + '_mask',
+                        prefix=('mask_' + self.save_prefix),
                         index=j,
                         hash=np.random.randint(1e4),
                         format=self.save_format)
@@ -179,5 +190,4 @@ class MyDataIterator(Iterator):
     def _do_canny(image):
         image = np.asarray(image, dtype=np.uint8)
         image = auto_canny(image, DataSetConsts.SIGMA)
-        image = image / 255.0
         return image
