@@ -7,7 +7,8 @@ from sklearn.model_selection import train_test_split
 
 from consts import DataSetConsts
 from image_utils import load_image, auto_canny, resize_image_and_landmarks
-from mytools import get_files_list, get_landmarks_from_mask, create_landmark_mask, load_image_landmarks, mkdir
+from mytools import get_files_list, get_landmarks_from_mask, create_landmark_mask, load_image_landmarks, mkdir, \
+    create_landmark_image
 from .fpn_wrapper_model import MyFpnWrapper
 
 
@@ -97,57 +98,71 @@ class MyDataIterator(Iterator):
         batch_mask = np.zeros(tuple([len(index_array)] + list(self.image_shape)), dtype=self.dtype)
         tmp_delete = np.zeros(tuple([len(index_array)] + list(self.image_shape)), dtype=self.dtype)
         batch_y = np.zeros((len(index_array), 6), dtype=self.dtype)
-        filled_indexes = np.zeros(len(index_array))
+        filled_indexes = np.zeros((len(index_array)))
 
         # for i, image_path in enumerate(index_array):
-        for i in np.where(filled_indexes == 0)[0]:
-            image_path = index_array[i]
-            image, landmarks, y = self._get_samples(image_path)
-            image = np.reshape(image, self.image_shape)
-            # todo - check if noise is added
-            random_params = self.image_data_generator.get_random_transform(self.image_shape)
-            image = self.image_data_generator.apply_transform(image.astype(self.dtype), random_params)
-            image = self.image_data_generator.standardize(image)
-            image = np.reshape(image, (self.out_image_size, self.out_image_size))
-            image = self._do_canny(image)
-            image = np.reshape(image, self.image_shape)
-            if self.gen_y:
-                mask = create_landmark_mask(landmarks, self.image_shape[1:])
-                mask = np.reshape(mask, self.image_shape)
-                mask = self.image_data_generator.apply_transform(mask.astype(self.dtype), random_params)
-                mask = np.reshape(mask, self.image_shape[1:])
-                batch_mask[i] = mask
-                new_landmarks = get_landmarks_from_mask(mask)
-                if new_landmarks is None or len(new_landmarks) < 68:
-                    filled_indexes[i] = 0
-                else:
-                    filled_indexes[i] = 1
-                    new_landmarks = np.asarray(new_landmarks, dtype=self.dtype)
-                    new_pose = self.fpn_model.get_3d_vectors(new_landmarks)
-                    new_pose = np.asarray(new_pose)
-                    new_pose = np.resize(new_pose, (1, 6))
-                    batch_y[i] = new_pose
-            batch_x[i] = image
+        while len(np.asarray(filled_indexes == 0).nonzero()[0]) > 0:
+            print(np.asarray(filled_indexes == 0).nonzero()[0])
+            for i in np.asarray(filled_indexes == 0).nonzero()[0]:
+                image_path = index_array[i]
+                image, landmarks, y = self._get_samples(image_path)
+                image = np.reshape(image, self.image_shape)
+                # todo - check if noise is added
+                random_params = self.image_data_generator.get_random_transform(self.image_shape)
+                image = self.image_data_generator.apply_transform(image.astype(self.dtype), random_params)
+                image = self.image_data_generator.standardize(image)
+                image = np.reshape(image, (self.out_image_size, self.out_image_size))
+                image = self._do_canny(image)
+                image = np.reshape(image, self.image_shape)
+                if self.gen_y:
+                    mask = create_landmark_mask(landmarks, self.image_shape[1:])
+                    mask = np.reshape(mask, self.image_shape)
+                    mask = self.image_data_generator.apply_transform(mask.astype(self.dtype), random_params)
+                    mask = np.reshape(mask, self.image_shape[1:])
+                    batch_mask[i] = mask
+                    new_landmarks = get_landmarks_from_mask(mask)
+                    if new_landmarks is None or len(new_landmarks) < 68:
+                        filled_indexes[i] = 0
+                        if new_landmarks is not None:
+                            print(len(new_landmarks))
+                    else:
+                        filled_indexes[i] = 1
+                        new_landmarks = np.asarray(new_landmarks, dtype=self.dtype)
+                        new_pose = self.fpn_model.get_3d_vectors(new_landmarks)
+                        new_pose = np.asarray(new_pose)
+                        new_pose = np.resize(new_pose, (1, 6))
+                        batch_y[i] = new_pose
+                        # todo delete
+                        tmp_delete[i] = create_landmark_image(new_landmarks, self.image_shape[1:], dtype=self.dtype)
+                batch_x[i] = image
 
         if self.save_to_dir is not None:
             # create folder if missing
             mkdir(self.save_to_dir)
             for i, j in enumerate(index_array):
                 img = array_to_img(batch_x[i], self.data_format, scale=True)
+                rnd = np.random.randint(1e4)
                 fname = '{prefix}_{index}_{hash}.{format}'.format(
                     prefix=self.save_prefix,
                     index=j,
-                    hash=np.random.randint(1e4),
+                    hash=rnd,
                     format=self.save_format)
                 img.save(os.path.join(self.save_to_dir, fname))
                 if self.gen_y:
                     mask_name = '{prefix}_{index}_{hash}.{format}'.format(
                         prefix=('mask_' + self.save_prefix),
                         index=j,
-                        hash=np.random.randint(1e4),
+                        hash=rnd,
                         format=self.save_format)
-                    mask_img = array_to_img(batch_mask[i], self.data_format, scale=True)
+                    mask_img = array_to_img(tmp_delete[i] + 1, self.data_format, scale=True)
                     mask_img.save(os.path.join(self.save_to_dir, mask_name))
+                    mask_n = '{prefix}_{index}_{hash}.{format}'.format(
+                        prefix=('m_' + self.save_prefix),
+                        index=j,
+                        hash=rnd,
+                        format=self.save_format)
+                    mask_img = array_to_img(batch_mask[i] + 1, self.data_format, scale=True)
+                    mask_img.save(os.path.join(self.save_to_dir, mask_n))
                     # todo
                     # write_csv([batch_y], CsvConsts.CSV_VALUES_LABELS, folder, fConsts.MY_VALIDATION_CSV)
 
@@ -156,6 +171,7 @@ class MyDataIterator(Iterator):
             return output[0]
         if self.sample_weight is not None:
             output += (self.sample_weight[index_array],)
+        exit(0)
         return output
 
     def _get_samples(self, index):

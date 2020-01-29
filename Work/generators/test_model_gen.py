@@ -19,5 +19,6 @@ if __name__ == '__main__':
         height_shift_range=0.2,
         horizontal_flip=True, data_format='channels_first')
 
-    iterator = MyDataIterator(folder, datagen, save_to_dir=(folder + '\\out\\'), gen_y=True, out_image_size=250)
-    datagen.fit(iterator, rounds=5)
+    iterator = MyDataIterator(folder, datagen, save_to_dir=(folder + '\\out\\'), gen_y=True, out_image_size=250,
+                              batch_size=5)
+    datagen.fit(iterator, rounds=1)

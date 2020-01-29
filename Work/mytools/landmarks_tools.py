@@ -42,14 +42,21 @@ def get_landmarks_from_mask(landmarks_image):
     :param landmarks_image: the landmark image mask
     :return: image landmarks as np array
     """
-    im_copy = landmarks_image.copy()
-    im_copy = im_copy.astype(np.int)
+
     landmarks_points = []
+
+    # landmarks_copy = landmarks_image.copy()
+    # landmarks_copy = landmarks_copy.flatten()
+    # landmarks_copy = np.sort(landmarks_copy)
+    # landmarks_copy = np.flip(landmarks_copy)
+
     for i in range(68):
-        ix, iy = np.where(im_copy == i)
+        # ix, iy = np.where(landmarks_image == landmarks_copy[i])
+        ix, iy = np.where(landmarks_image == i)
         if len(ix) == 0:
             return None
         landmarks_points.extend([np.mean(iy), np.mean(ix)])
+        # landmarks_points.extend([iy[0], ix[0]])
 
     landmarks_points = np.array(landmarks_points)
     landmarks = _adjust_horizontal_flip(landmarks_points)
@@ -66,8 +73,11 @@ def _adjust_horizontal_flip(landmarks_points):
         # x-cord of right eye is less than x-cord of left eye
         # horizontal flip happened!
         for a, b in FACIAL_LANDMARKS_68_IDXS_FLIP:
-            landmarks_points[a], landmarks_points[b] = (landmarks_points[b], landmarks_points[a])
+            landmarks_points[[a, b]] = landmarks_points[[b, a]]
+            # landmarks_points[a], landmarks_points[b] = (landmarks_points[b], landmarks_points[a])
     landmarks_points = np.asarray(landmarks_points)
+    landmarks_points = np.reshape(landmarks_points, (68, 2))
+
     return landmarks_points
 
 
@@ -81,7 +91,7 @@ def create_landmark_mask(landmarks, image_shape):
     shape = (image_shape[0], image_shape[1])
 
     landmarks_mask = np.zeros(shape)
-    # landmarks_mask[:] = -1
+    landmarks_mask[:] = -1
 
     for index, (ix, iy) in enumerate(landmarks):
         landmarks_mask[int(iy), int(ix)] = index
@@ -89,19 +99,20 @@ def create_landmark_mask(landmarks, image_shape):
     return landmarks_mask
 
 
-def create_landmark_image(landmarks, image_shape):
+def create_landmark_image(landmarks, image_shape, dtype=np.int):
     """
     creates landmark only image (intensity is 1)
     :param landmarks: the image landmark
     :param image_shape: the output mask size (image_size, image_size)
+    :param dtype: image type
     :return: the landmark image mask
     """
     shape = (image_shape[0], image_shape[1])
 
-    landmarks_mask = np.zeros(shape)
+    landmarks_mask = np.zeros(shape, dtype=dtype)
     # landmarks_mask[:] = -1
 
     for index, (ix, iy) in enumerate(landmarks):
-        landmarks_mask[int(iy), int(ix)] = index
+        landmarks_mask[int(iy), int(ix)] = 255
 
     return landmarks_mask
