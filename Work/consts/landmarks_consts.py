@@ -11,8 +11,8 @@ FACIAL_LANDMARKS_68_IDXS = OrderedDict([
     ("jaw", (0, 17))
 ])
 
-L_EYE = 43  # left eye coordinate
-R_EYE = 37  # right eye coordinate
+L_EYE = 45  # left eye coordinate
+R_EYE = 36  # right eye coordinate
 
 # todo create an accual maping...
 # todo - remove

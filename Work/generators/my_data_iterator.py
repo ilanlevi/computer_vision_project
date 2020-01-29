@@ -1,5 +1,6 @@
 import os
 
+import cv2
 import numpy as np
 from keras_preprocessing.image import Iterator
 from keras_preprocessing.image.utils import array_to_img
@@ -46,12 +47,13 @@ class MyDataIterator(Iterator):
         self.dtype = dtype
         self.out_image_size = out_image_size
         self.fpn_model = fpn_model
+        self.im_size = (self.out_image_size, self.out_image_size)
 
         # set grayscale channel
         if self.data_format == 'channels_last':
-            self.image_shape = (self.out_image_size, self.out_image_size) + (1,)
+            self.image_shape = (self.out_image_size, self.out_image_size, 1)
         else:
-            self.image_shape = (1,) + (self.out_image_size, self.out_image_size)
+            self.image_shape = (1, self.out_image_size, self.out_image_size)
 
         if not isinstance(picture_suffix, list):
             picture_suffix = [picture_suffix]
@@ -96,7 +98,7 @@ class MyDataIterator(Iterator):
     def _get_batches_of_transformed_samples(self, index_array):
         batch_x = np.zeros(tuple([len(index_array)] + list(self.image_shape)), dtype=self.dtype)
         batch_mask = np.zeros(tuple([len(index_array)] + list(self.image_shape)), dtype=self.dtype)
-        tmp_delete = np.zeros(tuple([len(index_array)] + list(self.image_shape)), dtype=self.dtype)
+        tmp_delete = np.zeros(tuple([len(index_array)] + list((1024, 1024, 1))), dtype=self.dtype)
         batch_y = np.zeros((len(index_array), 6), dtype=self.dtype)
         filled_indexes = np.zeros((len(index_array)))
 
@@ -106,30 +108,53 @@ class MyDataIterator(Iterator):
             for i in np.asarray(filled_indexes == 0).nonzero()[0]:
                 image_path = index_array[i]
                 image, landmarks, y = self._get_samples(image_path)
+                cv2.imshow('original image', image.copy())
                 image = np.reshape(image, self.image_shape)
                 # todo - check if noise is added
                 random_params = self.image_data_generator.get_random_transform(self.image_shape)
                 image = self.image_data_generator.apply_transform(image.astype(self.dtype), random_params)
-                image = self.image_data_generator.standardize(image)
+                # image = self.image_data_generator.standardize(image)
                 image = np.reshape(image, (self.out_image_size, self.out_image_size))
                 image = self._do_canny(image)
+                # image = self.image_data_generator.standardize(image)
+                cv2.imshow('out image', image.copy())
                 image = np.reshape(image, self.image_shape)
                 if self.gen_y:
-                    # mask = create_landmark_mask(landmarks, self.image_shape[1:])
-                    masks = create_landmark_mask_v2(landmarks, self.image_shape[1:])
-                    for index, mask in enumerate(masks):
+                    masks = []
+                    for index in range(len(landmarks)):
+                        mask = create_landmark_mask_v2(landmarks[index], self.im_size)
                         mask = np.reshape(mask, self.image_shape)
                         mask = self.image_data_generator.apply_transform(mask.astype(self.dtype), random_params)
-                        masks[index] = np.reshape(mask, self.image_shape[1:])
+                        mask = np.reshape(mask, self.im_size)
+                        masks.append(mask)
+                    # get_landmarks_from_mask_v2()
+                    # cv2.imshow('before t 0', create_landmark_image(landmarks, self.im_size))
+                    # cv2.imshow('before t 1', mask)
+                    # mask = np.reshape(mask, self.image_shape)
+                    # mask = self.image_data_generator.apply_transform(mask.astype(self.dtype), random_params)
+                    # mask = self.image_data_generator.standardize(mask)
+                    # mask = np.asarray(mask[0, :, :])
+                    # mask = np.reshape(mask, self.im_size)
+
+                    # cv2.imshow('after transformation 1', mask)
+                    # mask = create_landmark_mask_v2(landmarks, self.image_shape[1:])
+                    # for index, mask in enumerate(masks):
+                    #     mask = np.reshape(mask, self.image_shape)
+                    #     mask = self.image_data_generator.apply_transform(mask.astype(self.dtype), random_params)
+                    #     masks[index] = np.reshape(mask, self.image_shape[1:])
 
                     # batch_mask[i] = mask
                     new_landmarks = get_landmarks_from_mask_v2(masks)
+                    # mask2 = create_landmark_image(new_landmarks, self.image_shape[1:])
 
                     if new_landmarks is None or len(new_landmarks) < 68:
                         filled_indexes[i] = 0
                         if new_landmarks is not None:
                             print(len(new_landmarks))
                     else:
+                        cv2.imshow('after all', create_landmark_image(new_landmarks, self.im_size))
+                        cv2.waitKey(0)
+
                         filled_indexes[i] = 1
                         new_landmarks = np.asarray(new_landmarks, dtype=self.dtype)
                         new_pose = self.fpn_model.get_3d_vectors(new_landmarks)
@@ -137,7 +162,8 @@ class MyDataIterator(Iterator):
                         new_pose = np.resize(new_pose, (1, 6))
                         batch_y[i] = new_pose
                         # todo delete
-                        tmp_delete[i] = create_landmark_image(new_landmarks, self.image_shape[1:], dtype=self.dtype)
+                        # tmp_delete[i] = create_landmark_image(new_landmarks, self.image_shape[1:], dtype=self.dtype)
+                        tmp_delete[i] = create_landmark_image(new_landmarks, self.im_size)
                 batch_x[i] = image
 
         if self.save_to_dir is not None:
