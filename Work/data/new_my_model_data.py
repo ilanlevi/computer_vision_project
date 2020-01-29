@@ -7,7 +7,7 @@ from image_utils import load_image, auto_canny
 from mytools import get_files_list
 
 
-# todo - comments
+# todo - delete
 class KerasModelData(Sequence):
     """Generates data for Keras
     Sequence based data generator. Suitable for building data generator for training and prediction.

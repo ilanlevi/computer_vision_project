@@ -55,10 +55,7 @@ def get_landmarks_from_masks(landmarks_images):
 
     landmarks_points = np.array(landmarks_points)
     landmarks_points = np.reshape(landmarks_points, (68, 2))
-    # todo - remove comments
-    # cv2.imshow('before flip', create_landmark_image(landmarks_points, landmarks_images[0].shape))
     landmarks = _adjust_horizontal_flip(landmarks_points)
-    # cv2.imshow('after flip', create_landmark_image(landmarks, landmarks_images[0].shape))
     return landmarks
 
 
@@ -94,7 +91,21 @@ def create_landmark_mask(landmark, image_shape):
     return landmarks_mask
 
 
-def create_landmark_image(landmarks, image_shape):
+def create_mask_from_landmarks(landmarks, image_shape):
+    """
+    creates the mask landmark image
+    :param landmarks: all of the landmark
+    :param image_shape: the output mask size (without channel)
+    :return: the landmark image mask
+    """
+    landmarks_mask = np.zeros((image_shape[1], image_shape[2]))
+    for landmark in landmarks:
+        landmarks_mask[int(landmark[1]), int(landmark[0])] = 255
+
+    return landmarks_mask
+
+
+def create_numbered_mask(landmarks, image_shape):
     """
     FOR TESTING ONLY!
     creates landmark only image (intensity is 1)

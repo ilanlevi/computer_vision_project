@@ -4,6 +4,7 @@ import numpy as np
 import scipy.io as scio
 
 
+# todo delete
 def load_fpn_model(path_to_model, model_file_name, model_name):
     """
     Load FPN model from file.

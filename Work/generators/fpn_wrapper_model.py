@@ -1,3 +1,5 @@
+import numpy as np
+
 from consts import FPNConsts
 from models import get_3d_pose, load_fpn_model
 
@@ -37,34 +39,13 @@ class MyFpnWrapper:
 
         return rx, ry, rz, tx, ty, tz
 
-    # @staticmethod
-    # def apply_transformation_matrix_on_pose(pose_6DoF, matrix, flip_horizontal=False):
-    #     if matrix is None:
-    #         return pose_6DoF
-    #
-    #     rx, ry, rz, tx, ty, tz = pose_6DoF
-    #     # matrix is in deg
-    #     matrix = np.deg2rad(matrix)
-    #     rotation_vector = np.asarray([rx, ry, rz])
-    #     rotation_vector = np.reshape(rotation_vector, (3, 1))
-    #     rotation_vector = matrix.dot(rotation_vector)
-    #     rotation_vector = rotation_vector.flatten()
-    #
-    #     if flip_horizontal:
-    #         # flip yaw (ry), roll (rz)
-    #         rotation_vector[1] = -rotation_vector[1]
-    #         rotation_vector[2] = -rotation_vector[2]
-    #
-    #     translation_vector = np.asarray([tx, ty, tz])
-    #     translation_vector = np.reshape(translation_vector, (3, 1))
-    #     translation_vector = matrix.dot(translation_vector)
-    #     translation_vector = translation_vector.flatten()
-    #
-    #     new_pose = (rotation_vector[0],
-    #                 rotation_vector[1],
-    #                 rotation_vector[2],
-    #                 translation_vector[0],
-    #                 translation_vector[1],
-    #                 translation_vector[2],
-    #                 )
-    #     return new_pose
+    @staticmethod
+    def save_pose(folder_path, img_name, pose):
+        """
+        Saves pose to '.pose' file
+        :param folder_path: the folder path
+        :param img_name: the image name
+        :param pose: tuple or array of: (rx, ry, rz, tx, ty, tz)
+        """
+        np.savetxt(folder_path + img_name + '.pose', pose, fmt='%.4f', delimiter=', ',
+                   header='pitch, yaw, roll, tx, ty, tz')

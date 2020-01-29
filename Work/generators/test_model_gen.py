@@ -39,5 +39,5 @@ if __name__ == '__main__':
     #                              vertical_flip=False)
 
     iterator = MyDataIterator(folder, datagen, save_to_dir=(folder + '\\out\\'), gen_y=True, out_image_size=250,
-                              batch_size=4, data_format=data_format)
+                              batch_size=4)
     datagen.flow(iterator)
