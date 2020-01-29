@@ -37,6 +37,36 @@ def load_image_landmarks(image_path, new_image_shape=None, landmarks_suffix=dC.L
     return landmarks
 
 
+def get_landmarks_from_mask_v2(landmarks_images):
+    """
+    :param landmarks_images: the landmark image mask
+    :return: image landmarks as np array
+    """
+
+    landmarks_points = []
+
+    # landmarks_copy = landmarks_image.copy()
+    # landmarks_copy = landmarks_copy.flatten()
+    # landmarks_copy = np.sort(landmarks_copy)
+    # landmarks_copy = np.flip(landmarks_copy)
+
+    for landmarks_image in landmarks_images:
+        # ix, iy = np.where(landmarks_image == landmarks_copy[i])
+        # ix, iy = np.unravel_index(np.argmax(landmarks_image, axis=None), landmarks_image.shape)
+        ix, iy = np.where(landmarks_image != 0)
+        if len(ix) == 0:
+            return None
+        landmarks_points.extend([np.mean(iy), np.mean(ix)])
+        # if len(ix) == 0:
+        #     return None
+        # landmarks_points.extend([iy, ix])
+        # landmarks_points.extend([iy[0], ix[0]])
+
+    landmarks_points = np.array(landmarks_points)
+    landmarks = _adjust_horizontal_flip(landmarks_points)
+    return landmarks
+
+
 def get_landmarks_from_mask(landmarks_image):
     """
     :param landmarks_image: the landmark image mask
@@ -79,6 +109,24 @@ def _adjust_horizontal_flip(landmarks_points):
     landmarks_points = np.reshape(landmarks_points, (68, 2))
 
     return landmarks_points
+
+
+def create_landmark_mask_v2(landmarks, image_shape):
+    """
+    creates the mask landmark image
+    :param landmarks: the image landmark
+    :param image_shape: the output mask size (image_size, image_size)
+    :return: the landmark image mask
+    """
+    shape = (image_shape[0], image_shape[1])
+
+    landmarks_mask = np.zeros((68, image_shape[0], image_shape[1]))
+    for index, (ix, iy) in enumerate(landmarks):
+        landmark_mask = np.zeros(shape)
+        landmark_mask[int(iy), int(ix)] = 255
+        landmarks_mask[index] = landmark_mask
+
+    return landmarks_mask
 
 
 def create_landmark_mask(landmarks, image_shape):

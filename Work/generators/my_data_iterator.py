@@ -7,8 +7,8 @@ from sklearn.model_selection import train_test_split
 
 from consts import DataSetConsts
 from image_utils import load_image, auto_canny, resize_image_and_landmarks
-from mytools import get_files_list, get_landmarks_from_mask, create_landmark_mask, load_image_landmarks, mkdir, \
-    create_landmark_image
+from mytools import get_files_list, load_image_landmarks, mkdir, \
+    create_landmark_image, get_landmarks_from_mask_v2, create_landmark_mask_v2
 from .fpn_wrapper_model import MyFpnWrapper
 
 
@@ -115,12 +115,16 @@ class MyDataIterator(Iterator):
                 image = self._do_canny(image)
                 image = np.reshape(image, self.image_shape)
                 if self.gen_y:
-                    mask = create_landmark_mask(landmarks, self.image_shape[1:])
-                    mask = np.reshape(mask, self.image_shape)
-                    mask = self.image_data_generator.apply_transform(mask.astype(self.dtype), random_params)
-                    mask = np.reshape(mask, self.image_shape[1:])
-                    batch_mask[i] = mask
-                    new_landmarks = get_landmarks_from_mask(mask)
+                    # mask = create_landmark_mask(landmarks, self.image_shape[1:])
+                    masks = create_landmark_mask_v2(landmarks, self.image_shape[1:])
+                    for index, mask in enumerate(masks):
+                        mask = np.reshape(mask, self.image_shape)
+                        mask = self.image_data_generator.apply_transform(mask.astype(self.dtype), random_params)
+                        masks[index] = np.reshape(mask, self.image_shape[1:])
+
+                    # batch_mask[i] = mask
+                    new_landmarks = get_landmarks_from_mask_v2(masks)
+
                     if new_landmarks is None or len(new_landmarks) < 68:
                         filled_indexes[i] = 0
                         if new_landmarks is not None:
@@ -156,13 +160,13 @@ class MyDataIterator(Iterator):
                         format=self.save_format)
                     mask_img = array_to_img(tmp_delete[i] + 1, self.data_format, scale=True)
                     mask_img.save(os.path.join(self.save_to_dir, mask_name))
-                    mask_n = '{prefix}_{index}_{hash}.{format}'.format(
-                        prefix=('m_' + self.save_prefix),
-                        index=j,
-                        hash=rnd,
-                        format=self.save_format)
-                    mask_img = array_to_img(batch_mask[i] + 1, self.data_format, scale=True)
-                    mask_img.save(os.path.join(self.save_to_dir, mask_n))
+                    # mask_n = '{prefix}_{index}_{hash}.{format}'.format(
+                    #     prefix=('m_' + self.save_prefix),
+                    #     index=j,
+                    #     hash=rnd,
+                    #     format=self.save_format)
+                    # mask_img = array_to_img(batch_mask[i] + 1, self.data_format, scale=True)
+                    # mask_img.save(os.path.join(self.save_to_dir, mask_n))
                     # todo
                     # write_csv([batch_y], CsvConsts.CSV_VALUES_LABELS, folder, fConsts.MY_VALIDATION_CSV)
 

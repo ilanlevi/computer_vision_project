@@ -1,4 +1,4 @@
-from keras_preprocessing.image import ImageDataGenerator
+from keras_preprocessing.image import ImageDataGenerator, os
 
 from consts import DataSetConsts as dsConsts
 from generators import MyDataIterator
@@ -8,6 +8,12 @@ from mytools import get_files_list
 
 if __name__ == '__main__':
     folder = 'C:\\Work\\ComputerVision\\Project\\tmp\\'
+
+    # clean up shit
+    to_remove = get_files_list(folder + 'out\\')
+    print(to_remove)
+    for remove_file in to_remove:
+        os.remove(remove_file)
 
     suffixes = dsConsts.PICTURE_SUFFIX
     images = get_files_list(folder, suffixes, [dsConsts.LANDMARKS_FILE_SUFFIX, dsConsts.LANDMARKS_PREFIX])
