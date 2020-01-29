@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from consts import DataSetConsts
 from image_utils import load_image, auto_canny, resize_image_and_landmarks
 from mytools import get_files_list, load_image_landmarks, mkdir, \
-    create_landmark_image, get_landmarks_from_mask_v2, create_landmark_mask_v2
+    create_landmark_image, get_landmarks_from_masks, create_landmark_mask
 from .fpn_wrapper_model import MyFpnWrapper
 
 
@@ -98,7 +98,7 @@ class MyDataIterator(Iterator):
     def _get_batches_of_transformed_samples(self, index_array):
         batch_x = np.zeros(tuple([len(index_array)] + list(self.image_shape)), dtype=self.dtype)
         batch_mask = np.zeros(tuple([len(index_array)] + list(self.image_shape)), dtype=self.dtype)
-        tmp_delete = np.zeros(tuple([len(index_array)] + list((1024, 1024, 1))), dtype=self.dtype)
+        tmp_delete = np.zeros(tuple([len(index_array)] + list((1, 512, 512))), dtype=self.dtype)
         batch_y = np.zeros((len(index_array), 6), dtype=self.dtype)
         filled_indexes = np.zeros((len(index_array)))
 
@@ -113,47 +113,30 @@ class MyDataIterator(Iterator):
                 # todo - check if noise is added
                 random_params = self.image_data_generator.get_random_transform(self.image_shape)
                 image = self.image_data_generator.apply_transform(image.astype(self.dtype), random_params)
-                # image = self.image_data_generator.standardize(image)
+                image = self.image_data_generator.standardize(image)
                 image = np.reshape(image, (self.out_image_size, self.out_image_size))
                 image = self._do_canny(image)
-                # image = self.image_data_generator.standardize(image)
-                cv2.imshow('out image', image.copy())
+                # todo - remove comment
+                # cv2.imshow('out image', image.copy())
                 image = np.reshape(image, self.image_shape)
                 if self.gen_y:
                     masks = []
                     for index in range(len(landmarks)):
-                        mask = create_landmark_mask_v2(landmarks[index], self.im_size)
+                        mask = create_landmark_mask(landmarks[index], self.im_size)
                         mask = np.reshape(mask, self.image_shape)
                         mask = self.image_data_generator.apply_transform(mask.astype(self.dtype), random_params)
                         mask = np.reshape(mask, self.im_size)
                         masks.append(mask)
-                    # get_landmarks_from_mask_v2()
-                    # cv2.imshow('before t 0', create_landmark_image(landmarks, self.im_size))
-                    # cv2.imshow('before t 1', mask)
-                    # mask = np.reshape(mask, self.image_shape)
-                    # mask = self.image_data_generator.apply_transform(mask.astype(self.dtype), random_params)
-                    # mask = self.image_data_generator.standardize(mask)
-                    # mask = np.asarray(mask[0, :, :])
-                    # mask = np.reshape(mask, self.im_size)
 
-                    # cv2.imshow('after transformation 1', mask)
-                    # mask = create_landmark_mask_v2(landmarks, self.image_shape[1:])
-                    # for index, mask in enumerate(masks):
-                    #     mask = np.reshape(mask, self.image_shape)
-                    #     mask = self.image_data_generator.apply_transform(mask.astype(self.dtype), random_params)
-                    #     masks[index] = np.reshape(mask, self.image_shape[1:])
-
-                    # batch_mask[i] = mask
-                    new_landmarks = get_landmarks_from_mask_v2(masks)
-                    # mask2 = create_landmark_image(new_landmarks, self.image_shape[1:])
+                    new_landmarks = get_landmarks_from_masks(masks)
 
                     if new_landmarks is None or len(new_landmarks) < 68:
                         filled_indexes[i] = 0
                         if new_landmarks is not None:
                             print(len(new_landmarks))
                     else:
-                        cv2.imshow('after all', create_landmark_image(new_landmarks, self.im_size))
-                        cv2.waitKey(0)
+                        # cv2.imshow('after all', create_landmark_image(new_landmarks, self.im_size))
+                        # cv2.waitKey(0)
 
                         filled_indexes[i] = 1
                         new_landmarks = np.asarray(new_landmarks, dtype=self.dtype)
