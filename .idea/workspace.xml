@@ -2,17 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c01e69f1-dfde-4789-a00e-231c94c88efb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Work/image_utils/image_io.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Work/image_utils/image_noise.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/ds_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/ds_consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/landmarks_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/landmarks_consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generators/image_data_generator_pose.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/generators/image_data_generator_pose.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generators/my_data_iterator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/generators/my_data_iterator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/generators/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/generators/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/generators/image_data_generator_pose.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/generators/my_landmarks_generator.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/generators/test_affline.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/generators/test_landmarks_and_pose.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Work/generators/test_model_gen.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/generators/test_model_gen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Work/image_utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/image_utils/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/image_utils/draw_tools.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Work/image_utils/image_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/image_utils/image_tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/mytools/my_io.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/mytools/my_io.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -271,12 +270,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1576855045725</updated>
-    </task>
-    <task id="LOCAL‎00026" summary="reformat code">
-      <created>1579112262846</created>
-      <option name="number" value="LOCAL‎00026" />
-      <option name="presentableId" value="LOCAL‎00026" />
-      <updated>1579112262846</updated>
     </task>
     <task id="LOCAL‎00027" summary="major refactor">
       <created>1579212778429</created>
@@ -566,7 +559,13 @@
       <option name="presentableId" value="LOCAL‎00074" />
       <updated>1580341371938</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL‎00075" summary="worked">
+      <created>1580425653046</created>
+      <option name="number" value="LOCAL‎00075" />
+      <option name="presentableId" value="LOCAL‎00075" />
+      <updated>1580425653046</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -641,10 +640,10 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="645" y="222" key="#com.intellij.ide.util.MemberChooser/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580125817028" />
-    <state x="570" y="253" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580337826087">
+    <state x="570" y="253" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580427106873">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="570" y="253" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580337826087" />
+    <state x="570" y="253" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580427106873" />
     <state x="570" y="253" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578053309018" />
     <state x="651" y="261" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579963038691" />
     <state x="683" y="396" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog" timestamp="1578648021850">
@@ -675,11 +674,11 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="448" y="160" width="490" height="558" key="#xdebugger.evaluate/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578869152843" />
-    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1580341371367">
+    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1580425652442">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="-1355" y="77" key="CommitChangelistDialog2/-1920.-26.1920.1040/0.0.1680.1010@-1920.-26.1920.1040" timestamp="1580337268933" />
-    <state x="494" y="100" key="CommitChangelistDialog2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580341371367" />
+    <state x="494" y="100" key="CommitChangelistDialog2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580425652442" />
     <state x="494" y="100" key="CommitChangelistDialog2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923978513" />
     <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468848032" />
     <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578074558668" />
@@ -816,10 +815,10 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="673" y="217" key="RollbackChangesDialog/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1579807105220" />
-    <state x="315" y="274" key="SettingsEditor" timestamp="1580425645948">
+    <state x="315" y="274" key="SettingsEditor" timestamp="1580427013594">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="315" y="274" key="SettingsEditor/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580425645948" />
+    <state x="315" y="274" key="SettingsEditor/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580427013594" />
     <state x="315" y="274" key="SettingsEditor/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924036631" />
     <state x="341" y="148" key="SettingsEditor/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577452354861" />
     <state x="315" y="274" key="SettingsEditor/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578252436388" />
@@ -833,11 +832,11 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="498" height="446" key="SwitcherDM/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578524578726" />
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1580341375657">
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1580425655067">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="-1426" y="220" key="Vcs.Push.Dialog.v2/-1920.-26.1920.1040/0.0.1680.1010@-1920.-26.1920.1040" timestamp="1580337270494" />
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580341375657" />
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580425655067" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923981511" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468849513" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578074560466" />
@@ -868,10 +867,10 @@
     <state x="-1634" y="-26" width="1272" height="779" maximized="true" key="dock-window-1/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580229689034" />
     <state x="-1920" y="98" width="1259" height="785" maximized="true" key="dock-window-1/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577908767287" />
     <state x="92" y="92" width="1496" height="826" key="dock-window-1/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577463206322" />
-    <state x="-1668" y="-26" width="1272" height="758" maximized="true" key="dock-window-2" timestamp="1580235064757">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-1286" y="104" width="1302" height="995" key="dock-window-2" timestamp="1580427537646">
+      <screen x="-1920" y="-26" width="1920" height="1040" />
     </state>
-    <state x="-1668" y="-26" width="1272" height="758" key="dock-window-2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580226697737" />
+    <state x="-1286" y="104" width="1302" height="995" key="dock-window-2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580427537646" />
     <state x="-1793" y="-12" width="1259" height="785" maximized="true" key="dock-window-2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577918445955" />
     <state x="-1668" y="-26" width="1272" height="758" maximized="true" key="dock-window-2/0.0.1920.1040@0.0.1920.1040" timestamp="1580235064757" />
     <state x="-1495" y="76" width="1272" height="691" maximized="true" key="dock-window-3" timestamp="1579831724086">
@@ -903,10 +902,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="701" y="164" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578756404922" />
-    <state x="503" y="217" width="672" height="678" key="search.everywhere.popup" timestamp="1580421319034">
+    <state x="503" y="217" width="672" height="678" key="search.everywhere.popup" timestamp="1580425970966">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="503" y="217" width="672" height="678" key="search.everywhere.popup/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580421319034" />
+    <state x="503" y="217" width="672" height="678" key="search.everywhere.popup/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580425970966" />
     <state x="503" y="217" width="672" height="678" key="search.everywhere.popup/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577899859171" />
     <state x="503" y="217" width="672" height="678" key="search.everywhere.popup/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468235514" />
     <state x="503" y="217" width="672" height="678" key="search.everywhere.popup/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578258969437" />

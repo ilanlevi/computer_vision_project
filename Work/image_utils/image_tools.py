@@ -53,23 +53,22 @@ def auto_canny(image, sigma=0.33):
 def wrap_roi(image, pts):
     """
     Create a roi image from image and landmark.
-    Instead of cropping and changing the image size, will change the non roi pixels to noise.
+    Instead of cropping and changing the image size, will change the non roi pixels to 0.
     (for multi-face images)
     :param image: the image
     :param pts: the landmark point
     :return: new image
     """
     x, y, w, h = cv2.boundingRect(pts)
+
     x2, y2 = x + 2 * w, y + 2 * h
+
     x2 = min(x2, image.shape[1])
     y2 = min(y2, image.shape[0])
     x = max(x - w, 0)
     y = max(y - h, 0)
 
-    mean = 0
-    sigma = 10 ** 0.5
-
-    new_image = np.random.normal(mean, sigma, image.shape)
+    new_image = np.zeros(image.shape)
 
     for i in range(y, y2):
         for j in range(x, x2):

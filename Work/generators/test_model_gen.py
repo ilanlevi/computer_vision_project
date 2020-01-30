@@ -6,6 +6,8 @@ from mytools import get_files_list
 
 """Please ignore! This will be used for testing LandmarkWrapper, FpnWrapper classes"""
 
+ROUNDS = 5
+
 if __name__ == '__main__':
     folder = 'C:\\Work\\ComputerVision\\Project\\tmp\\'
 
@@ -18,7 +20,10 @@ if __name__ == '__main__':
     images_list = get_files_list(folder, suffixes, ['out'])
     data_format = 'channels_first'
     datagen = ImageDataGenerator(
-        shear_range=10,
+        featurewise_center=True,
+        featurewise_std_normalization=True,
+        zoom_range=10,
+        shear_range=20,
         rotation_range=40,
         width_shift_range=0.2,
         height_shift_range=0.2,
@@ -27,4 +32,8 @@ if __name__ == '__main__':
     iterator = MyDataIterator(folder, datagen, original_file_list=images_list, save_to_dir=(folder + '\\out_new\\'),
                               gen_y=True, out_image_size=250,
                               batch_size=4)
-    datagen.flow(iterator)
+    for i in range(ROUNDS):
+        _, _ = datagen.flow(iterator)
+
+    print('Exiting...')
+    exit(1)
