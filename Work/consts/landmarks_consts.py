@@ -14,10 +14,6 @@ FACIAL_LANDMARKS_68_IDXS = OrderedDict([
 L_EYE = 45  # left eye coordinate
 R_EYE = 36  # right eye coordinate
 
-# todo create an accual maping...
-# todo - remove
-# http://blog.dlib.net/2018/01/correctly-mirroring-datasets.html
-# https://www.researchgate.net/figure/The-68-facial-landmarks-extracted-from-a-frontal-face-view_fig3_320979643
 FACIAL_LANDMARKS_68_IDXS_FLIP = [(16, 0), (15, 1), (14, 2), (13, 3), (12, 4), (11, 5), (10, 6), (9, 7),  # jaw
                                  (26, 17), (25, 18), (24, 19), (23, 20), (22, 21),  # eyebrows
                                  (35, 31), (34, 32),  # nose

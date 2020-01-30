@@ -118,7 +118,7 @@ class ImageDataGeneratorPose(object):
         '''
         if self.target_shape is not None:
             shape_orig = x.shape
-            x = cv2.resize(x, self.target_shape[:2])
+            x = cv2.my_resize(x, self.target_shape[:2])
 
             y = self.adjust_xy(y,
                                shape_orig,

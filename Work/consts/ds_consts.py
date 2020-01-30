@@ -14,7 +14,7 @@ class DataSetConsts:
     BATCH_SIZE = 64
     OUT_DIM = 6
 
-    SIGMA = 0.01
+    SIGMA = 0.05
 
     LANDMARKS_PREFIX = '_landmarks_'
 

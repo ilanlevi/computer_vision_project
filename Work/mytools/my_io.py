@@ -21,7 +21,6 @@ def get_files_list(path, suffixes=None, exclude_strings=None):
 
     suffixes = np.unique(suffixes)
 
-    print('Starting to walk on files..')
     files = [os.path.join(r, file_) for r, d, f in os.walk(path) for file_ in f]
     f_list = []
     for file_name in files:
@@ -48,7 +47,6 @@ def mkdir(d):
     """only works on *nix system"""
     if not os.path.isdir(d) and not os.path.exists(d):
         os.mkdir(d)
-        # os.system('mkdir -p {}'.format(d))
 
 
 def get_suffix(filename, p='.'):

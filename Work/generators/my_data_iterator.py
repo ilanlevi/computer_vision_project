@@ -6,7 +6,7 @@ from keras_preprocessing.image.utils import array_to_img
 from sklearn.model_selection import train_test_split
 
 from consts import DataSetConsts, CsvConsts, ValidationFileConsts as fConsts
-from image_utils import load_image, auto_canny, resize_image_and_landmarks
+from image_utils import load_image, auto_canny, resize_image_and_landmarks, wrap_roi
 from mytools import get_files_list, load_image_landmarks, mkdir, \
     get_landmarks_from_masks, create_landmark_mask, write_csv, create_mask_from_landmarks
 from .fpn_wrapper_model import MyFpnWrapper
@@ -58,6 +58,7 @@ class MyDataIterator(Iterator):
             original_file_list = self._get_original_list()
 
         self.list_of_files = original_file_list
+        self.should_save_aug = self.gen_y and (self.save_to_dir is not None)
 
         super(MyDataIterator, self).__init__(len(self.list_of_files),
                                              batch_size=batch_size,
@@ -99,12 +100,12 @@ class MyDataIterator(Iterator):
             image_path = index_array[next_i]
             image, landmarks, y = self._get_samples(image_path)
             image = np.reshape(image, self.image_shape)
-            # todo - check if noise is added
+            gauss = np.random.normal(mean, sigma, (row, col, ch))
             random_params = self.image_data_generator.get_random_transform(self.image_shape)
             image = self.image_data_generator.apply_transform(image.astype(self.dtype), random_params)
             image = self.image_data_generator.standardize(image)
             image = np.reshape(image, (self.out_image_size, self.out_image_size))
-            image = self._do_canny(image)
+            image = auto_canny(image, DataSetConsts.SIGMA)
             image = np.reshape(image, self.image_shape)
             if self.gen_y:
                 masks = []
@@ -126,25 +127,46 @@ class MyDataIterator(Iterator):
                         batch_y = new_pose
                     else:
                         batch_y = np.append(batch_y, new_pose, axis=0)
-                    if len(batch_mask) is 0:
-                        batch_mask = create_mask_from_landmarks(new_landmarks, self.image_shape)
-                    else:
-                        batch_mask = np.append(batch_mask, create_mask_from_landmarks(new_landmarks, self.image_shape),
-                                               axis=0)
-                    # todo delete
-                    # tmp_delete[i] = create_landmark_image(new_landmarks, self.image_shape[1:], dtype=self.dtype)
-                    # tmp_delete[i] = create_numbered_mask(new_landmarks, self.im_size)
+                    if self.should_save_aug:
+                        curr_mask = create_mask_from_landmarks(new_landmarks, self.image_shape)
+                        if len(batch_mask) is 0:
+                            batch_mask = curr_mask
+                        else:
+                            batch_mask = np.append(batch_mask, curr_mask, axis=0)
+
             if len(batch_x) is 0:
                 batch_x = image
             else:
                 batch_x = np.append(batch_x, image, axis=0)
 
         # now add channel
+        batch_out_shape = (len(index_array), self.image_shape[0], self.image_shape[1], self.image_shape[2])
+        batch_x = np.reshape(batch_x, batch_out_shape)
 
-        batch_x = np.reshape(batch_x, (len(index_array), self.image_shape[0], self.image_shape[1], self.image_shape[2]))
-        if self.save_to_dir is not None:
-            batch_mask = np.reshape(batch_mask,
-                                    (len(index_array), self.image_shape[0], self.image_shape[1], self.image_shape[2]))
+        # save all if needed
+        self._save_all_if_needed(batch_x, batch_mask, batch_y, batch_out_shape, index_array)
+
+        output = (batch_x, batch_y)
+        if not self.gen_y:
+            return output[0]
+        if self.sample_weight is not None:
+            output += (self.sample_weight[index_array],)
+        return output
+
+    def _save_all_if_needed(self, batch_x, batch_mask, batch_y, batch_out_shape, index_array):
+        """
+        Works only if self.should_save_aug is true.
+        Save all of the augmented images, masks and out_y in dst dir. (out_y in csv)
+        :param batch_x: the batch randomly augmented images
+        :param batch_mask: the batch numbered landmarks masks
+        :param batch_y: the batch 6DoF values
+        :param batch_out_shape:  batch_x out shape
+        :param index_array: this batch indexes array
+        """
+        if self.should_save_aug:
+            csv_rows = []
+            batch_mask = np.reshape(batch_mask, batch_out_shape)
+
             # create folder if missing
             mkdir(self.save_to_dir)
             for i, j in enumerate(index_array):
@@ -156,25 +178,17 @@ class MyDataIterator(Iterator):
                     hash=rnd,
                     format=self.save_format)
                 img.save(os.path.join(self.save_to_dir, fname))
-                if self.gen_y:
-                    mask_name = '{prefix}_{index}_{hash}.{format}'.format(
-                        prefix=('mask_' + self.save_prefix),
-                        index=j,
-                        hash=rnd,
-                        format=self.save_format)
-                    mask_img = array_to_img(batch_mask[i] + 1, 'channels_first', scale=True)
-                    mask_img.save(os.path.join(self.save_to_dir, mask_name))
-            csv_rows = []
-            for i, (rx, ry, rz, tx, ty, tz) in enumerate(batch_y):
-                csv_rows.append([i, self.list_of_files[i], rx, ry, rz, tx, ty, tz])
-            write_csv(csv_rows, CsvConsts.CSV_LABELS, self.save_to_dir, fConsts.MY_VALIDATION_CSV)
+                mask_name = '{prefix}_{index}_{hash}.{format}'.format(
+                    prefix=('mask_' + self.save_prefix),
+                    index=j,
+                    hash=rnd,
+                    format=self.save_format)
+                mask_img = array_to_img(batch_mask[i] + 1, 'channels_first', scale=True)
+                mask_img.save(os.path.join(self.save_to_dir, mask_name))
+                rx, ry, rz, tx, ty, tz = batch_y[i]
+                csv_rows.append([i, fname, rx, ry, rz, tx, ty, tz])
 
-        output = (batch_x, batch_y)
-        if not self.gen_y:
-            return output[0]
-        if self.sample_weight is not None:
-            output += (self.sample_weight[index_array],)
-        return output
+            write_csv(csv_rows, CsvConsts.CSV_LABELS, self.save_to_dir, fConsts.MY_VALIDATION_CSV)
 
     def _get_samples(self, index):
         """
@@ -194,18 +208,13 @@ class MyDataIterator(Iterator):
         :return: tuple of: (loaded image after canny, landmarks or None if !self.gen_y)
         """
         if self.gen_y:
-            # todo - crop face on image and mask
             image = load_image(image_path)
             landmarks = load_image_landmarks(image_path)
+            image = wrap_roi(image, landmarks)
             image, landmarks = resize_image_and_landmarks(image, landmarks, self.out_image_size)
+
         else:
             image = load_image(image_path, self.out_image_size)
             landmarks = None
 
         return image, landmarks
-
-    @staticmethod
-    def _do_canny(image):
-        image = np.asarray(image, dtype=np.uint8)
-        image = auto_canny(image, DataSetConsts.SIGMA)
-        return image
