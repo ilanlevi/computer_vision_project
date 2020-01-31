@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 from compare_utils import compare_scores, plot_diff, plot_diff_each_param
 from consts import VALIDATION_FOLDER, MY_VALIDATION_CSV, VALIDATION_CSV, VALIDATION_DIFF_CSV, CSV_LABELS
-from my_models import FpnWrapper
+from my_models import FpnWrapper, MyDataIterator
 from my_utils import write_csv, get_suffix
 from .labeled_data_store import LabeledDataStore
 
@@ -37,6 +37,9 @@ if __name__ == '__main__':
     filename_my = MY_VALIDATION_CSV
     filename_valid = VALIDATION_CSV
     filename_diff = VALIDATION_DIFF_CSV
+
+    my_iterator = MyDataIterator(folder, None, original_file_list=images_list, save_to_dir=(folder + '\\out_new\\'),
+                                 gen_y=True, save_csv=True, save_images=True, out_image_size=250)
 
     write_scores(VALIDATION_FOLDER, MY_VALIDATION_CSV, fpn, data)
 

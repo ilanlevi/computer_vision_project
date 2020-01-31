@@ -135,15 +135,17 @@ class MyDataIterator(Iterator):
 
             image = np.reshape(image, self.image_shape)
             # only if we want to train the model
-            if self.gen_y and self.image_generator is not None:
-                random_params = self.image_generator.get_random_transform(self.image_shape)
-                image = self.image_generator.apply_transform(image.astype(self.dtype), random_params)
+            if self.gen_y:
+                if self.image_generator is not None:
+                    random_params = self.image_generator.get_random_transform(self.image_shape)
+                    image = self.image_generator.apply_transform(image.astype(self.dtype), random_params)
 
                 masks = []
                 for index in range(len(landmarks)):
                     mask = create_single_landmark_mask(landmarks[index], self.im_size)
                     mask = np.reshape(mask, self.image_shape)
-                    mask = self.image_generator.apply_transform(mask.astype(self.dtype), random_params)
+                    if self.image_generator is not None:
+                        mask = self.image_generator.apply_transform(mask.astype(self.dtype), random_params)
                     mask = np.reshape(mask, self.im_size)
                     masks.append(mask)
 

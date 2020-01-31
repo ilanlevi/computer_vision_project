@@ -28,8 +28,8 @@ if __name__ == '__main__':
         horizontal_flip=True,
         data_format=data_format)
 
-    my_iterator = MyDataIterator(folder, datagen, original_file_list=images_list, save_to_dir=(folder + '\\out_new\\'),
-                                 gen_y=True, out_image_size=250, batch_size=2)
+    my_iterator = MyDataIterator(folder, datagen, save_to_dir=(folder + '\\out_new\\'),
+                                 gen_y=True, save_csv=True, save_images=True, out_image_size=250)
 
     for i in range(ROUNDS):
         my_iterator.next()
