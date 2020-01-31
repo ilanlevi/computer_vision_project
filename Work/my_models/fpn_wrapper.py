@@ -89,12 +89,12 @@ class FpnWrapper:
 
         # set pitch, yaw, roll
         # rx, ry, rz = FpnWrapper.matrix2angle(rmat)
-        rx = FpnWrapper.fix_angle(rotation_vec[0])
-        ry = FpnWrapper.fix_angle(rotation_vec[1])
-        rz = FpnWrapper.fix_angle(rotation_vec[2])
-        # rx = rotation_vec[0]
-        # ry = rotation_vec[1]
-        # rz = rotation_vec[2]
+        # rx = FpnWrapper.fix_angle(rotation_vec[0])
+        # ry = FpnWrapper.fix_angle(rotation_vec[1])
+        # rz = FpnWrapper.fix_angle(rotation_vec[2])
+        rx = rotation_vec[0]
+        ry = rotation_vec[1]
+        rz = rotation_vec[2]
 
         # set translation vector
         tx = translation_vec[0]

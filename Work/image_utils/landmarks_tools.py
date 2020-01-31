@@ -26,11 +26,12 @@ def load_image_landmarks(image_path, landmarks_suffix=LANDMARKS_FILE_SUFFIX):
     return landmarks
 
 
-def get_landmarks_from_masks(landmarks_images):
+def get_landmarks_from_masks(landmarks_images, flip_back=False):
     """
     The reverse of create mask -> calculate landmark from mask image.
     Uses _adjust_horizontal_flip function to flip the landmarks indexes if the image was flipped.
     :param landmarks_images: the landmark image masks array
+    :param flip_back: flip landmarks back if a horizontal flip
     :return: image landmarks as (68, 2) array
     """
 
@@ -44,18 +45,32 @@ def get_landmarks_from_masks(landmarks_images):
 
     landmarks_points = np.array(landmarks_points)
     landmarks_points = np.reshape(landmarks_points, LANDMARKS_SHAPE)
-    landmarks = _adjust_horizontal_flip(landmarks_points)
-    return landmarks
+    if flip_back:
+        landmarks_points = adjust_horizontal_flip(landmarks_points)
+
+    return landmarks_points
 
 
-def _adjust_horizontal_flip(landmarks_points):
+def was_flipped(landmarks_points):
+    """
+    return if a horizontal flip happens we to flip the target coordinates accordingly.
+    (We will know that the image was flipped if the right eye is after the left index)
+    :param landmarks_points: the landmarks points array
+    :return: true for was flipped or false otherwise
+    """
+    # x-cord of right eye is less than x-cord of left eye
+    return landmarks_points[R_EYE_IDX, 0] > landmarks_points[L_EYE_IDX, 0]  # check if flip happens
+
+
+def adjust_horizontal_flip(landmarks_points):
     """
     if a horizontal flip happens we to flip the target coordinates accordingly.
     (We will know that the image was flipped if the right eye is after the left index)
     :param landmarks_points: the landmarks array
     :return: landmarks_points after flipped if needed or the original landmarks_points
     """
-    if landmarks_points[R_EYE_IDX][1] > landmarks_points[L_EYE_IDX][1]:  # check if flip happens
+    if was_flipped(landmarks_points):  # check if flip happens
+        print('flipped!')
         # x-cord of right eye is less than x-cord of left eye
         # horizontal flip happened!
         for a, b in FACIAL_LANDMARKS_68_IDXS_FLIP:
@@ -76,7 +91,14 @@ def create_single_landmark_mask(landmark, image_shape):
     :return: the landmark image mask
     """
     landmarks_mask = np.zeros((image_shape[0], image_shape[1]))
-    landmarks_mask[int(landmark[1]), int(landmark[0])] = 255
+
+    i_s = np.random.normal(landmark[1], size=20)
+    i_s = i_s.astype(int)
+    j_s = np.random.normal(landmark[0], size=20)
+    j_s = j_s.astype(int)
+    for i in i_s:
+        for j in j_s:
+            landmarks_mask[i, j] = 255
 
     return landmarks_mask
 

@@ -32,8 +32,8 @@ class MyDataIterator(Iterator):
                  save_csv=True,
                  save_images=False,
                  save_prefix='',
-                 should_clean_noise=True,
-                 use_canny=True,
+                 should_clean_noise=False,
+                 use_canny=False,
                  save_format='png',
                  dtype='float32'):
 
@@ -150,13 +150,15 @@ class MyDataIterator(Iterator):
                         mask = np.reshape(mask, self.im_size)
                         masks.append(mask)
 
-                    new_landmarks = get_landmarks_from_masks(masks)
+                    should_flip = self.image_generator is not None
+                    new_landmarks = get_landmarks_from_masks(masks, should_flip)
 
                     if new_landmarks is not None and len(new_landmarks) is 68:
                         new_landmarks = np.asarray(new_landmarks, dtype=self.dtype)
                         new_pose = self.fpn_model.get_3d_vectors(new_landmarks)
                         new_pose = np.asarray(new_pose)
                         new_pose = np.resize(new_pose, (1, 6))
+
                         if len(batch_y) is 0:
                             batch_y = new_pose
                         else:

@@ -20,7 +20,9 @@ if __name__ == '__main__':
     filename_valid = VALIDATION_CSV_2
     filename_diff = VALIDATION_DIFF_CSV
 
-    os.remove(folder + filename_my)
+    if os.path.exists(folder + filename_my):
+        os.remove(folder + filename_my)
+
     csv = read_csv(folder, filename_valid)
     file_list = [(folder + r.get(PICTURE_NAME)) for r in csv]
 
