@@ -20,20 +20,18 @@ if __name__ == '__main__':
     images_list = get_files_list(folder, suffixes, ['out'])
     data_format = 'channels_first'
     datagen = ImageDataGenerator(
-        featurewise_center=True,
-        featurewise_std_normalization=True,
-        zoom_range=10,
         shear_range=20,
         rotation_range=40,
         width_shift_range=0.2,
         height_shift_range=0.2,
-        horizontal_flip=True, data_format=data_format)
+        horizontal_flip=True,
+        data_format=data_format)
 
-    iterator = MyDataIterator(folder, datagen, original_file_list=images_list, save_to_dir=(folder + '\\out_new\\'),
-                              gen_y=True, out_image_size=250,
-                              batch_size=4)
+    my_iterator = MyDataIterator(folder, datagen, original_file_list=images_list, save_to_dir=(folder + '\\out_new\\'),
+                                 gen_y=True, out_image_size=250, batch_size=2)
+
     for i in range(ROUNDS):
-        _, _ = datagen.flow(iterator)
+        my_iterator.next()
 
     print('Exiting...')
     exit(1)

@@ -42,23 +42,24 @@ def _salt_and_pepper(image):
     :param image: the image
     :return: noisy image
     """
-    s_vs_p = 0.5
-    amount = 0.004
+    salt_vs_pepper_ratio = 0.5
+    amount = 0.0005
 
-    out = np.copy(image)
-    # Salt mode
-    num_salt = np.ceil(amount * image.size * s_vs_p)
-    xy_s = [np.random.randint(0, i - 1, int(num_salt))
-            for i in image.shape]
-    out[xy_s] = 1
+    salted_and_peppered = image.copy()
+    mean = salted_and_peppered.mean()
 
-    # Pepper mode
-    num_pepper = np.ceil(amount * image.size * (1. - s_vs_p))
-    xy_s = [np.random.randint(0, i - 1, int(num_pepper))
-            for i in image.shape]
-    out[xy_s] = 0
+    num_salt = np.ceil(amount * image.size * salt_vs_pepper_ratio)
+    num_pepper = np.ceil(amount * image.size * (1 - salt_vs_pepper_ratio))
 
-    return out
+    # add salt
+    xy_s = [np.random.randint(0, i - 1, int(num_salt)) for i in salted_and_peppered.shape]
+    salted_and_peppered[xy_s[0], xy_s[1]] = 1 * mean
+
+    # add pepper
+    xy_s = [np.random.randint(0, i - 1, int(num_pepper)) for i in salted_and_peppered.shape]
+    salted_and_peppered[xy_s[0], xy_s[1]] = 0
+
+    return salted_and_peppered
 
 
 def _poisson(image):
