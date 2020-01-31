@@ -62,8 +62,9 @@ def wrap_roi(image, pts):
     :return: new image
     """
     x, y, w, h = cv2.boundingRect(pts)
-
-    x2, y2 = x + 2 * w, y + 2 * h
+    w = int(1.2 * w)
+    h = int(1.2 * w)
+    x2, y2 = x + w, y + h
 
     x2 = min(x2, image.shape[1])
     y2 = min(y2, image.shape[0])
@@ -77,3 +78,32 @@ def wrap_roi(image, pts):
             new_image[i, j] = image[i, j]
 
     return new_image
+
+
+def draw_axis(img, yaw, pitch, roll, tdx=None, tdy=None, size=100):
+    if tdx is not None and tdy is not None:
+        tdx = tdx
+        tdy = tdy
+    else:
+        height, width = img.shape
+        tdx = width / 2
+        tdy = height / 2
+
+    # X-Axis pointing to right - >pitch
+    x1 = size * pitch + tdx
+    y1 = size * pitch + tdy
+
+    # Y-Axis -> yaw
+    #        v
+    x2 = size * yaw + tdx
+    y2 = size * yaw + tdy
+
+    # Z-Axis -> roll
+    x3 = size * roll + tdx
+    y3 = size * roll + tdy
+
+    cv2.line(img, (int(tdx), int(tdy)), (int(x1), int(y1)), (255, 255, 255), 3)
+    cv2.line(img, (int(tdx), int(tdy)), (int(x2), int(y2)), (255, 255, 255), 3)
+    cv2.line(img, (int(tdx), int(tdy)), (int(x3), int(y3)), (255, 255, 255), 2)
+
+    return img

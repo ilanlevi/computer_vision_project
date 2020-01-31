@@ -29,9 +29,11 @@ class MyDataIterator(Iterator):
                  sample_weight=None,
                  seed=None,
                  save_to_dir=None,
+                 save_csv=True,
+                 save_images=False,
                  save_prefix='',
-                 should_clean_noise=False,
-                 use_canny=False,
+                 should_clean_noise=True,
+                 use_canny=True,
                  save_format='png',
                  dtype='float32'):
 
@@ -64,7 +66,12 @@ class MyDataIterator(Iterator):
             original_file_list = self._get_original_list()
 
         self.list_of_files = original_file_list
-        self.should_save_aug = self.gen_y and (self.save_to_dir is not None)
+        self.save_csv = save_csv
+        self.save_images = save_images
+
+        self.should_save = self.gen_y and (self.save_to_dir is not None)
+        self.should_save_aug = self.should_save and self.save_images
+        self.should_save_csv = self.should_save and self.save_csv
 
         super(MyDataIterator, self).__init__(len(self.list_of_files),
                                              batch_size=batch_size,
@@ -75,7 +82,11 @@ class MyDataIterator(Iterator):
         """Set self.gen_y and self.save_to_dir, update self.should_save_aug as well"""
         self.gen_y = gen_y
         self.save_to_dir = save_to_dir
-        self.should_save_aug = self.gen_y and (self.save_to_dir is not None)
+
+        self.should_save = self.gen_y and (self.save_to_dir is not None)
+
+        self.should_save_aug = self.should_save and self.save_images
+        self.should_save_csv = self.should_save and self.save_csv
 
     def _get_original_list(self):
         """
@@ -111,7 +122,6 @@ class MyDataIterator(Iterator):
             next_i = len(batch_x)
             image_path = index_array[next_i]
             image, landmarks, y = self._get_samples(image_path)
-            image = np.reshape(image, self.image_shape)
 
             # add random noise only in train mode
             if self.gen_y and self.should_clean_noise:
@@ -119,15 +129,16 @@ class MyDataIterator(Iterator):
 
             # use canny filter
             if self.use_canny:
+                image = np.reshape(image, self.im_size)
                 image = auto_canny(image, CANNY_SIGMA)
+                image = np.reshape(image, self.image_shape)
 
+            image = np.reshape(image, self.image_shape)
             # only if we want to train the model
             if self.gen_y and self.image_generator is not None:
                 random_params = self.image_generator.get_random_transform(self.image_shape)
                 image = self.image_generator.apply_transform(image.astype(self.dtype), random_params)
-                image = np.reshape(image, (self.out_image_size, self.out_image_size))
 
-                image = np.reshape(image, self.image_shape)
                 masks = []
                 for index in range(len(landmarks)):
                     mask = create_single_landmark_mask(landmarks[index], self.im_size)
@@ -147,6 +158,13 @@ class MyDataIterator(Iterator):
                         batch_y = new_pose
                     else:
                         batch_y = np.append(batch_y, new_pose, axis=0)
+                    # we are training the model, add to batch only if valid augmentation
+                    if len(batch_x) is 0:
+                        batch_x = image
+                    else:
+                        batch_x = np.append(batch_x, image, axis=0)
+
+                    # create mask for testing output
                     if self.should_save_aug:
                         curr_mask = create_mask_from_landmarks(new_landmarks, self.image_shape)
                         if len(batch_mask) is 0:
@@ -154,10 +172,12 @@ class MyDataIterator(Iterator):
                         else:
                             batch_mask = np.append(batch_mask, curr_mask, axis=0)
 
-            if len(batch_x) is 0:
-                batch_x = image
+            # we are not training the model, add to batch
             else:
-                batch_x = np.append(batch_x, image, axis=0)
+                if len(batch_x) is 0:
+                    batch_x = image
+                else:
+                    batch_x = np.append(batch_x, image, axis=0)
 
         # reshape
         batch_out_shape = tuple([len(batch_x)] + list(self.image_shape))
@@ -185,34 +205,38 @@ class MyDataIterator(Iterator):
         """
         # check lengths
         should_write_scores = (len(batch_x) == len(index_array))
-        should_write_scores = should_write_scores and self.should_save_aug
+        should_write_scores = should_write_scores and self.should_save
 
         if should_write_scores:
             csv_rows = []
-            batch_mask = np.reshape(batch_mask, batch_x.shape)
 
             # create folder if missing
             mkdir(self.save_to_dir)
+
             for i, j in enumerate(index_array):
-                img = array_to_img(batch_x[i], 'channels_first', scale=True)
                 rnd = np.random.randint(1e4)
                 fname = '{prefix}_{index}_{hash}.{format}'.format(
                     prefix=self.save_prefix,
                     index=j,
                     hash=rnd,
                     format=self.save_format)
-                img.save(os.path.join(self.save_to_dir, fname))
                 mask_name = '{prefix}_{index}_{hash}.{format}'.format(
                     prefix=('mask_' + self.save_prefix),
                     index=j,
                     hash=rnd,
                     format=self.save_format)
-                mask_img = array_to_img(batch_mask[i] + 1, 'channels_first', scale=True)
-                mask_img.save(os.path.join(self.save_to_dir, mask_name))
+                if self.save_images:
+                    batch_mask = np.reshape(batch_mask, tuple([len(index_array)] + list(self.image_shape)))
+                    img = array_to_img(batch_x[i], 'channels_first', scale=True)
+                    img.save(os.path.join(self.save_to_dir, fname))
+                    mask_img = array_to_img(batch_mask[i] + 1, 'channels_first', scale=True)
+                    mask_img.save(os.path.join(self.save_to_dir, mask_name))
+
                 rx, ry, rz, tx, ty, tz = batch_y[i]
                 csv_rows.append([i, fname, rx, ry, rz, tx, ty, tz])
 
-            write_csv(csv_rows, CSV_LABELS, self.save_to_dir, CSV_OUTPUT_FILE_NAME)
+            if self.should_save_csv:
+                write_csv(csv_rows, CSV_LABELS, self.save_to_dir, CSV_OUTPUT_FILE_NAME, append=True)
 
     def _get_samples(self, index):
         """
