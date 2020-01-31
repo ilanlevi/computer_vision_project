@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
 
+from consts import CANNY_SIGMA
 
-# todo - check why i am loading the image again??
 
 def resize_image_and_landmarks(image, landmarks, new_size=None, inter=cv2.INTER_AREA):
     """
@@ -33,11 +33,11 @@ def resize_image_and_landmarks(image, landmarks, new_size=None, inter=cv2.INTER_
     return resized, resized_landmarks
 
 
-def auto_canny(image, sigma=0.33):
+def auto_canny(image, sigma=CANNY_SIGMA):
     """
     Apply canny filter in image
     :param image: the image
-    :param sigma: sigma threshold factor - default is 0.33
+    :param sigma: sigma threshold factor
     :return: the canny edge detected image
     """
     # compute the median of the single channel pixel intensities

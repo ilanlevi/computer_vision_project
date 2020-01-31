@@ -1,7 +1,9 @@
-from generators import MyDataIterator
-from keras_preprocessing.image import ImageDataGenerator, os
+import os
 
-from consts import DataSetConsts as dsConsts
+from keras_preprocessing.image import ImageDataGenerator
+
+from consts import PICTURE_SUFFIX
+from my_models import MyDataIterator
 from my_utils import get_files_list
 
 """Please ignore! This will be used for testing LandmarkWrapper, FpnWrapper classes"""
@@ -16,8 +18,7 @@ if __name__ == '__main__':
     for remove_file in to_remove:
         os.remove(remove_file)
 
-    suffixes = dsConsts.PICTURE_SUFFIX
-    images_list = get_files_list(folder, suffixes, ['out'])
+    images_list = get_files_list(folder, PICTURE_SUFFIX, ['out'])
     data_format = 'channels_first'
     datagen = ImageDataGenerator(
         shear_range=20,

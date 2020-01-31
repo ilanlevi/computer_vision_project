@@ -1,7 +1,7 @@
 import numpy as np
 
 from consts import PICTURE_SUFFIX
-from image_utils import load_images, resize_image_and_landmarks
+from image_utils import load_images, resize_image_and_landmarks, load_image_landmarks
 from my_utils import get_files_list
 
 
@@ -17,6 +17,8 @@ class LabeledDataStore:
         if not isinstance(picture_suffix, list):
             self.picture_suffix = [picture_suffix]
         self.original_file_list = self.get_original_list()
+        self.y = []
+        self.x = []
 
     def get_original_list(self):
         """
@@ -27,22 +29,19 @@ class LabeledDataStore:
         return files
 
     def read_data_set(self):
+        self.y = []
+        self.x = []
+
         tmp_x_train_set = load_images(self.original_file_list, gray=self.to_gray)
-        self.x_train_set = []
-        self.y_train_set = []
         for index in range(len(self.original_file_list)):
-            ldmk_list = get_landmarks(self.original_file_list[index])
+            ldmk_list = load_image_landmarks(self.original_file_list[index])
             if ldmk_list is not None:
                 ldmk_list = np.asarray(ldmk_list)
                 im, lmarlk = resize_image_and_landmarks(tmp_x_train_set[index], ldmk_list, self.image_size)
-                self.y_train_set.append(lmarlk)
-                self.x_train_set.append(im)
+                self.y.append(lmarlk)
+                self.x.append(im)
 
-        self.y_train_set = np.asarray(self.y_train_set)
-        self.x_train_set = np.asarray(self.x_train_set)
-
-        return self
-
-    def _init(self):
+        self.y = np.asarray(self.y)
+        self.x = np.asarray(self.x)
 
         return self

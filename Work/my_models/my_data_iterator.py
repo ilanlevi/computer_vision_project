@@ -6,18 +6,19 @@ from keras_preprocessing.image.utils import array_to_img
 from sklearn.model_selection import train_test_split
 
 from consts import BATCH_SIZE, PICTURE_SUFFIX, PICTURE_SIZE, CANNY_SIGMA, CSV_LABELS, CSV_OUTPUT_FILE_NAME
-from image_utils import load_image, auto_canny, resize_image_and_landmarks, wrap_roi, random_noisy
+from image_utils import load_image, auto_canny, resize_image_and_landmarks, wrap_roi, clean_noise
 from image_utils import load_image_landmarks, get_landmarks_from_masks, create_mask_from_landmarks, \
     create_single_landmark_mask
 from my_utils import get_files_list, mkdir, write_csv
 from .fpn_wrapper import FpnWrapper
 
 
+# todo -comments
 class MyDataIterator(Iterator):
 
     def __init__(self,
                  data_path,
-                 image_data_generator,
+                 image_data_generator=None,
                  original_file_list=None,
                  fpn_model=FpnWrapper(),
                  batch_size=BATCH_SIZE,
@@ -29,6 +30,8 @@ class MyDataIterator(Iterator):
                  seed=None,
                  save_to_dir=None,
                  save_prefix='',
+                 should_clean_noise=False,
+                 use_canny=False,
                  save_format='png',
                  dtype='float32'):
 
@@ -46,6 +49,8 @@ class MyDataIterator(Iterator):
         self.out_image_size = out_image_size
         self.fpn_model = fpn_model
         self.im_size = (self.out_image_size, self.out_image_size)
+        self.should_clean_noise = should_clean_noise
+        self.use_canny = use_canny
 
         # set grayscale channel
         self.image_shape = (1, self.out_image_size, self.out_image_size)
@@ -65,6 +70,12 @@ class MyDataIterator(Iterator):
                                              batch_size=batch_size,
                                              shuffle=shuffle,
                                              seed=seed)
+
+    def set_gen_labels(self, gen_y, save_to_dir=None):
+        """Set self.gen_y and self.save_to_dir, update self.should_save_aug as well"""
+        self.gen_y = gen_y
+        self.save_to_dir = save_to_dir
+        self.should_save_aug = self.gen_y and (self.save_to_dir is not None)
 
     def _get_original_list(self):
         """
@@ -102,17 +113,20 @@ class MyDataIterator(Iterator):
             image, landmarks, y = self._get_samples(image_path)
             image = np.reshape(image, self.image_shape)
 
-            # standardize image
-            # image = self.image_generator.standardize(image)
+            # add random noise only in train mode
+            if self.gen_y and self.should_clean_noise:
+                image = clean_noise(image)
+
+            # use canny filter
+            if self.use_canny:
+                image = auto_canny(image, CANNY_SIGMA)
 
             # only if we want to train the model
-            if self.gen_y:
+            if self.gen_y and self.image_generator is not None:
                 random_params = self.image_generator.get_random_transform(self.image_shape)
                 image = self.image_generator.apply_transform(image.astype(self.dtype), random_params)
                 image = np.reshape(image, (self.out_image_size, self.out_image_size))
-                image = random_noisy(image)
 
-                image = auto_canny(image, CANNY_SIGMA)
                 image = np.reshape(image, self.image_shape)
                 masks = []
                 for index in range(len(landmarks)):
@@ -145,7 +159,7 @@ class MyDataIterator(Iterator):
             else:
                 batch_x = np.append(batch_x, image, axis=0)
 
-        # now add grayscale channel
+        # reshape
         batch_out_shape = tuple([len(batch_x)] + list(self.image_shape))
 
         batch_x = np.reshape(batch_x, batch_out_shape)

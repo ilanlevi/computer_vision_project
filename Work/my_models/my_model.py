@@ -1,24 +1,49 @@
 import os
 
-from data import KerasModelData
 from keras.callbacks import EarlyStopping
 from keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Flatten, Activation
 from keras.models import load_model, save_model, Sequential
 from matplotlib import pyplot as plt
 
-from consts import MyModelConsts as myC, DataSetConsts as dsC
-from my_utils import mkdir
+from consts import DEFAULT_TRAIN_RATE, DEFAULT_VALID_RATE, MY_MODEL_LOCAL_PATH, MY_MODEL_NAME, BATCH_SIZE, EPOCHS, \
+    PICTURE_SUFFIX, PICTURE_SIZE
+from my_models import MyDataIterator
+from my_utils import mkdir, model_dump, count_files_in_dir
 
 
 class MyModel:
 
-    def __init__(self, data_path, picture_suffix, image_size, test_rate=dsC.DEFAULT_TRAIN_RATE,
-                 valid_rate=dsC.DEFAULT_VALID_RATE, sigma=0.33, path=myC.MODEL_DIR, name=myC.MODEL_NAME_160_4l,
-                 gpu=False, batch_size=myC.BATCH_SIZE, epochs=myC.EPOCHS):
-        self.data = None
-        self.test_data = None
-        self.labels = None
+    def __init__(self,
+                 data_path,
+                 original_file_list=None,
+                 image_size=PICTURE_SIZE,
+                 picture_suffix=PICTURE_SUFFIX,
+                 test_rate=DEFAULT_TRAIN_RATE,
+                 valid_rate=DEFAULT_VALID_RATE,
+                 path_to_model=MY_MODEL_LOCAL_PATH,
+                 name=MY_MODEL_NAME,
+                 gpu=False,
+                 batch_size=BATCH_SIZE,
+                 epochs=EPOCHS):
+
+        """
+        Create my model instance
+        :param data_path: the data path
+        :param original_file_list: if specified this will be the files list and not data_path
+        :param image_size: the image size after loading will be (image_size, image_size)
+        :param picture_suffix: the images type
+        :param test_rate: should be [0.0 ,1.0]. proportion of the dataset test split (only on training)
+        :param valid_rate: should be [0.0 ,1.0]. proportion of the dataset validate (only on training)
+        :param path_to_model: the path to my model file
+        :param name: my model file name
+        :param gpu: use gpu or not (default is not)
+        :param batch_size: the batch size
+        :param epochs: #of epochs
+        """
+
         self.data_path = data_path
+        self.original_file_list = original_file_list
+        self.image_size = image_size
         self.picture_suffix = picture_suffix
 
         if not isinstance(picture_suffix, list):
@@ -27,12 +52,12 @@ class MyModel:
         self.test_rate = test_rate
         self.valid_rate = valid_rate
         self.image_size = image_size
-        self.sigma = sigma
 
-        self.path = path
+        self.path = path_to_model
         self.name = name
-        self.model = None
         self.gpu = gpu
+        self.model = None
+        self.data_iterator = None
 
         self.epochs = epochs
         self.batch_size = batch_size
@@ -41,12 +66,23 @@ class MyModel:
             os.environ['KERAS_BACKEND'] = 'tensorflow'
             os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
-    def create(self):
+    def load_data(self, image_data_generator=None):
+        """
+        Load data for model (set self.data_iterator)
+        :param image_data_generator: keras ImageDataGenerator (most use channels_first) - optional
+        """
+        self.data_iterator = MyDataIterator(data_path=self.data_path,
+                                            image_data_generator=image_data_generator,
+                                            original_file_list=self.original_file_list,
+                                            batch_size=self.batch_size,
+                                            picture_suffix=self.picture_suffix,
+                                            out_image_size=self.image_size
+                                            )
+
+    def compile_model(self):
         self.model = Sequential()
 
-        channels = 1
-
-        input_shape = (channels, self.image_size, self.image_size)
+        input_shape = (1, self.image_size, self.image_size)
 
         self.model.add(Conv2D(32, (3, 3), data_format='channels_first', input_shape=input_shape))
         self.model.add(Activation('relu'))
@@ -81,34 +117,18 @@ class MyModel:
         mkdir(self.path)
         save_model(self.model, self.get_full_path())
         self.model.save_weights(self.get_full_path() + '.wh')
+        model_dump(self.get_full_path() + '.pkl', self.model)
 
     def get_full_path(self):
+        count_files_in_dir(self.path, self.model)
         return self.path + '/' + self.name
 
-    def load_data(self, data_path=None, image_size=None, picture_suffix=None, t_rate=None, v_rate=None, sigma=None):
-        if data_path is None:
-            data_path = self.data_path
-        if image_size is None:
-            image_size = self.image_size
-        else:
-            self.image_size = image_size
-        if picture_suffix is None:
-            picture_suffix = self.picture_suffix
-        if t_rate is None:
-            t_rate = self.test_rate
-        if v_rate is None:
-            v_rate = self.valid_rate
-        if sigma is None:
-            sigma = self.sigma
-
-        self.data = KerasModelData(data_path=data_path, dim=image_size, picture_suffix=picture_suffix,
-                                   to_gray=True, do_canny=True, sigma=sigma, test_rate=t_rate, valid_rate=v_rate,
-                                   to_fit=True)
-
-    def train_model(self, save=True, plot=False):
-        # todo - change to vgg format
+    def train_model(self, save_result, save_dir=None, plot=False):
+        # todo - check vgg
         # mark to fit
-        test_files, validation_files = self.data.split_to_train_and_validation()
+        if save_dir is not None:
+            self.data_iterator.set_gen_labels(True, save_dir)
+            test_files, validation_files = self.data.split_to_train_and_validation()
 
         self.test_data = KerasModelData(self.data_path, original_file_list=test_files, dim=self.image_size, to_fit=True)
         validation_data = KerasModelData(self.data_path, original_file_list=validation_files, to_fit=True,

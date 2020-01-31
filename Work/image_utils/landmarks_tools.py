@@ -5,10 +5,9 @@ from consts import R_EYE_IDX, L_EYE_IDX, FACIAL_LANDMARKS_68_IDXS_FLIP, LANDMARK
 from my_utils.my_io import get_prefix
 
 
-def load_image_landmarks(image_path, new_image_shape, landmarks_suffix=LANDMARKS_FILE_SUFFIX):
+def load_image_landmarks(image_path, landmarks_suffix=LANDMARKS_FILE_SUFFIX):
     """
     :param image_path: full path to image
-    :param new_image_shape: for rescaling - the original image size
     :return: image landmarks as np array
     :param landmarks_suffix: the landmark file suffix
     :exception ValueError: When cannot find landmarks file for image
@@ -23,16 +22,6 @@ def load_image_landmarks(image_path, new_image_shape, landmarks_suffix=LANDMARKS
 
     landmarks = np.asarray(landmarks)
     landmarks = np.reshape(landmarks, LANDMARKS_SHAPE)
-    if new_image_shape is not None:
-        image = cv2.imread(image_path)
-        original_shape = image.shape
-        ratio_x = (new_image_shape[0] / float(original_shape[0]))
-        ratio_y = (new_image_shape[1] / float(original_shape[1]))
-
-        # resize landmarks
-        landmarks = np.array(landmarks)
-        landmarks[:, 0] = landmarks[:, 0] * ratio_y
-        landmarks[:, 1] = landmarks[:, 1] * ratio_x
 
     return landmarks
 

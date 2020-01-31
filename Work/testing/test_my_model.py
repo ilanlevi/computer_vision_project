@@ -13,7 +13,7 @@ if __name__ == '__main__':
     print('> reading images completed! (in: %.2f seconds)' % (time.time() - start))
     start = time.time()
 
-    model.create()
+    model.compile_model()
 
     print('> model creation completed! (in: %.2f seconds)' % (time.time() - start))
     start = time.time()
