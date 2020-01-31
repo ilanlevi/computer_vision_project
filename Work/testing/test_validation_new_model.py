@@ -15,7 +15,7 @@ if __name__ == '__main__':
     images_folder = folder + '\\images\\'
     filename_my = CSV_OUTPUT_FILE_NAME
     filename_valid = VALIDATION_CSV
-    filename_diff = VALIDATION_DIFF_CSV
+    filename_diff = '1' + VALIDATION_DIFF_CSV
 
     csv = read_csv(folder, filename_valid)
     file_list = [(images_folder + r.get(PICTURE_NAME)) for r in csv]

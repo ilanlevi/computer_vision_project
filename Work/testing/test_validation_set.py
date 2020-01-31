@@ -4,10 +4,10 @@
 import matplotlib.pyplot as plt
 
 from compare_utils import compare_scores, plot_diff, plot_diff_each_param
-from consts import VALIDATION_FOLDER, MY_VALIDATION_CSV, VALIDATION_CSV, VALIDATION_DIFF_CSV, CSV_LABELS
+from consts import VALIDATION_FOLDER, MY_VALIDATION_CSV, VALIDATION_CSV, VALIDATION_DIFF_CSV, CSV_LABELS, PICTURE_NAME
 from my_models import FpnWrapper
-from my_utils import write_csv, get_suffix
-from .labeled_data_store import LabeledDataStore
+from my_utils import write_csv, get_suffix, read_csv
+from testing import LabeledDataStore
 
 
 def align_images(fpm_model, data_set):
@@ -31,12 +31,17 @@ def write_scores(folder_path, filename, fpn_model, data_set, print_scores=False)
 
 if __name__ == '__main__':
     fpn = FpnWrapper()
-    data = LabeledDataStore(data_path=VALIDATION_FOLDER).read_data_set()
 
     folder = VALIDATION_FOLDER
+    images_folder = folder + '\\images\\'
     filename_my = MY_VALIDATION_CSV
     filename_valid = VALIDATION_CSV
     filename_diff = VALIDATION_DIFF_CSV
+
+    csv = read_csv(folder, filename_valid)
+    file_list = [(images_folder + r.get(PICTURE_NAME)) for r in csv]
+
+    data = LabeledDataStore(data_path=VALIDATION_FOLDER, original_file_list=file_list).read_data_set()
 
     write_scores(VALIDATION_FOLDER, MY_VALIDATION_CSV, fpn, data)
 

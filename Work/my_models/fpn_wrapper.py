@@ -1,3 +1,5 @@
+from math import asin, atan2, cos
+
 import cv2
 import numpy as np
 import scipy.io as scio
@@ -81,12 +83,18 @@ class FpnWrapper:
         _, rotation_vec, translation_vec = cv2.solvePnP(model_matrix, landmarks, camera_matrix, None)
 
         rotation_vec = np.squeeze(rotation_vec)
+        # rmat, _ = cv2.Rodrigues(rotation_vec, None)
+        # rmat, _ = cv2.Rodrigues(rotation_vec, None)
         translation_vec = np.squeeze(translation_vec)
 
         # set pitch, yaw, roll
-        rx = rotation_vec[0]
-        ry = rotation_vec[1]
-        rz = rotation_vec[2]
+        # rx, ry, rz = FpnWrapper.matrix2angle(rmat)
+        rx = FpnWrapper.fix_angle(rotation_vec[0])
+        ry = FpnWrapper.fix_angle(rotation_vec[1])
+        rz = FpnWrapper.fix_angle(rotation_vec[2])
+        # rx = rotation_vec[0]
+        # ry = rotation_vec[1]
+        # rz = rotation_vec[2]
 
         # set translation vector
         tx = translation_vec[0]
@@ -94,3 +102,44 @@ class FpnWrapper:
         tz = translation_vec[2]
 
         return rx, ry, rz, tx, ty, tz
+
+    @staticmethod
+    def matrix2angle(R):
+        """ compute three Euler angles from a Rotation Matrix. Ref: http://www.gregslabaugh.net/publications/euler.pdf
+        Args:
+            R: (3,3). rotation matrix
+        Returns:
+            x: yaw
+            y: pitch
+            z: roll
+        """
+
+        if R[2, 0] != 1 or R[2, 0] != -1:
+            # x = asin(R[2,0])
+            # y = atan2(R[2,1]/cos(x), R[2,2]/cos(x))
+            # z = atan2(R[1,0]/cos(x), R[0,0]/cos(x))
+
+            x = -asin(R[2, 0])
+            y = atan2(R[2, 1] / cos(x), R[2, 2] / cos(x))
+            z = atan2(R[1, 0] / cos(x), R[0, 0] / cos(x))
+            x = np.pi - x
+
+        else:  # Gimbal lock
+            z = 0  # can be anything
+            if R[2, 0] == -1:
+                x = np.pi / 2
+                y = z + atan2(R[0, 1], R[0, 2])
+            else:
+                x = -np.pi / 2
+                y = -z + atan2(-R[0, 1], -R[0, 2])
+
+        return x, y, z
+
+    @staticmethod
+    def fix_angle(rad):
+        s = np.sign(rad)
+        rad = abs(rad)
+        if np.pi - rad < 0.6:
+            rad = rad - np.pi
+        rad = rad * s
+        return rad
