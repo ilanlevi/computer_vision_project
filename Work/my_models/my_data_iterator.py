@@ -5,9 +5,10 @@ from keras_preprocessing.image import Iterator
 from keras_preprocessing.image.utils import array_to_img
 from sklearn.model_selection import train_test_split
 
-from consts import DataSetConsts
+from consts import BATCH_SIZE, PICTURE_SUFFIX, PICTURE_SIZE, CANNY_SIGMA, CSV_LABELS, CSV_OUTPUT_FILE_NAME
 from image_utils import load_image, auto_canny, resize_image_and_landmarks, wrap_roi, random_noisy
-from image_utils import load_image_landmarks, get_landmarks_from_masks, create_mask_from_landmarks, create_landmark_mask
+from image_utils import load_image_landmarks, get_landmarks_from_masks, create_mask_from_landmarks, \
+    create_single_landmark_mask
 from my_utils import get_files_list, mkdir, write_csv
 from .fpn_wrapper import FpnWrapper
 
@@ -19,9 +20,9 @@ class MyDataIterator(Iterator):
                  image_data_generator,
                  original_file_list=None,
                  fpn_model=FpnWrapper(),
-                 batch_size=DataSetConsts.BATCH_SIZE,
-                 picture_suffix=DataSetConsts.PICTURE_SUFFIX,
-                 out_image_size=DataSetConsts.PICTURE_SIZE,
+                 batch_size=BATCH_SIZE,
+                 picture_suffix=PICTURE_SUFFIX,
+                 out_image_size=PICTURE_SIZE,
                  gen_y=False,
                  shuffle=False,
                  sample_weight=None,
@@ -111,11 +112,11 @@ class MyDataIterator(Iterator):
                 image = np.reshape(image, (self.out_image_size, self.out_image_size))
                 image = random_noisy(image)
 
-                image = auto_canny(image, DataSetConsts.SIGMA)
+                image = auto_canny(image, CANNY_SIGMA)
                 image = np.reshape(image, self.image_shape)
                 masks = []
                 for index in range(len(landmarks)):
-                    mask = create_landmark_mask(landmarks[index], self.im_size)
+                    mask = create_single_landmark_mask(landmarks[index], self.im_size)
                     mask = np.reshape(mask, self.image_shape)
                     mask = self.image_generator.apply_transform(mask.astype(self.dtype), random_params)
                     mask = np.reshape(mask, self.im_size)
@@ -197,7 +198,7 @@ class MyDataIterator(Iterator):
                 rx, ry, rz, tx, ty, tz = batch_y[i]
                 csv_rows.append([i, fname, rx, ry, rz, tx, ty, tz])
 
-            write_csv(csv_rows, CsvConsts.CSV_LABELS, self.save_to_dir, fConsts.MY_VALIDATION_CSV)
+            write_csv(csv_rows, CSV_LABELS, self.save_to_dir, CSV_OUTPUT_FILE_NAME)
 
     def _get_samples(self, index):
         """

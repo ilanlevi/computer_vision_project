@@ -2,53 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c01e69f1-dfde-4789-a00e-231c94c88efb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Work/my_models/fpn_wrapper.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Work/testing/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/compare_utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/compare_utils/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/compare_utils/compare_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/compare_utils/compare_csv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/compare_utils/plot_scores.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/compare_utils/plot_scores.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Work/consts/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/csv_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/csv_consts.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Work/consts/datasets_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/datasets_consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/ds_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/images_generator_costs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/fpn_model_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/fpn_model_consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/landmarks_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/landmarks_consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/my_model_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/model_consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/validation_files_consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/validation_files_consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/data/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/data/abstract_read_data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/data/generate_labeled_data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/data/labeled_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/testing/labeled_data_store.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/data/my_model_data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/data/new_my_model_data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generate_data/ImageGeneratorMy.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generate_data/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generate_data/data_get_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generate_data/generate_input_file.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generate_data/generate_labels.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generate_data/generate_pickle.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generate_data/keras_gen.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generate_data/tmp.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/testing/test_canny.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generators/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/my_models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generators/fpn_wrapper_model.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generators/my_data_iterator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/my_models/my_data_iterator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/generators/test_model_gen.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/testing/test_model_gen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Work/image_utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/image_utils/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/image_utils/image_io.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/image_utils/image_io.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/image_utils/image_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/image_utils/image_tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/models/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/models/fpn_wrapper.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/models/my_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/my_models/my_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/models/test_my_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/testing/test_my_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/models/test_validation_set.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/testing/test_validation_set.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/mytools/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/my_utils/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/mytools/csv_files_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/my_utils/csv_files_tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/mytools/landmarks_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/image_utils/landmarks_tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/mytools/my_io.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/my_utils/my_io.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/process_tools/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/process_tools/download_data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/process_tools/unpack_files.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/image_utils/image_noise.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/image_utils/image_noise.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/image_utils/landmarks_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/image_utils/landmarks_tools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Work/my_models/my_data_iterator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/my_models/my_data_iterator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,12 +267,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1576855045725</updated>
-    </task>
-    <task id="LOCAL‎00031" summary="major refactor">
-      <created>1579217681500</created>
-      <option name="number" value="LOCAL‎00031" />
-      <option name="presentableId" value="LOCAL‎00031" />
-      <updated>1579217681500</updated>
     </task>
     <task id="LOCAL‎00032" summary="major refactor">
       <created>1579221041833</created>
@@ -602,7 +556,13 @@
       <option name="presentableId" value="LOCAL‎00079" />
       <updated>1580433578045</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL‎00080" summary="some refactor">
+      <created>1580436933303</created>
+      <option name="number" value="LOCAL‎00080" />
+      <option name="presentableId" value="LOCAL‎00080" />
+      <updated>1580436933303</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -712,11 +672,11 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="448" y="160" width="490" height="558" key="#xdebugger.evaluate/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578869152843" />
-    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1580433577590">
+    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1580436932594">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="-1355" y="77" key="CommitChangelistDialog2/-1920.-26.1920.1040/0.0.1680.1010@-1920.-26.1920.1040" timestamp="1580337268933" />
-    <state x="494" y="100" key="CommitChangelistDialog2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580433577590" />
+    <state x="494" y="100" key="CommitChangelistDialog2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580436932594" />
     <state x="494" y="100" key="CommitChangelistDialog2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923978513" />
     <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468848032" />
     <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578074558668" />
@@ -870,11 +830,11 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="498" height="446" key="SwitcherDM/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578524578726" />
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1580433588634">
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1580436934601">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="-1426" y="220" key="Vcs.Push.Dialog.v2/-1920.-26.1920.1040/0.0.1680.1010@-1920.-26.1920.1040" timestamp="1580337270494" />
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580433588634" />
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580436934601" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923981511" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468849513" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578074560466" />
@@ -970,11 +930,6 @@
           <url>file://$PROJECT_DIR$/Work/my_models/my_landmarks_generator.py</url>
           <line>26</line>
           <option name="timeStamp" value="147" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Work/my_models/my_data_iterator.py</url>
-          <line>93</line>
-          <option name="timeStamp" value="236" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

@@ -79,8 +79,7 @@ def _adjust_horizontal_flip(landmarks_points):
     return landmarks_points
 
 
-# todo - delete
-def create_landmark_mask(landmark, image_shape):
+def create_single_landmark_mask(landmark, image_shape):
     """
     creates the mask landmark image
     :param landmark: image single landmark

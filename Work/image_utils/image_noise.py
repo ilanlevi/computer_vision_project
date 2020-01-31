@@ -46,14 +46,14 @@ def _salt_and_pepper(image):
     amount = 0.0005
 
     salted_and_peppered = image.copy()
-    mean = salted_and_peppered.mean()
+    factor = salted_and_peppered.mean() / 5
 
     num_salt = np.ceil(amount * image.size * salt_vs_pepper_ratio)
     num_pepper = np.ceil(amount * image.size * (1 - salt_vs_pepper_ratio))
 
     # add salt
     xy_s = [np.random.randint(0, i - 1, int(num_salt)) for i in salted_and_peppered.shape]
-    salted_and_peppered[xy_s[0], xy_s[1]] = 1 * mean
+    salted_and_peppered[xy_s[0], xy_s[1]] = 1 * factor
 
     # add pepper
     xy_s = [np.random.randint(0, i - 1, int(num_pepper)) for i in salted_and_peppered.shape]

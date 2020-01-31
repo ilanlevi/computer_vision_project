@@ -2,7 +2,7 @@ DOWNLOAD_FOLDER = 'C:\\Work\\ComputerVision\\datasets\\data\\'
 
 OUTPUT_FOLDER = 'output\\'
 
-OUTPUT_FILE_NAME = 'scores.csv'
+CSV_OUTPUT_FILE_NAME = 'scores.csv'
 
 # all of the data was downloaded from:
 # https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/
