@@ -182,7 +182,7 @@ class MyDataIterator(Iterator):
 
             except Exception as e:
                 # index_array = np.delete(index_array, next_i)
-                print('Error happened while reading image, ignoring image! Error: ' + str(e))
+                print('Error happened while reading image #%d ignoring image! Error: %s' % (next_i, str(e)))
 
         # reshape
         batch_out_shape = tuple([len(batch_x)] + list(self.image_shape))

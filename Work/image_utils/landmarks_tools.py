@@ -37,11 +37,14 @@ def get_landmarks_from_masks(landmarks_images, flip_back=False):
 
     landmarks_points = []
 
-    for landmarks_image in landmarks_images:
-        ix, iy = np.where(landmarks_image == 255)
-        if len(ix) == 0:
-            return None
-        landmarks_points.append([[np.mean(iy), np.mean(ix)]])
+    try:
+        for landmarks_image in landmarks_images:
+            ix, iy = np.where(landmarks_image > 0)
+            if len(ix) == 0:
+                return None
+            landmarks_points.append([np.mean(iy), np.mean(ix)])
+    except Exception:
+        return None
 
     landmarks_points = np.array(landmarks_points)
     landmarks_points = np.reshape(landmarks_points, LANDMARKS_SHAPE)
@@ -93,17 +96,7 @@ def create_single_landmark_mask(landmark, image_shape):
     """
     landmarks_mask = np.zeros((image_shape[0], image_shape[1]))
 
-    mu, sigma = landmark[1], 2.5
-    i_s = np.random.normal(mu, sigma, size=5)
-    i_s = i_s.astype(int)
-
-    mu, sigma = landmark[0], 2.5
-    j_s = np.random.normal(mu, sigma, size=5)
-    j_s = j_s.astype(int)
-
-    for i in i_s:
-        for j in j_s:
-            landmarks_mask[i, j] = 255
+    landmarks_mask[int(landmark[1]), int(landmark[0])] = 255
 
     return landmarks_mask
 
