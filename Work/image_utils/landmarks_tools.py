@@ -92,10 +92,14 @@ def create_single_landmark_mask(landmark, image_shape):
     """
     landmarks_mask = np.zeros((image_shape[0], image_shape[1]))
 
-    i_s = np.random.normal(landmark[1], size=20)
+    mu, sigma = landmark[1], 2.5
+    i_s = np.random.normal(mu, sigma, size=5)
     i_s = i_s.astype(int)
-    j_s = np.random.normal(landmark[0], size=20)
+
+    mu, sigma = landmark[0], 2.5
+    j_s = np.random.normal(mu, sigma, size=5)
     j_s = j_s.astype(int)
+
     for i in i_s:
         for j in j_s:
             landmarks_mask[i, j] = 255

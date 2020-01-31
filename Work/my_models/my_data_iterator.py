@@ -144,8 +144,8 @@ class MyDataIterator(Iterator):
                     masks = []
                     for index in range(len(landmarks)):
                         mask = create_single_landmark_mask(landmarks[index], self.im_size)
-                        mask = np.reshape(mask, self.image_shape)
                         if self.image_generator is not None:
+                            mask = np.reshape(mask, self.image_shape)
                             mask = self.image_generator.apply_transform(mask.astype(self.dtype), random_params)
                         mask = np.reshape(mask, self.im_size)
                         masks.append(mask)

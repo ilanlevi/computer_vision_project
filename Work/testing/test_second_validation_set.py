@@ -52,13 +52,13 @@ if __name__ == '__main__':
 
     folder = VALIDATION_FOLDER_2
 
-    filename_my = MY_VALIDATION_CSV
+    filename_my = '2' + MY_VALIDATION_CSV
     filename_valid = VALIDATION_CSV_2
     filename_diff = '2' + VALIDATION_DIFF_CSV
 
     csv = read_csv(folder, filename_valid)
 
-    write_scores(folder, MY_VALIDATION_CSV, fpn, csv)
+    write_scores(folder, filename_my, fpn, csv)
 
     compare_scores(folder, filename_valid, filename_my, filename_diff, False)
     plot_diff(folder, filename_diff, title='diff')

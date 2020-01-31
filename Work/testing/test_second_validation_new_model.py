@@ -27,7 +27,7 @@ if __name__ == '__main__':
     file_list = [(folder + r.get(PICTURE_NAME)) for r in csv]
 
     my_iterator = MyDataIterator(folder, None, save_to_dir=folder, shuffle=False, gen_y=True, save_csv=True,
-                                 original_file_list=file_list)
+                                 batch_size=20, original_file_list=file_list, out_image_size=400)
     for i in range(len(my_iterator)):
         my_iterator.next()
 
