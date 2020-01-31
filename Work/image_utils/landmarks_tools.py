@@ -38,7 +38,7 @@ def get_landmarks_from_masks(landmarks_images, flip_back=False):
     landmarks_points = []
 
     for landmarks_image in landmarks_images:
-        ix, iy = np.where(landmarks_image > 0)
+        ix, iy = np.where(landmarks_image == 255)
         if len(ix) == 0:
             return None
         landmarks_points.append([[np.mean(iy), np.mean(ix)]])
@@ -70,6 +70,7 @@ def adjust_horizontal_flip(landmarks_points):
     :return: landmarks_points after flipped if needed or the original landmarks_points
     """
     if was_flipped(landmarks_points):  # check if flip happens
+        # todo delete
         print('flipped!')
         # x-cord of right eye is less than x-cord of left eye
         # horizontal flip happened!

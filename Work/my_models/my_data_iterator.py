@@ -123,7 +123,6 @@ class MyDataIterator(Iterator):
             image_path = index_array[next_i]
             try:
                 image, landmarks, y = self._get_samples(image_path)
-
                 # add random noise only in train mode
                 if self.gen_y and self.should_clean_noise:
                     image = clean_noise(image)
@@ -137,18 +136,15 @@ class MyDataIterator(Iterator):
                 image = np.reshape(image, self.image_shape)
                 # only if we want to train the model
                 if self.gen_y:
+                    random_params = None
+
                     if self.image_generator is not None:
                         random_params = self.image_generator.get_random_transform(self.image_shape)
                         image = self.image_generator.apply_transform(image.astype(self.dtype), random_params)
 
-                    masks = []
-                    for index in range(len(landmarks)):
-                        mask = create_single_landmark_mask(landmarks[index], self.im_size)
-                        if self.image_generator is not None:
-                            mask = np.reshape(mask, self.image_shape)
-                            mask = self.image_generator.apply_transform(mask.astype(self.dtype), random_params)
-                        mask = np.reshape(mask, self.im_size)
-                        masks.append(mask)
+                    x = landmarks.copy()
+                    masks = np.stack(
+                        [self._get_1_mask(x[index], random_params) for index in range(68)])
 
                     should_flip = self.image_generator is not None
                     new_landmarks = get_landmarks_from_masks(masks, should_flip)
@@ -185,7 +181,7 @@ class MyDataIterator(Iterator):
                         batch_x = np.append(batch_x, image, axis=0)
 
             except Exception as e:
-                index_array = np.delete(index_array, next_i)
+                # index_array = np.delete(index_array, next_i)
                 print('Error happened while reading image, ignoring image! Error: ' + str(e))
 
         # reshape
@@ -202,6 +198,16 @@ class MyDataIterator(Iterator):
         if self.sample_weight is not None:
             output += (self.sample_weight[index_array],)
         return output
+
+    def _get_1_mask(self, single_landmark, random_params):
+        mask = create_single_landmark_mask(single_landmark, self.im_size)
+
+        if random_params is not None and self.image_generator is not None:
+            mask = np.reshape(mask, self.image_shape)
+            mask = self.image_generator.apply_transform(mask.astype(self.dtype), random_params)
+        mask = np.reshape(mask, self.im_size)
+
+        return mask
 
     def _save_all_if_needed(self, batch_x, batch_mask, batch_y, index_array):
         """
