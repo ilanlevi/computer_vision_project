@@ -9,7 +9,7 @@ from consts import BATCH_SIZE, PICTURE_SUFFIX, PICTURE_SIZE, CANNY_SIGMA, CSV_LA
 from image_utils import load_image, auto_canny, resize_image_and_landmarks, wrap_roi, clean_noise
 from image_utils import load_image_landmarks, get_landmarks_from_masks, create_mask_from_landmarks, \
     create_single_landmark_mask
-from my_utils import get_files_list, mkdir, write_csv
+from my_utils import get_files_list, mkdir, write_csv, get_suffix
 from .fpn_wrapper import FpnWrapper
 
 
@@ -121,65 +121,70 @@ class MyDataIterator(Iterator):
         while len(batch_x) < len(index_array):
             next_i = len(batch_x)
             image_path = index_array[next_i]
-            image, landmarks, y = self._get_samples(image_path)
+            try:
+                image, landmarks, y = self._get_samples(image_path)
 
-            # add random noise only in train mode
-            if self.gen_y and self.should_clean_noise:
-                image = clean_noise(image)
+                # add random noise only in train mode
+                if self.gen_y and self.should_clean_noise:
+                    image = clean_noise(image)
 
-            # use canny filter
-            if self.use_canny:
-                image = np.reshape(image, self.im_size)
-                image = auto_canny(image, CANNY_SIGMA)
+                # use canny filter
+                if self.use_canny:
+                    image = np.reshape(image, self.im_size)
+                    image = auto_canny(image, CANNY_SIGMA)
+                    image = np.reshape(image, self.image_shape)
+
                 image = np.reshape(image, self.image_shape)
-
-            image = np.reshape(image, self.image_shape)
-            # only if we want to train the model
-            if self.gen_y:
-                if self.image_generator is not None:
-                    random_params = self.image_generator.get_random_transform(self.image_shape)
-                    image = self.image_generator.apply_transform(image.astype(self.dtype), random_params)
-
-                masks = []
-                for index in range(len(landmarks)):
-                    mask = create_single_landmark_mask(landmarks[index], self.im_size)
-                    mask = np.reshape(mask, self.image_shape)
+                # only if we want to train the model
+                if self.gen_y:
                     if self.image_generator is not None:
-                        mask = self.image_generator.apply_transform(mask.astype(self.dtype), random_params)
-                    mask = np.reshape(mask, self.im_size)
-                    masks.append(mask)
+                        random_params = self.image_generator.get_random_transform(self.image_shape)
+                        image = self.image_generator.apply_transform(image.astype(self.dtype), random_params)
 
-                new_landmarks = get_landmarks_from_masks(masks)
+                    masks = []
+                    for index in range(len(landmarks)):
+                        mask = create_single_landmark_mask(landmarks[index], self.im_size)
+                        mask = np.reshape(mask, self.image_shape)
+                        if self.image_generator is not None:
+                            mask = self.image_generator.apply_transform(mask.astype(self.dtype), random_params)
+                        mask = np.reshape(mask, self.im_size)
+                        masks.append(mask)
 
-                if new_landmarks is not None and len(new_landmarks) is 68:
-                    new_landmarks = np.asarray(new_landmarks, dtype=self.dtype)
-                    new_pose = self.fpn_model.get_3d_vectors(new_landmarks)
-                    new_pose = np.asarray(new_pose)
-                    new_pose = np.resize(new_pose, (1, 6))
-                    if len(batch_y) is 0:
-                        batch_y = new_pose
-                    else:
-                        batch_y = np.append(batch_y, new_pose, axis=0)
-                    # we are training the model, add to batch only if valid augmentation
+                    new_landmarks = get_landmarks_from_masks(masks)
+
+                    if new_landmarks is not None and len(new_landmarks) is 68:
+                        new_landmarks = np.asarray(new_landmarks, dtype=self.dtype)
+                        new_pose = self.fpn_model.get_3d_vectors(new_landmarks)
+                        new_pose = np.asarray(new_pose)
+                        new_pose = np.resize(new_pose, (1, 6))
+                        if len(batch_y) is 0:
+                            batch_y = new_pose
+                        else:
+                            batch_y = np.append(batch_y, new_pose, axis=0)
+                        # we are training the model, add to batch only if valid augmentation
+                        if len(batch_x) is 0:
+                            batch_x = image
+                        else:
+                            batch_x = np.append(batch_x, image, axis=0)
+
+                        # create mask for testing output
+                        if self.should_save_aug:
+                            curr_mask = create_mask_from_landmarks(new_landmarks, self.image_shape)
+                            if len(batch_mask) is 0:
+                                batch_mask = curr_mask
+                            else:
+                                batch_mask = np.append(batch_mask, curr_mask, axis=0)
+
+                # we are not training the model, add to batch
+                else:
                     if len(batch_x) is 0:
                         batch_x = image
                     else:
                         batch_x = np.append(batch_x, image, axis=0)
 
-                    # create mask for testing output
-                    if self.should_save_aug:
-                        curr_mask = create_mask_from_landmarks(new_landmarks, self.image_shape)
-                        if len(batch_mask) is 0:
-                            batch_mask = curr_mask
-                        else:
-                            batch_mask = np.append(batch_mask, curr_mask, axis=0)
-
-            # we are not training the model, add to batch
-            else:
-                if len(batch_x) is 0:
-                    batch_x = image
-                else:
-                    batch_x = np.append(batch_x, image, axis=0)
+            except Exception as e:
+                index_array = np.delete(index_array, next_i)
+                print('Error happened while reading image, ignoring image! Error: ' + str(e))
 
         # reshape
         batch_out_shape = tuple([len(batch_x)] + list(self.image_shape))
@@ -235,6 +240,9 @@ class MyDataIterator(Iterator):
                     mask_img.save(os.path.join(self.save_to_dir, mask_name))
 
                 rx, ry, rz, tx, ty, tz = batch_y[i]
+                if self.image_generator is None:
+                    fname = self.list_of_files[j]
+                    fname = get_suffix(fname, '\\')
                 csv_rows.append([i, fname, rx, ry, rz, tx, ty, tz])
 
             if self.should_save_csv:

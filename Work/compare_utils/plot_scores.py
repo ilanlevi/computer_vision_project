@@ -23,7 +23,7 @@ def plot_diff_each_param(folder, file_list):
 
     csv_lengths = np.asarray(csv_lengths)
 
-    x_s = range(csv_lengths.min())
+    x_s = range(min(csv_lengths))
     fig, axs = plt.subplots(len(fields), 1)
 
     for i in range(len(fields)):
@@ -52,7 +52,7 @@ def plot_diff(folder, filename, title=''):
     tY = [float(i[T_Y]) for i in diff]
     tZ = [float(i[T_Z]) for i in diff]
 
-    has_theta = (diff[0]).has_key(THETA)
+    has_theta = THETA in diff[0].keys()
     if has_theta:
         theta = [float(i[THETA]) for i in diff]
     else:

@@ -1,4 +1,5 @@
 import csv
+import os
 import time
 
 
@@ -60,6 +61,7 @@ def write_csv(data, fieldnames, path, filename, append=False, print_data=False):
     line_count = 0
     path = path + filename
 
+    append = append and os.path.exists(path)
     if append:
         mode = 'a'
     else:
