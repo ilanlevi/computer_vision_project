@@ -1,11 +1,14 @@
 import time
 
-from consts import DataFileConsts as dsC
+from consts import DOWNLOAD_FOLDER, OUTPUT_FOLDER
 from my_models.my_model import MyModel
 
 if __name__ == '__main__':
-    model = MyModel(data_path=dsC.DOWNLOAD_FOLDER + dsC.OUTPUT_FOLDER, picture_suffix=['.png', '.jpg'], gpu=True,
-                    image_size=160, name='2Conv32_Conv64_flatten_2dense')
+    model = MyModel(data_path=DOWNLOAD_FOLDER + OUTPUT_FOLDER,
+                    picture_suffix=['.png', '.jpg'],
+                    gpu=True,
+                    image_size=100,
+                    name='MyFirstTry')
 
     start = time.time()
     model.load_data()

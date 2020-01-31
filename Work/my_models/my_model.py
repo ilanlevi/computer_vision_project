@@ -1,6 +1,6 @@
 import os
 
-from keras.callbacks import EarlyStopping
+from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Flatten, Activation
 from keras.models import load_model, save_model, Sequential
 from matplotlib import pyplot as plt
@@ -52,6 +52,7 @@ class MyModel:
         self.test_rate = test_rate
         self.valid_rate = valid_rate
         self.image_size = image_size
+        self.test_data = None
 
         self.path = path_to_model
         self.name = name
@@ -123,27 +124,36 @@ class MyModel:
         count_files_in_dir(self.path, self.model)
         return self.path + '/' + self.name
 
-    def train_model(self, save_result, save_dir=None, plot=False):
-        # todo - check vgg
-        # mark to fit
+    def train_model(self, save_dir=None, plot=False):
         if save_dir is not None:
             self.data_iterator.set_gen_labels(True, save_dir)
-            test_files, validation_files = self.data.split_to_train_and_validation()
 
-        self.test_data = KerasModelData(self.data_path, original_file_list=test_files, dim=self.image_size, to_fit=True)
-        validation_data = KerasModelData(self.data_path, original_file_list=validation_files, to_fit=True,
-                                         dim=self.image_size)
+        test_files, validation_files = self.data_iterator.split_to_train_and_validation()
 
-        callback_list = [EarlyStopping(monitor='val_loss', patience=25)]
+        self.test_data = MyDataIterator(self.data_path,
+                                        original_file_list=test_files,
+                                        out_image_size=self.image_size,
+                                        batch_size=self.batch_size)
 
-        hist = self.model.fit_generator(generator=self.data, validation_data=validation_data, callbacks=callback_list,
-                                        epochs=self.epochs, use_multiprocessing=True, workers=5)
+        validation_data = MyDataIterator(self.data_path,
+                                         original_file_list=test_files,
+                                         out_image_size=self.image_size,
+                                         batch_size=self.batch_size)
 
-        if save:
-            self.save()
+        callback_list = [EarlyStopping(monitor='val_loss', patience=25),
+                         ModelCheckpoint('best_model.h5', monitor='val_loss', mode='min', save_best_only=True)]
+
+        hist = self.model.fit_generator(generator=self.data_iterator,
+                                        validation_data=validation_data,
+                                        callbacks=callback_list,
+                                        epochs=self.epochs,
+                                        use_multiprocessing=True,
+                                        workers=5)
+
+        self.save()
 
         print()
-        print('Train loss:', self.model.evaluate_generator(self.data, use_multiprocessing=True, workers=5))
+        print('Train loss:', self.model.evaluate_generator(self.data_iterator, use_multiprocessing=True, workers=5))
         print('  Val loss:', self.model.evaluate_generator(validation_data, use_multiprocessing=True, workers=5))
         print(' Test loss:', self.model.evaluate_generator(self.test_data, use_multiprocessing=True, workers=5))
 
@@ -159,7 +169,7 @@ class MyModel:
 
     def model_predict(self, plot=False, save_score=True):
         if self.test_data is None:
-            self.test_data = self.data
+            self.test_data = self.data_iterator
 
         y_pred = self.model.predict_generator(self.test_data, verbose=1)
         print(">>>>> y_pred: " + str(y_pred))
