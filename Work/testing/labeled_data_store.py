@@ -1,18 +1,13 @@
 import numpy as np
 
-from consts import DataSetConsts
+from consts import PICTURE_SUFFIX
 from image_utils import load_images, resize_image_and_landmarks
-from mytools import get_files_list
-# from mytools import get_landmarks
-from .abstract_read_data import AbstractReadData
+from my_utils import get_files_list
 
 
-# todo - copy AbstractReadData and remove AbstractReadData
-class LabeledData(AbstractReadData):
+class LabeledDataStore:
 
-    def __init__(self, data_path, image_size=None, picture_suffix=DataSetConsts.PICTURE_SUFFIX, to_gray=True):
-        super(LabeledData, self).__init__(data_path, image_size=image_size)
-
+    def __init__(self, data_path, image_size=None, picture_suffix=PICTURE_SUFFIX, to_gray=True):
         self.data_path = data_path
         self.image_size = image_size
         self.original_file_list = []
@@ -21,6 +16,7 @@ class LabeledData(AbstractReadData):
         self.to_gray = to_gray
         if not isinstance(picture_suffix, list):
             self.picture_suffix = [picture_suffix]
+        self.original_file_list = self.get_original_list()
 
     def get_original_list(self):
         """
@@ -30,27 +26,6 @@ class LabeledData(AbstractReadData):
         files = get_files_list(self.data_path, self.picture_suffix)
         return files
 
-    def filter_multiple_face(self):
-        """
-        Filter multiple labeled images from set (duplicated images)
-        (Updates self: x_train_set, y_train_set, original_file_list)
-        :return: self
-        """
-        # extract unique images
-        x_flat = np.asarray(self.x_train_set)
-        x_flat = np.reshape(x_flat, (len(self.x_train_set), self.image_size * self.image_size))
-
-        unique, indices, counts = np.unique(x_flat, return_index=True, return_counts=True, axis=0)
-        idxs = indices[counts < 2]
-
-        self.x_train_set = self.x_train_set[idxs]
-        self.y_train_set = self.y_train_set[idxs]
-        self.original_file_list = np.asarray(self.original_file_list)
-        self.original_file_list = self.original_file_list[idxs]
-
-        return self
-
-    # abstracts:
     def read_data_set(self):
         tmp_x_train_set = load_images(self.original_file_list, gray=self.to_gray)
         self.x_train_set = []
@@ -69,5 +44,5 @@ class LabeledData(AbstractReadData):
         return self
 
     def _init(self):
-        self.original_file_list = self.get_original_list()
+
         return self

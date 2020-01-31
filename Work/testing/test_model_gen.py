@@ -1,8 +1,8 @@
+from generators import MyDataIterator
 from keras_preprocessing.image import ImageDataGenerator, os
 
 from consts import DataSetConsts as dsConsts
-from generators import MyDataIterator
-from mytools import get_files_list
+from my_utils import get_files_list
 
 """Please ignore! This will be used for testing LandmarkWrapper, FpnWrapper classes"""
 

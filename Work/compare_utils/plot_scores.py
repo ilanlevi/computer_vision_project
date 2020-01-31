@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from consts.csv_consts import CsvConsts
-from mytools.csv_files_tools import read_csv
+from consts import CSV_VALUES_LABELS, T_Z, T_Y, T_X, R_Z, R_Y, R_X, THETA
+from my_utils.csv_files_tools import read_csv
 
 
 def plot_diff_each_param(folder, file_list):
@@ -12,7 +12,7 @@ def plot_diff_each_param(folder, file_list):
     :param file_list: file names list to compare
     :return: Nan - show data
     """
-    fields = CsvConsts.CSV_VALUES_LABELS
+    fields = CSV_VALUES_LABELS
     csv_values = []
     csv_lengths = []
     for f_name in file_list:
@@ -45,37 +45,37 @@ def plot_diff(folder, filename, title=''):
     diff = read_csv(folder, filename)
     x_s = range(len(diff))
 
-    R_X = [float(i[CsvConsts.R_X]) for i in diff]
-    R_Y = [float(i[CsvConsts.R_Y]) for i in diff]
-    R_Z = [float(i[CsvConsts.R_Z]) for i in diff]
-    T_X = [float(i[CsvConsts.T_X]) for i in diff]
-    T_Y = [float(i[CsvConsts.T_Y]) for i in diff]
-    T_Z = [float(i[CsvConsts.T_Z]) for i in diff]
+    rX = [float(i[R_X]) for i in diff]
+    rY = [float(i[R_Y]) for i in diff]
+    rZ = [float(i[R_Z]) for i in diff]
+    tX = [float(i[T_X]) for i in diff]
+    tY = [float(i[T_Y]) for i in diff]
+    tZ = [float(i[T_Z]) for i in diff]
 
-    has_theta = diff[0].has_key(CsvConsts.THETA)
+    has_theta = (diff[0]).has_key(THETA)
     if has_theta:
-        THETA = [float(i[CsvConsts.THETA]) for i in diff]
+        theta = [float(i[THETA]) for i in diff]
     else:
-        THETA = [float(0) for i in diff]
+        theta = [float(0) for i in diff]
 
     fig, (ax1, ax2, ax3) = plt.subplots(3, 1)
     fig.suptitle(title)
 
     # show rotation difference
-    ax1.plot(x_s, R_X, label=CsvConsts.R_X, alpha=0.5)
-    ax1.plot(x_s, R_Y, label=CsvConsts.R_Y, alpha=0.5)
-    ax1.plot(x_s, R_Z, label=CsvConsts.R_Z, alpha=0.5)
+    ax1.plot(x_s, rX, label=R_X, alpha=0.5)
+    ax1.plot(x_s, rY, label=R_Y, alpha=0.5)
+    ax1.plot(x_s, rZ, label=R_Z, alpha=0.5)
     ax1.grid(True)
     ax1.legend()
 
     # show translation difference
-    ax2.plot(x_s, T_X, label=CsvConsts.T_X, alpha=0.5)
-    ax2.plot(x_s, T_Y, label=CsvConsts.T_Y, alpha=0.5)
-    ax2.plot(x_s, T_Z, label=CsvConsts.T_Z, alpha=0.5)
+    ax2.plot(x_s, tX, label=T_X, alpha=0.5)
+    ax2.plot(x_s, tY, label=T_Y, alpha=0.5)
+    ax2.plot(x_s, tZ, label=T_Z, alpha=0.5)
     ax2.grid(True)
     ax2.legend()
 
     # show theta result
-    ax3.plot(x_s, THETA, label=CsvConsts.THETA, alpha=0.5)
+    ax3.plot(x_s, theta, label=THETA, alpha=0.5)
     ax3.grid(True)
     ax3.legend()

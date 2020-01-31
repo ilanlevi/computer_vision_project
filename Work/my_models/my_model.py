@@ -1,13 +1,13 @@
 import os
 
+from data import KerasModelData
 from keras.callbacks import EarlyStopping
 from keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Flatten, Activation
 from keras.models import load_model, save_model, Sequential
 from matplotlib import pyplot as plt
 
 from consts import MyModelConsts as myC, DataSetConsts as dsC
-from data import KerasModelData
-from mytools import mkdir
+from my_utils import mkdir
 
 
 class MyModel:

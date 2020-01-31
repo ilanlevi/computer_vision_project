@@ -54,53 +54,6 @@ def load_image(image_path, size=None, gray=True, print_data=False):
     return im
 
 
-# todo - check this (i think it wont work)
-def save_images(images, path, print_data=False):
-    """
-    for each image: save image with name
-    :param print_data: print duration data (default is false)
-    :param images: images list of tuples: (image, name)
-    :param path: images path to save (directory)
-    :return: None
-    """
-
-    start = time.time()
-
-    ims = []
-    for name, image in images:
-        try:
-            full_path = path + name
-            cv2.imwrite(full_path, image)
-        except Exception as e:
-            if print_data:
-                print('Error while saving image!Path= %s\nError= %s' % (name, str(e)))
-
-    if print_data:
-        print('Saving images took: %.2f seconds' % (time.time() - start))
-
-    return ims
-
-
-def save_image(image, image_name_with_path, print_data=False):
-    """
-    save image with name
-    :param print_data: print duration data (default is false)
-    :param image: the image to save
-    :param image_name_with_path: the image path + name
-    """
-
-    start = time.time()
-
-    try:
-        cv2.imwrite(image_name_with_path, image)
-    except Exception as e:
-        if print_data:
-            print('Error while saving image!Path= %s\nError= %s' % (image_name_with_path, str(e)))
-
-    if print_data:
-        print('Saving images took: %.2f seconds' % (time.time() - start))
-
-
 def my_resize(image, width=None, height=None, inter=cv2.INTER_AREA):
     """
     Resize image

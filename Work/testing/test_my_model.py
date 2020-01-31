@@ -1,7 +1,7 @@
 import time
 
 from consts import DataFileConsts as dsC
-from models.my_model import MyModel
+from my_models.my_model import MyModel
 
 if __name__ == '__main__':
     model = MyModel(data_path=dsC.DOWNLOAD_FOLDER + dsC.OUTPUT_FOLDER, picture_suffix=['.png', '.jpg'], gpu=True,

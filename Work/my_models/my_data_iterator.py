@@ -5,11 +5,11 @@ from keras_preprocessing.image import Iterator
 from keras_preprocessing.image.utils import array_to_img
 from sklearn.model_selection import train_test_split
 
-from consts import DataSetConsts, CsvConsts, ValidationFileConsts as fConsts
+from consts import DataSetConsts
 from image_utils import load_image, auto_canny, resize_image_and_landmarks, wrap_roi, random_noisy
-from mytools import get_files_list, load_image_landmarks, mkdir, \
-    get_landmarks_from_masks, create_landmark_mask, write_csv, create_mask_from_landmarks
-from .fpn_wrapper_model import MyFpnWrapper
+from image_utils import load_image_landmarks, get_landmarks_from_masks, create_mask_from_landmarks, create_landmark_mask
+from my_utils import get_files_list, mkdir, write_csv
+from .fpn_wrapper import FpnWrapper
 
 
 class MyDataIterator(Iterator):
@@ -18,7 +18,7 @@ class MyDataIterator(Iterator):
                  data_path,
                  image_data_generator,
                  original_file_list=None,
-                 fpn_model=MyFpnWrapper(),
+                 fpn_model=FpnWrapper(),
                  batch_size=DataSetConsts.BATCH_SIZE,
                  picture_suffix=DataSetConsts.PICTURE_SUFFIX,
                  out_image_size=DataSetConsts.PICTURE_SIZE,

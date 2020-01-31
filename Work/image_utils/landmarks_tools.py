@@ -1,36 +1,34 @@
 import cv2
 import numpy as np
 
-from consts import DataSetConsts as dC
-from consts import R_EYE, L_EYE, FACIAL_LANDMARKS_68_IDXS_FLIP
-from .my_io import get_prefix
+from consts import R_EYE_IDX, L_EYE_IDX, FACIAL_LANDMARKS_68_IDXS_FLIP, LANDMARKS_FILE_SUFFIX, LANDMARKS_SHAPE
+from my_utils.my_io import get_prefix
 
 
-# todo - fix all comments in this file
-
-def load_image_landmarks(image_path, new_image_shape=None, landmarks_suffix=dC.LANDMARKS_FILE_SUFFIX):
+def load_image_landmarks(image_path, new_image_shape, landmarks_suffix=LANDMARKS_FILE_SUFFIX):
     """
     :param image_path: full path to image
-    :exception ValueError: When cannot find landmarks file for image
     :param new_image_shape: for rescaling - the original image size
     :return: image landmarks as np array
     :param landmarks_suffix: the landmark file suffix
+    :exception ValueError: When cannot find landmarks file for image
+    :return: the landmarks from file
     """
-    # landmarks = get_landmarks(image_path, self.landmark_suffix)
-
     prefix = get_prefix(image_path)
     path = prefix + landmarks_suffix
 
     _, landmarks = cv2.face.loadFacePoints(path)
     if landmarks is None or []:
         raise ValueError("Cannot file landmarks for: " + image_path)
+
     landmarks = np.asarray(landmarks)
-    landmarks = np.reshape(landmarks, (68, 2))
+    landmarks = np.reshape(landmarks, LANDMARKS_SHAPE)
     if new_image_shape is not None:
         image = cv2.imread(image_path)
         original_shape = image.shape
         ratio_x = (new_image_shape[0] / float(original_shape[0]))
         ratio_y = (new_image_shape[1] / float(original_shape[1]))
+
         # resize landmarks
         landmarks = np.array(landmarks)
         landmarks[:, 0] = landmarks[:, 0] * ratio_y
@@ -41,8 +39,10 @@ def load_image_landmarks(image_path, new_image_shape=None, landmarks_suffix=dC.L
 
 def get_landmarks_from_masks(landmarks_images):
     """
-    :param landmarks_images: the landmark image mask
-    :return: image landmarks as np array
+    The reverse of create mask -> calculate landmark from mask image.
+    Uses _adjust_horizontal_flip function to flip the landmarks indexes if the image was flipped.
+    :param landmarks_images: the landmark image masks array
+    :return: image landmarks as (68, 2) array
     """
 
     landmarks_points = []
@@ -54,18 +54,19 @@ def get_landmarks_from_masks(landmarks_images):
         landmarks_points.append([[np.mean(iy), np.mean(ix)]])
 
     landmarks_points = np.array(landmarks_points)
-    landmarks_points = np.reshape(landmarks_points, (68, 2))
+    landmarks_points = np.reshape(landmarks_points, LANDMARKS_SHAPE)
     landmarks = _adjust_horizontal_flip(landmarks_points)
     return landmarks
 
 
 def _adjust_horizontal_flip(landmarks_points):
     """
-    if a horizontal flip happens we to flip the target coordinates accordingly
-    :param landmarks_points: the landmarks
-    :return: landmarks_points after flipped if needed
+    if a horizontal flip happens we to flip the target coordinates accordingly.
+    (We will know that the image was flipped if the right eye is after the left index)
+    :param landmarks_points: the landmarks array
+    :return: landmarks_points after flipped if needed or the original landmarks_points
     """
-    if landmarks_points[R_EYE][1] > landmarks_points[L_EYE][1]:  # check if flip happens
+    if landmarks_points[R_EYE_IDX][1] > landmarks_points[L_EYE_IDX][1]:  # check if flip happens
         # x-cord of right eye is less than x-cord of left eye
         # horizontal flip happened!
         for a, b in FACIAL_LANDMARKS_68_IDXS_FLIP:
@@ -78,6 +79,7 @@ def _adjust_horizontal_flip(landmarks_points):
     return landmarks_points
 
 
+# todo - delete
 def create_landmark_mask(landmark, image_shape):
     """
     creates the mask landmark image
@@ -108,15 +110,19 @@ def create_mask_from_landmarks(landmarks, image_shape):
 def create_numbered_mask(landmarks, image_shape):
     """
     FOR TESTING ONLY!
-    creates landmark only image (intensity is 1)
-    :param landmarks: the image landmark
-    :param image_shape: the output mask size (image_size, image_size)
+    creates landmark only numbered image
+    :param landmarks: the image landmark array
+    :param image_shape: the output mask size (2d array)
     :return: the landmark image mask
     """
+    new_shape = (512, 512)  # the mask size
+
     shape = (image_shape[0], image_shape[1])
-    new_shape = (512, 512)
+
+    # calc reverse for mask
     ratio_x = (new_shape[0] / float(shape[0]))
     ratio_y = (new_shape[1] / float(shape[1]))
+
     # resize landmarks
     landmarks2 = np.array(landmarks.copy())
     landmarks2 = landmarks2.astype(np.float)

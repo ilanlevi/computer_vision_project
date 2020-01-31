@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 
 
+# todo - check why i am loading the image again??
+
 def resize_image_and_landmarks(image, landmarks, new_size=None, inter=cv2.INTER_AREA):
     """
     Resize image

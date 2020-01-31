@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
 
-from consts.csv_consts import CsvConsts
-from mytools.csv_files_tools import write_csv, read_csv
+from consts import CSV_VALUES_LABELS, CSV_LABELS_DIFF, COL_INDEX, PICTURE_NAME, T_Z, T_Y, T_X, R_Z, R_Y, R_X
+from my_utils.csv_files_tools import write_csv, read_csv
 
 
 def calc_theta_score(A, B):
@@ -14,8 +14,8 @@ def calc_theta_score(A, B):
     :param B: rotation matrix #2
     :return: theta score
     """
-    rot_v1 = np.asarray([float(A[CsvConsts.R_X]), float(A[CsvConsts.R_Y]), float(A[CsvConsts.R_Z])])
-    rot_v2 = np.asarray([float(B[CsvConsts.R_X]), float(B[CsvConsts.R_Y]), float(B[CsvConsts.R_Z])])
+    rot_v1 = np.asarray([float(A[R_X]), float(A[R_Y]), float(A[R_Z])])
+    rot_v2 = np.asarray([float(B[R_X]), float(B[R_Y]), float(B[R_Z])])
 
     rot_m_1, _ = cv2.Rodrigues(rot_v1)
     rot_m_2, _ = cv2.Rodrigues(rot_v2)
@@ -101,26 +101,26 @@ def compare_scores(folder, f1, f2, f_new, print_data=False):
     total_n = []
     for f2_row in file2_csv:
         for f1_row in file1_csv:
-            if f1_row[CsvConsts.PICTURE_NAME] == f2_row[CsvConsts.PICTURE_NAME]:
-                r_x = float(f1_row[CsvConsts.R_X]) - float(f2_row[CsvConsts.R_X])
-                r_y = float(f1_row[CsvConsts.R_Y]) - float(f2_row[CsvConsts.R_Y])
-                r_z = float(f1_row[CsvConsts.R_Z]) - float(f2_row[CsvConsts.R_Z])
-                t_x = float(f1_row[CsvConsts.T_X]) - float(f2_row[CsvConsts.T_X])
-                t_y = float(f1_row[CsvConsts.T_Y]) - float(f2_row[CsvConsts.T_Y])
-                t_z = float(f1_row[CsvConsts.T_Z]) - float(f2_row[CsvConsts.T_Z])
+            if f1_row[PICTURE_NAME] == f2_row[PICTURE_NAME]:
+                r_x = float(f1_row[R_X]) - float(f2_row[R_X])
+                r_y = float(f1_row[R_Y]) - float(f2_row[R_Y])
+                r_z = float(f1_row[R_Z]) - float(f2_row[R_Z])
+                t_x = float(f1_row[T_X]) - float(f2_row[T_X])
+                t_y = float(f1_row[T_Y]) - float(f2_row[T_Y])
+                t_z = float(f1_row[T_Z]) - float(f2_row[T_Z])
                 theta = calc_theta_score(f2_row, f1_row)
 
                 total.append(
-                    [f2_row[CsvConsts.COL_INDEX], f2_row[CsvConsts.PICTURE_NAME], r_x, r_y, r_z, t_x, t_y, t_z, theta])
+                    [f2_row[COL_INDEX], f2_row[PICTURE_NAME], r_x, r_y, r_z, t_x, t_y, t_z, theta])
                 total_n.append([r_x, r_y, r_z, t_x, t_y, t_z, theta])
 
     total_arr = np.asarray(total_n, dtype=np.float)
     total_arr = np.reshape(total_arr, (len(total), 7))
 
     if print_data:
-        for param_index in range(len(CsvConsts.CSV_VALUES_LABELS)):
-            print_param_details(CsvConsts.CSV_VALUES_LABELS[param_index], param_index, total_arr)
+        for param_index in range(len(CSV_VALUES_LABELS)):
+            print_param_details(CSV_VALUES_LABELS[param_index], param_index, total_arr)
 
         print_param_details('theta', 6, total_arr)
 
-    write_csv(total, CsvConsts.CSV_LABELS_DIFF, folder, f_new, print_data)
+    write_csv(total, CSV_LABELS_DIFF, folder, f_new, print_data)
