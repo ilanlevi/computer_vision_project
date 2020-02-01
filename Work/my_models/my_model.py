@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from consts import DEFAULT_VALID_RATE, MY_MODEL_LOCAL_PATH, MY_MODEL_NAME, BATCH_SIZE, EPOCHS, \
     PICTURE_SUFFIX, PICTURE_SIZE, DEFAULT_TEST_RATE
 from my_models import MyDataIterator
-from my_utils import mkdir, model_dump, count_files_in_dir
+from my_utils import my_mkdir, model_dump, count_files_in_dir
 
 
 class MyModel:
@@ -84,7 +84,7 @@ class MyModel:
                                             )
 
     def compile_model(self):
-        mkdir(self.path)
+        my_mkdir(self.path)
         self.model = Sequential()
 
         input_shape = (self.image_size, self.image_size, 1)
@@ -119,7 +119,7 @@ class MyModel:
         self.model = load_model(self.get_full_path())
 
     def my_save(self):
-        mkdir(self.path)
+        my_mkdir(self.path)
         save_model(self.model, self.get_full_path())
         self.model.save_weights(self.get_full_path() + '.wh')
         model_dump(self.get_full_path() + '.pkl', self.model)

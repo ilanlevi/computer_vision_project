@@ -11,7 +11,7 @@ from consts import BATCH_SIZE, PICTURE_SUFFIX, PICTURE_SIZE, CANNY_SIGMA, CSV_LA
 from image_utils import load_image, auto_canny, resize_image_and_landmarks, wrap_roi, clean_noise
 from image_utils import load_image_landmarks, get_landmarks_from_masks, create_mask_from_landmarks, \
     create_single_landmark_mask
-from my_utils import get_files_list, mkdir, write_csv, get_suffix
+from my_utils import get_files_list, my_mkdir, write_csv, get_suffix
 from .fpn_wrapper import FpnWrapper
 
 
@@ -237,7 +237,7 @@ class MyDataIterator(Iterator):
             csv_rows = []
 
             # create folder if missing
-            mkdir(self.save_to_dir)
+            my_mkdir(self.save_to_dir)
 
             for i, j in enumerate(index_array):
                 rnd = np.random.randint(1e4)

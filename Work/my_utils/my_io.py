@@ -43,7 +43,7 @@ def count_files_in_dir(dir_path, suffix):
     return len(only_files)
 
 
-def mkdir(d):
+def my_mkdir(d):
     """only works on *nix system"""
     if not os.path.isdir(d) and not os.path.exists(d):
         os.mkdir(d)

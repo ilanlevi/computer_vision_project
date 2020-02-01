@@ -80,7 +80,7 @@ class ImagePoseGenerator(DirectoryIterator):
             batch_y[i] = pose
         # output = (batch_x, )
         # output += (batch_y, )
-        print('blabla')
+        # print('blabla')
         return batch_x, batch_y
 
     def transform_landmarks_mask(self, landmarks, mask_size, image_generator, params):

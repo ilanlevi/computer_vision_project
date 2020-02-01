@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 from consts import DEFAULT_VALID_RATE, MY_MODEL_LOCAL_PATH, MY_MODEL_NAME, BATCH_SIZE, EPOCHS, \
     PICTURE_SUFFIX, PICTURE_SIZE, DEFAULT_TEST_RATE, VALIDATION_CSV_2, PICTURE_NAME, CSV_VALUES_LABELS
 from my_models import ImagePoseGenerator
-from my_utils import mkdir, model_dump, count_files_in_dir
+from my_utils import my_mkdir, model_dump, count_files_in_dir
 
 
 class MyNewModel:
@@ -71,7 +71,7 @@ class MyNewModel:
             os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
     def compile_model(self):
-        mkdir(self.path)
+        my_mkdir(self.path)
         self.model = Sequential()
 
         input_shape = (self.image_size, self.image_size, 1)
@@ -106,7 +106,7 @@ class MyNewModel:
         self.model = load_model(self.get_full_path())
 
     def my_save(self):
-        mkdir(self.path)
+        my_mkdir(self.path)
         save_model(self.model, self.get_full_path())
         self.model.save_weights(self.get_full_path() + '.wh')
         model_dump(self.get_full_path() + '.pkl', self.model)
@@ -159,7 +159,7 @@ class MyNewModel:
                                                                  batch_size=self.batch_size)
 
         callback_list = [EarlyStopping(monitor='val_loss', patience=25),
-                         ModelCheckpoint(self.get_full_path() + 'best_model.h5', monitor='val_loss', mode='min',
+                         ModelCheckpoint('best_model.h5', monitor='val_loss', mode='min',
                                          save_best_only=True)]
 
         # images_and_pose = zip(image_generator, pose_datagen)
@@ -171,11 +171,11 @@ class MyNewModel:
                                         callbacks=callback_list,
                                         epochs=self.epochs,
                                         steps_per_epoch=steps_per_epoch,
-                                        verbose=2,
+                                        verbose=1,
                                         workers=5,
                                         use_multiprocessing=False)
 
-        print('asdasd')
+        # print('asdasd')
         print('Train loss:', self.model.evaluate_generator(pose_datagen, use_multiprocessing=False, workers=5))
         print('  Val loss:', self.model.evaluate_generator(validation_data, use_multiprocessing=False, workers=5))
         # print(' Test loss:', self.model.evaluate_generator(self.test_data, use_multiprocessing=True, workers=5))
