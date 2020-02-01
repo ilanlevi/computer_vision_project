@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
     start = time.time()
     datagen = ImageDataGenerator(
-        shear_range=20,
+        shear_range=15,
         rotation_range=40,
         width_shift_range=0.2,
         height_shift_range=0.2,

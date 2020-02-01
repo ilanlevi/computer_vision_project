@@ -163,29 +163,28 @@ class MyDataIterator(Iterator):
                         else:
                             batch_y = np.append(batch_y, new_pose, axis=0)
                         # we are training the model, add to batch only if valid augmentation
+                        image = image[np.newaxis, ...]
                         if len(batch_x) is 0:
                             batch_x = image
-                            batch_x = batch_x[np.newaxis, ...]
                         else:
-                            image = image[np.newaxis, ...]
                             batch_x = np.append(batch_x, image, axis=0)
 
                         # create mask for testing output
                         if self.should_save_aug:
                             curr_mask = create_mask_from_landmarks(new_landmarks, self.image_shape)
+                            curr_mask = curr_mask[np.newaxis, ...]
                             if len(batch_mask) is 0:
                                 batch_mask = curr_mask
-                                batch_mask = batch_mask[np.newaxis, ...]
                             else:
-                                curr_mask = curr_mask[np.newaxis, ...]
                                 batch_mask = np.append(batch_mask, curr_mask, axis=0)
 
                 # we are not training the model, add to batch
                 else:
+                    image = image[np.newaxis, ...]
                     if len(batch_x) is 0:
                         batch_x = image
                     else:
-                        batch_x = np.append(batch_x, image, axis=2)
+                        batch_x = np.append(batch_x, image, axis=0)
 
             except Exception as e:
                 print('Error happened while reading image #%d ignoring image! Error: %s' % (next_i, str(e)))

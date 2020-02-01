@@ -147,18 +147,20 @@ class MyModel:
         callback_list = [EarlyStopping(monitor='val_loss', patience=25),
                          ModelCheckpoint(self.get_full_path() + 'best_model.h5', monitor='val_loss', mode='min',
                                          save_best_only=True)]
+        k
 
         hist = self.model.fit_generator(generator=self.data_iterator,
                                         validation_data=validation_data,
                                         callbacks=callback_list,
                                         epochs=self.epochs,
-                                        use_multiprocessing=False,
+                                        use_multiprocessing=True,
+                                        workers=5
                                         )
 
         print()
-        print('Train loss:', self.model.evaluate_generator(self.data_iterator, use_multiprocessing=False, workers=1))
-        print('  Val loss:', self.model.evaluate_generator(validation_data, use_multiprocessing=False, workers=1))
-        print(' Test loss:', self.model.evaluate_generator(self.test_data, use_multiprocessing=False, workers=1))
+        print('Train loss:', self.model.evaluate_generator(self.data_iterator, use_multiprocessing=True, workers=5))
+        print('  Val loss:', self.model.evaluate_generator(validation_data, use_multiprocessing=True, workers=5))
+        print(' Test loss:', self.model.evaluate_generator(self.test_data, use_multiprocessing=True, workers=5))
 
         if plot:
             history = hist.history
