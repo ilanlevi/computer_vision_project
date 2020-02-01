@@ -74,9 +74,13 @@ class ImagePoseGenerator(DirectoryIterator):
                 new_landmarks = image_landmarks
 
             pose = self.fpn_model.get_3d_vectors(new_landmarks)
+            x = np.squeeze(x)
+            x = np.reshape(x, self.image_shape)
             batch_x[i] = x
             batch_y[i] = pose
-
+        # output = (batch_x, )
+        # output += (batch_y, )
+        print('blabla')
         return batch_x, batch_y
 
     def transform_landmarks_mask(self, landmarks, mask_size, image_generator, params):

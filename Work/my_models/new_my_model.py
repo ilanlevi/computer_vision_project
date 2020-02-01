@@ -123,6 +123,7 @@ class MyNewModel:
         masks_datagen = ImageDataGenerator(**datagen_args)
         validation_datagen = ImageDataGenerator(**datagen_args)
 
+
         # image_generator = image_datagen.flow_from_directory(
         #     self.data_path,
         #     class_mode=None,
@@ -145,6 +146,8 @@ class MyNewModel:
         validation_folder = 'C:\\Work\\ComputerVision\\valid_set\\validset_2\\'
         validation_file = validation_folder + VALIDATION_CSV_2
         df = pd.read_csv(validation_file)
+        df = df.astype({'rx': float, 'ry': float, 'rz': float, 'tx': float, 'ty': float, 'tz': float})
+
         validation_data = validation_datagen.flow_from_dataframe(dataframe=df,
                                                                  directory=validation_folder,
                                                                  x_col=PICTURE_NAME,
@@ -159,9 +162,10 @@ class MyNewModel:
                                          save_best_only=True)]
 
         # images_and_pose = zip(image_generator, pose_datagen)
-        steps_per_epoch = len(pose_datagen)
+        steps_per_epoch = len(pose_datagen) // self.batch_size
+        masks_datagen.fit(pose_datagen, augment=True, seed=seed)
 
-        hist = self.model.fit_generator(pose_datagen,
+        hist = self.model.fit_generator(masks_datagen,
                                         validation_data=validation_data,
                                         callbacks=callback_list,
                                         epochs=self.epochs,
