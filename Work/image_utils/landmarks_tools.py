@@ -101,7 +101,7 @@ def create_single_landmark_mask(landmark, image_shape):
     y = int(min(np.ceil(landmark[0]), image_shape[0] - 1))
 
     try:
-        landmark_mask[x, y] = 255
+        landmark_mask[x][y] = 255
 
     except Exception as e:
         print('x, y = [%d, %d], size = (%d, %d)' % (x, y, image_shape[0], image_shape[1]))
