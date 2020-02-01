@@ -154,6 +154,7 @@ class MyNewModel:
                                                                  y_col=CSV_VALUES_LABELS,
                                                                  class_mode="raw",
                                                                  shuffle=True,
+                                                                 color_mode='grayscale',
                                                                  target_size=INPUT_SIZE,
                                                                  batch_size=self.batch_size)
 
@@ -163,9 +164,9 @@ class MyNewModel:
 
         # images_and_pose = zip(image_generator, pose_datagen)
         steps_per_epoch = len(pose_datagen) // self.batch_size
-        masks_datagen.fit(pose_datagen, augment=True, seed=seed)
+        # masks_datagen.fit(pose_datagen.next()[0], seed=seed)
 
-        hist = self.model.fit_generator(masks_datagen,
+        hist = self.model.fit_generator(pose_datagen,
                                         validation_data=validation_data,
                                         callbacks=callback_list,
                                         epochs=self.epochs,
