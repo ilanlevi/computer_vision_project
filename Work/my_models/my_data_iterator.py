@@ -55,7 +55,7 @@ class MyDataIterator(Iterator):
         self.use_canny = use_canny
 
         # set grayscale channel
-        self.image_shape = (1, self.out_image_size, self.out_image_size)
+        self.image_shape = (self.out_image_size, self.out_image_size, 1)
 
         if not isinstance(picture_suffix, list):
             picture_suffix = [picture_suffix]
@@ -131,9 +131,9 @@ class MyDataIterator(Iterator):
                 if self.use_canny:
                     image = np.reshape(image, self.im_size)
                     image = auto_canny(image, CANNY_SIGMA)
-                    image = np.reshape(image, self.image_shape)
+                    # image = np.reshape(image, self.image_shape)
 
-                image = np.reshape(image, self.image_shape)
+                image = image[..., np.newaxis]
                 # only if we want to train the model
                 if self.gen_y:
                     random_params = None
@@ -162,7 +162,9 @@ class MyDataIterator(Iterator):
                         # we are training the model, add to batch only if valid augmentation
                         if len(batch_x) is 0:
                             batch_x = image
+                            batch_x = batch_x[np.newaxis, ...]
                         else:
+                            image = image[np.newaxis, ...]
                             batch_x = np.append(batch_x, image, axis=0)
 
                         # create mask for testing output
@@ -170,7 +172,9 @@ class MyDataIterator(Iterator):
                             curr_mask = create_mask_from_landmarks(new_landmarks, self.image_shape)
                             if len(batch_mask) is 0:
                                 batch_mask = curr_mask
+                                batch_mask = batch_mask[np.newaxis, ...]
                             else:
+                                curr_mask = curr_mask[np.newaxis, ...]
                                 batch_mask = np.append(batch_mask, curr_mask, axis=0)
 
                 # we are not training the model, add to batch
@@ -178,7 +182,7 @@ class MyDataIterator(Iterator):
                     if len(batch_x) is 0:
                         batch_x = image
                     else:
-                        batch_x = np.append(batch_x, image, axis=0)
+                        batch_x = np.append(batch_x, image, axis=2)
 
             except Exception as e:
                 # index_array = np.delete(index_array, next_i)
@@ -186,7 +190,6 @@ class MyDataIterator(Iterator):
 
         # reshape
         batch_out_shape = tuple([len(batch_x)] + list(self.image_shape))
-
         batch_x = np.reshape(batch_x, batch_out_shape)
 
         # save all if needed
@@ -241,10 +244,12 @@ class MyDataIterator(Iterator):
                     hash=rnd,
                     format=self.save_format)
                 if self.save_images:
-                    batch_mask = np.reshape(batch_mask, tuple([len(index_array)] + list(self.image_shape)))
-                    img = array_to_img(batch_x[i], 'channels_first', scale=True)
+                    batch_out_shape = tuple([len(batch_x)] + list(self.image_shape))
+                    batch_mask = np.reshape(batch_mask, batch_out_shape)
+
+                    img = array_to_img(batch_x[i], 'channels_last', scale=True)
                     img.save(os.path.join(self.save_to_dir, fname))
-                    mask_img = array_to_img(batch_mask[i] + 1, 'channels_first', scale=True)
+                    mask_img = array_to_img(batch_mask[i], 'channels_last', scale=True)
                     mask_img.save(os.path.join(self.save_to_dir, mask_name))
 
                 rx, ry, rz, tx, ty, tz = batch_y[i]

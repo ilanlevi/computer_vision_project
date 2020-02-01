@@ -51,7 +51,6 @@ class MyModel:
 
         self.test_rate = test_rate
         self.valid_rate = valid_rate
-        self.image_size = image_size
         self.test_data = None
 
         self.path = path_to_model
@@ -64,8 +63,15 @@ class MyModel:
         self.batch_size = batch_size
 
         if self.gpu:
-            os.environ['KERAS_BACKEND'] = 'tensorflow'
             os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+            os.environ['KERAS_BACKEND'] = 'tensorflow'
+            import tensorflow as tf
+            from tensorflow.python.client import device_lib
+
+            gpus = tf.config.experimental.list_physical_devices('GPU')
+            print(gpus)
+            tf.config.experimental.set_visible_devices(gpus[0], 'GPU')
+            device_lib.list_local_devices()
 
     def load_data(self, image_data_generator=None):
         """
@@ -83,9 +89,9 @@ class MyModel:
     def compile_model(self):
         self.model = Sequential()
 
-        input_shape = (1, self.image_size, self.image_size)
-
-        self.model.add(Conv2D(32, (3, 3), data_format='channels_first', input_shape=input_shape))
+        input_shape = (self.image_size, self.image_size, 1)
+        # channels_first
+        self.model.add(Conv2D(16, (3, 3), data_format='channels_last', input_shape=input_shape))
         self.model.add(Activation('relu'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
 

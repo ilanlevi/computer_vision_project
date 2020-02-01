@@ -7,7 +7,6 @@ if __name__ == '__main__':
     model = MyModel(data_path=DOWNLOAD_FOLDER + OUTPUT_FOLDER,
                     picture_suffix=['.png', '.jpg'],
                     gpu=True,
-                    image_size=100,
                     name='MyFirstTry')
 
     start = time.time()

@@ -108,7 +108,7 @@ def create_mask_from_landmarks(landmarks, image_shape):
     :param image_shape: the output mask size (without channel)
     :return: the landmark image mask
     """
-    landmarks_mask = np.zeros((image_shape[1], image_shape[2]))
+    landmarks_mask = np.zeros((image_shape[0], image_shape[1]))
     for landmark in landmarks:
         landmarks_mask[int(landmark[1]), int(landmark[0])] = 255
 

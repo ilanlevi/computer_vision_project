@@ -19,7 +19,7 @@ if __name__ == '__main__':
         os.remove(remove_file)
 
     images_list = get_files_list(folder, PICTURE_SUFFIX, ['out'])
-    data_format = 'channels_first'
+    data_format = 'channels_last'
     datagen = ImageDataGenerator(
         shear_range=20,
         rotation_range=40,
