@@ -1,6 +1,6 @@
 import os
 
-from keras.callbacks import EarlyStopping, ModelCheckpoint
+from keras.callbacks import EarlyStopping
 from keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Flatten, Activation
 from keras.models import load_model, save_model, Sequential
 from matplotlib import pyplot as plt
@@ -66,20 +66,20 @@ class MyModel:
             os.environ["CUDA_VISIBLE_DEVICES"] = "0"
             os.environ['KERAS_BACKEND'] = 'tensorflow'
 
-    def load_data(self, image_data_generator=None):
+    def load_data(self):
         """
         Load data for model (set self.data_iterator)
-        :param image_data_generator: keras ImageDataGenerator (most use channels_first) - optional
+        :param image_data_generator: keras ImageDataGenerator (most use channels_last) - optional
         """
         self.data_iterator = MyDataIterator(data_path=self.data_path,
-                                            image_data_generator=image_data_generator,
+                                            image_data_generator=None,
                                             original_file_list=self.original_file_list,
                                             batch_size=self.batch_size,
                                             picture_suffix=self.picture_suffix,
                                             out_image_size=self.image_size,
                                             should_clean_noise=True,
                                             use_canny=True,
-
+                                            shuffle=True
                                             )
 
     def compile_model(self):
@@ -113,10 +113,10 @@ class MyModel:
 
         self.model.compile(optimizer='adam', loss='mean_squared_error')
 
-    def load(self):
+    def my_load(self):
         self.model = load_model(self.get_full_path())
 
-    def save(self):
+    def my_save(self):
         mkdir(self.path)
         save_model(self.model, self.get_full_path())
         self.model.save_weights(self.get_full_path() + '.wh')
@@ -126,9 +126,9 @@ class MyModel:
         count_files_in_dir(self.path, self.model)
         return self.path + '/' + self.name
 
-    def train_model(self, save_dir=None, plot=False):
-        if save_dir is not None:
-            self.data_iterator.set_gen_labels(True, save_dir)
+    def train_model(self, image_data_generator=None, save_dir=None, plot=False):
+        self.data_iterator.image_data_generator = image_data_generator
+        self.data_iterator.set_gen_labels(True, save_dir)
 
         test_files, validation_files = self.data_iterator.split_to_train_and_validation(self.test_rate, self.valid_rate)
 
@@ -142,17 +142,15 @@ class MyModel:
                                          out_image_size=self.image_size,
                                          batch_size=self.batch_size)
 
-        callback_list = [EarlyStopping(monitor='val_loss', patience=25),
-                         ModelCheckpoint('best_model.h5', monitor='val_loss', mode='min', save_best_only=True)]
+        callback_list = [EarlyStopping(monitor='val_loss', patience=25)]
+        # ModelCheckpoint('best_model.h5', monitor='val_loss', mode='min', save_best_only=True)]
 
         hist = self.model.fit_generator(generator=self.data_iterator,
                                         validation_data=validation_data,
                                         callbacks=callback_list,
                                         epochs=self.epochs,
                                         use_multiprocessing=True,
-                                        workers=5)
-
-        self.save()
+                                        workers=3)
 
         print()
         print('Train loss:', self.model.evaluate_generator(self.data_iterator, use_multiprocessing=True, workers=5))

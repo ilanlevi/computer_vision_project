@@ -66,6 +66,7 @@ class MyDataIterator(Iterator):
             original_file_list = self._get_original_list()
 
         self.list_of_files = original_file_list
+        self.list_of_files = np.asarray(self.list_of_files)
         self.save_csv = save_csv
         self.save_images = save_images
 
@@ -105,6 +106,7 @@ class MyDataIterator(Iterator):
         :return: tuple (test_files, validation_files).
         """
         self.list_of_files, test_files = train_test_split(self.list_of_files, test_size=t_size, shuffle=self.shuffle)
+        self.list_of_files = np.asarray(self.list_of_files)
         if v_size is not None:
             test_files, validation_files = train_test_split(test_files, test_size=v_size, shuffle=self.shuffle)
         else:
@@ -118,7 +120,7 @@ class MyDataIterator(Iterator):
         batch_mask = np.asarray([])
         batch_y = np.asarray([])
 
-        while len(batch_x) < len(index_array):
+        for index in range(len(index_array)):
             next_i = len(batch_x)
             image_path = index_array[next_i]
             try:
@@ -192,7 +194,8 @@ class MyDataIterator(Iterator):
         batch_x = np.reshape(batch_x, batch_out_shape)
 
         # save all if needed
-        self._save_all_if_needed(batch_x, batch_mask, batch_y, index_array)
+        if self.should_save:
+            self._save_all_if_needed(batch_x, batch_mask, batch_y, index_array)
 
         output = (batch_x, batch_y)
         if not self.gen_y:
@@ -247,9 +250,9 @@ class MyDataIterator(Iterator):
                     batch_mask = np.reshape(batch_mask, batch_out_shape)
 
                     img = array_to_img(batch_x[i], 'channels_last', scale=True)
-                    img.save(os.path.join(self.save_to_dir, fname))
+                    img.my_save(os.path.join(self.save_to_dir, fname))
                     mask_img = array_to_img(batch_mask[i], 'channels_last', scale=True)
-                    mask_img.save(os.path.join(self.save_to_dir, mask_name))
+                    mask_img.my_save(os.path.join(self.save_to_dir, mask_name))
 
                 rx, ry, rz, tx, ty, tz = batch_y[i]
                 if self.image_generator is None:

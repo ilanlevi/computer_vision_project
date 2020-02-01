@@ -1,7 +1,5 @@
 DOWNLOAD_FOLDER = 'C:\\Work\\ComputerVision\\datasets\\data\\'
 
-OUTPUT_FOLDER = 'output\\'
-
 CSV_OUTPUT_FILE_NAME = 'scores.csv'
 
 # all of the data was downloaded from:
