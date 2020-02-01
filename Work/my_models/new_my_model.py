@@ -119,19 +119,19 @@ class MyNewModel:
         INPUT_SIZE = (self.image_size, self.image_size)
         seed = 1
 
-        image_datagen = ImageDataGenerator(**datagen_args)
+        # image_datagen = ImageDataGenerator(**datagen_args)
         masks_datagen = ImageDataGenerator(**datagen_args)
         validation_datagen = ImageDataGenerator(**datagen_args)
 
-        image_generator = image_datagen.flow_from_directory(
-            self.data_path,
-            class_mode=None,
-            target_size=INPUT_SIZE,
-            color_mode='grayscale',
-            batch_size=self.batch_size,
-            shuffle=True,
-            follow_links=True,
-            seed=seed)
+        # image_generator = image_datagen.flow_from_directory(
+        #     self.data_path,
+        #     class_mode=None,
+        #     target_size=INPUT_SIZE,
+        #     color_mode='grayscale',
+        #     batch_size=self.batch_size,
+        #     shuffle=True,
+        #     follow_links=True,
+        #     seed=seed)
 
         pose_datagen = ImagePoseGenerator(self.data_path,
                                           masks_datagen,
@@ -158,10 +158,10 @@ class MyNewModel:
                          ModelCheckpoint(self.get_full_path() + 'best_model.h5', monitor='val_loss', mode='min',
                                          save_best_only=True)]
 
-        images_and_pose = zip(image_generator, pose_datagen)
-        steps_per_epoch = len(image_generator)
+        # images_and_pose = zip(image_generator, pose_datagen)
+        steps_per_epoch = len(pose_datagen)
 
-        hist = self.model.fit_generator(images_and_pose,
+        hist = self.model.fit_generator(pose_datagen,
                                         validation_data=validation_data,
                                         callbacks=callback_list,
                                         epochs=self.epochs,
@@ -171,7 +171,7 @@ class MyNewModel:
                                         use_multiprocessing=False)
 
         print('asdasd')
-        print('Train loss:', self.model.evaluate_generator(images_and_pose, use_multiprocessing=False, workers=5))
+        print('Train loss:', self.model.evaluate_generator(pose_datagen, use_multiprocessing=False, workers=5))
         print('  Val loss:', self.model.evaluate_generator(validation_data, use_multiprocessing=False, workers=5))
         # print(' Test loss:', self.model.evaluate_generator(self.test_data, use_multiprocessing=True, workers=5))
 

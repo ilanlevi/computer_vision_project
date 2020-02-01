@@ -55,23 +55,29 @@ class ImagePoseGenerator(DirectoryIterator):
         # Returns
             A batch of transformed samples.
         """
-        # batch_x = np.zeros(tuple([len(index_array)] + list(self.mask_size)[1:]), type=self.dtype)
-        batch_x = np.zeros((len(index_array), 6), dtype=self.dtype)
+        batch_x = np.zeros(tuple([len(index_array)] + list(self.image_shape)))
+        batch_y = np.zeros((len(index_array), 6), dtype=self.dtype)
         # build batch of image data
         params = self.image_data_generator.get_random_transform(self.image_shape)
         image_generator = self.image_data_generator
         # self.filepaths is dynamic, is better to call it once outside the loop
         filepaths = self.filepaths
         for i, j in enumerate(index_array):
-            image_landmarks = self._load_landmark(filepaths[j])
-            new_landmarks = None
-            while new_landmarks is None:
-                new_landmarks = self.transform_landmarks_mask(image_landmarks, self.image_shape, image_generator,
-                                                              params)
-            pose = self.fpn_model.get_3d_vectors(new_landmarks)
-            batch_x[i] = pose
+            original, image_landmarks = self._load_landmark(filepaths[j])
+            original = original[..., np.newaxis]
+            x = self.image_data_generator.apply_transform(original, params)
+            x = self.image_data_generator.standardize(x)
+            new_landmarks = self.transform_landmarks_mask(image_landmarks, self.image_shape, image_generator,
+                                                          params)
+            if new_landmarks is None:
+                x = self.image_data_generator.standardize(original)
+                new_landmarks = image_landmarks
 
-        return batch_x
+            pose = self.fpn_model.get_3d_vectors(new_landmarks)
+            batch_x[i] = x
+            batch_y[i] = pose
+
+        return batch_x, batch_y
 
     def transform_landmarks_mask(self, landmarks, mask_size, image_generator, params):
         masks_before = np.stack([np.array(create_single_landmark_mask(landmark, mask_size)) for landmark in landmarks])
@@ -93,4 +99,4 @@ class ImagePoseGenerator(DirectoryIterator):
         landmarks = load_image_landmarks(image_path)
         image, landmarks = resize_image_and_landmarks(image, landmarks, self.mask_size[0])
 
-        return landmarks
+        return image, landmarks
