@@ -123,15 +123,14 @@ class MyDataIterator(Iterator):
             image_path = index_array[next_i]
             try:
                 image, landmarks, y = self._get_samples(image_path)
-                # add random noise only in train mode
+
+                # remove noise
                 if self.gen_y and self.should_clean_noise:
                     image = clean_noise(image)
 
                 # use canny filter
                 if self.use_canny:
-                    image = np.reshape(image, self.im_size)
                     image = auto_canny(image, CANNY_SIGMA)
-                    # image = np.reshape(image, self.image_shape)
 
                 image = image[..., np.newaxis]
                 # only if we want to train the model

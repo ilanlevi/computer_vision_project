@@ -65,13 +65,6 @@ class MyModel:
         if self.gpu:
             os.environ["CUDA_VISIBLE_DEVICES"] = "0"
             os.environ['KERAS_BACKEND'] = 'tensorflow'
-            import tensorflow as tf
-            from tensorflow.python.client import device_lib
-
-            gpus = tf.config.experimental.list_physical_devices('GPU')
-            print(gpus)
-            tf.config.experimental.set_visible_devices(gpus[0], 'GPU')
-            device_lib.list_local_devices()
 
     def load_data(self, image_data_generator=None):
         """
@@ -83,7 +76,10 @@ class MyModel:
                                             original_file_list=self.original_file_list,
                                             batch_size=self.batch_size,
                                             picture_suffix=self.picture_suffix,
-                                            out_image_size=self.image_size
+                                            out_image_size=self.image_size,
+                                            should_clean_noise=True,
+                                            use_canny=True,
+
                                             )
 
     def compile_model(self):
@@ -134,7 +130,7 @@ class MyModel:
         if save_dir is not None:
             self.data_iterator.set_gen_labels(True, save_dir)
 
-        test_files, validation_files = self.data_iterator.split_to_train_and_validation()
+        test_files, validation_files = self.data_iterator.split_to_train_and_validation(self.test_rate, self.valid_rate)
 
         self.test_data = MyDataIterator(self.data_path,
                                         original_file_list=test_files,

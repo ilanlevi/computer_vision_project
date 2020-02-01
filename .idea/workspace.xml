@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c01e69f1-dfde-4789-a00e-231c94c88efb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/consts/images_generator_costs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/consts/images_generator_costs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/image_utils/landmarks_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/image_utils/landmarks_tools.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Work/my_models/my_data_iterator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/my_models/my_data_iterator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Work/my_models/my_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/my_models/my_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/testing/test_model_gen.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/testing/test_model_gen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Work/testing/test_my_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Work/testing/test_my_model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +71,7 @@
       <recent name="C:\Work\ComputerVision\Project\Work\models\tests" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_second_validation_new_model">
+  <component name="RunManager" selected="Python.test_my_model">
     <configuration name="generate_pickle" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -235,9 +231,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_my_model" />
         <item itemvalue="Python.test_second_validation_new_model" />
         <item itemvalue="Python.test_model_gen" />
-        <item itemvalue="Python.test_my_model" />
         <item itemvalue="Python.test_second_validation_set" />
         <item itemvalue="Python.test_validation_new_model (1)" />
       </list>
@@ -266,12 +262,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1576855045725</updated>
-    </task>
-    <task id="LOCAL‎00043" summary="updated to 3.6">
-      <created>1579719196598</created>
-      <option name="number" value="LOCAL‎00043" />
-      <option name="presentableId" value="LOCAL‎00043" />
-      <updated>1579719196598</updated>
     </task>
     <task id="LOCAL‎00044" summary="updated to 3.6">
       <created>1579719686685</created>
@@ -561,7 +551,13 @@
       <option name="presentableId" value="LOCAL‎00091" />
       <updated>1580509477625</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL‎00092" summary="some refactor">
+      <created>1580516221585</created>
+      <option name="number" value="LOCAL‎00092" />
+      <option name="presentableId" value="LOCAL‎00092" />
+      <updated>1580516221586</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -671,11 +667,11 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="448" y="160" width="490" height="558" key="#xdebugger.evaluate/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578869152843" />
-    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1580509477132">
+    <state x="494" y="100" key="CommitChangelistDialog2" timestamp="1580516221048">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="-1355" y="77" key="CommitChangelistDialog2/-1920.-26.1920.1040/0.0.1680.1010@-1920.-26.1920.1040" timestamp="1580337268933" />
-    <state x="494" y="100" key="CommitChangelistDialog2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580509477132" />
+    <state x="494" y="100" key="CommitChangelistDialog2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580516221048" />
     <state x="494" y="100" key="CommitChangelistDialog2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923978513" />
     <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468848032" />
     <state x="494" y="100" key="CommitChangelistDialog2/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578074558668" />
@@ -724,41 +720,41 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="1659" height="185" key="GridCell.Tab.-1.right/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1579826030649" />
-    <state width="1659" height="205" key="GridCell.Tab.0.bottom" timestamp="1580516188699">
+    <state width="1659" height="205" key="GridCell.Tab.0.bottom" timestamp="1580516610525">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="1899" height="205" key="GridCell.Tab.0.bottom/-1920.-26.1920.1040/0.0.1680.1010@-1920.-26.1920.1040" timestamp="1580337633390" />
-    <state width="1659" height="205" key="GridCell.Tab.0.bottom/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580516188699" />
+    <state width="1659" height="205" key="GridCell.Tab.0.bottom/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580516610525" />
     <state width="829" height="181" key="GridCell.Tab.0.bottom/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924779503" />
     <state width="1659" height="161" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
     <state width="1659" height="305" key="GridCell.Tab.0.bottom/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578261374053" />
     <state width="1659" height="161" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
     <state width="938" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1580248757671" />
-    <state width="1659" height="205" key="GridCell.Tab.0.center" timestamp="1580516188699">
+    <state width="1659" height="205" key="GridCell.Tab.0.center" timestamp="1580516610525">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="1899" height="205" key="GridCell.Tab.0.center/-1920.-26.1920.1040/0.0.1680.1010@-1920.-26.1920.1040" timestamp="1580337633390" />
-    <state width="1659" height="205" key="GridCell.Tab.0.center/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580516188699" />
+    <state width="1659" height="205" key="GridCell.Tab.0.center/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580516610525" />
     <state width="829" height="181" key="GridCell.Tab.0.center/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924779503" />
     <state width="1659" height="161" key="GridCell.Tab.0.center/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
     <state width="1659" height="305" key="GridCell.Tab.0.center/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578261374053" />
     <state width="1659" height="161" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
     <state width="938" height="274" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1580248757671" />
-    <state width="1659" height="205" key="GridCell.Tab.0.left" timestamp="1580516188699">
+    <state width="1659" height="205" key="GridCell.Tab.0.left" timestamp="1580516610525">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="1899" height="205" key="GridCell.Tab.0.left/-1920.-26.1920.1040/0.0.1680.1010@-1920.-26.1920.1040" timestamp="1580337633390" />
-    <state width="1659" height="205" key="GridCell.Tab.0.left/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580516188699" />
+    <state width="1659" height="205" key="GridCell.Tab.0.left/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580516610525" />
     <state width="829" height="181" key="GridCell.Tab.0.left/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924779503" />
     <state width="1659" height="161" key="GridCell.Tab.0.left/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
     <state width="1659" height="305" key="GridCell.Tab.0.left/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578261374053" />
     <state width="1659" height="161" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1577541190229" />
     <state width="938" height="274" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1580248757670" />
-    <state width="1659" height="205" key="GridCell.Tab.0.right" timestamp="1580516188699">
+    <state width="1659" height="205" key="GridCell.Tab.0.right" timestamp="1580516610525">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="1899" height="205" key="GridCell.Tab.0.right/-1920.-26.1920.1040/0.0.1680.1010@-1920.-26.1920.1040" timestamp="1580337633390" />
-    <state width="1659" height="205" key="GridCell.Tab.0.right/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580516188699" />
+    <state width="1659" height="205" key="GridCell.Tab.0.right/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580516610525" />
     <state width="829" height="181" key="GridCell.Tab.0.right/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577924779503" />
     <state width="1659" height="161" key="GridCell.Tab.0.right/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577469282898" />
     <state width="1659" height="305" key="GridCell.Tab.0.right/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578261374053" />
@@ -829,11 +825,11 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="498" height="446" key="SwitcherDM/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1578524578726" />
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1580509478725">
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2" timestamp="1580516222638">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="-1426" y="220" key="Vcs.Push.Dialog.v2/-1920.-26.1920.1040/0.0.1680.1010@-1920.-26.1920.1040" timestamp="1580337270494" />
-    <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580509478725" />
+    <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.-26.1920.1040/0.0.1680.1010@0.0.1680.1010" timestamp="1580516222638" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/-1920.0.1536.832/0.0.1680.1010@0.0.1680.1010" timestamp="1577923981511" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.-33.1280.680@0.0.1680.1010" timestamp="1577468849513" />
     <state x="432" y="239" key="Vcs.Push.Dialog.v2/0.0.1680.1010/-1920.0.1536.824@0.0.1680.1010" timestamp="1578074560466" />
@@ -940,12 +936,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Work/my_models/my_data_iterator.py</url>
-          <line>187</line>
+          <line>186</line>
           <option name="timeStamp" value="281" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Work/my_models/my_data_iterator.py</url>
-          <line>188</line>
+          <line>187</line>
           <option name="timeStamp" value="293" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -955,17 +951,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Work/my_models/my_data_iterator.py</url>
-          <line>191</line>
+          <line>190</line>
           <option name="timeStamp" value="302" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Work/my_models/my_data_iterator.py</url>
-          <line>181</line>
+          <line>180</line>
           <option name="timeStamp" value="303" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Work/my_models/my_data_iterator.py</url>
-          <line>162</line>
+          <line>161</line>
           <option name="timeStamp" value="304" />
         </line-breakpoint>
       </breakpoints>
