@@ -1,4 +1,6 @@
 import os
+import sys
+import traceback
 
 import numpy as np
 from keras_preprocessing.image import Iterator
@@ -107,6 +109,7 @@ class MyDataIterator(Iterator):
         """
         self.list_of_files, test_files = train_test_split(self.list_of_files, test_size=t_size, shuffle=self.shuffle)
         self.list_of_files = np.asarray(self.list_of_files)
+        self.n = len(self.list_of_files)
         if v_size is not None:
             test_files, validation_files = train_test_split(test_files, test_size=v_size, shuffle=self.shuffle)
         else:
@@ -120,7 +123,7 @@ class MyDataIterator(Iterator):
         batch_mask = np.asarray([])
         batch_y = np.asarray([])
 
-        for index in range(len(index_array)):
+        while len(batch_x) < len(index_array):
             next_i = len(batch_x)
             image_path = index_array[next_i]
             try:
@@ -143,9 +146,8 @@ class MyDataIterator(Iterator):
                         random_params = self.image_generator.get_random_transform(self.image_shape)
                         image = self.image_generator.apply_transform(image.astype(self.dtype), random_params)
 
-                    x = landmarks.copy()
-                    masks = np.stack(
-                        [self._get_1_mask(x[index], random_params) for index in range(68)])
+                    masks = [self._get_1_mask(landmarks[q], random_params) for q in range(68)]
+                    masks = np.stack(masks, axis=0)
 
                     should_flip = self.image_generator is not None
                     new_landmarks = get_landmarks_from_masks(masks, should_flip)
@@ -186,8 +188,8 @@ class MyDataIterator(Iterator):
                         batch_x = np.append(batch_x, image, axis=2)
 
             except Exception as e:
-                # index_array = np.delete(index_array, next_i)
                 print('Error happened while reading image #%d ignoring image! Error: %s' % (next_i, str(e)))
+                traceback.print_exc(file=sys.stdout)
 
         # reshape
         batch_out_shape = tuple([len(batch_x)] + list(self.image_shape))
@@ -205,12 +207,11 @@ class MyDataIterator(Iterator):
         return output
 
     def _get_1_mask(self, single_landmark, random_params):
-        mask = create_single_landmark_mask(single_landmark, self.im_size)
-
+        new_mask = create_single_landmark_mask(single_landmark, self.im_size)
         if random_params is not None and self.image_generator is not None:
-            mask = np.reshape(mask, self.image_shape)
-            mask = self.image_generator.apply_transform(mask.astype(self.dtype), random_params)
-        mask = np.reshape(mask, self.im_size)
+            new_mask = new_mask[np.newaxis, ...]
+            new_mask = self.image_generator.apply_transform(new_mask.astype(self.dtype), random_params)
+        mask = np.reshape(new_mask, self.im_size)
 
         return mask
 

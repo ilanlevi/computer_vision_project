@@ -1,3 +1,6 @@
+import sys
+import traceback
+
 import cv2
 import numpy as np
 
@@ -73,8 +76,6 @@ def adjust_horizontal_flip(landmarks_points):
     :return: landmarks_points after flipped if needed or the original landmarks_points
     """
     if was_flipped(landmarks_points):  # check if flip happens
-        # todo delete
-        print('flipped!')
         # x-cord of right eye is less than x-cord of left eye
         # horizontal flip happened!
         for a, b in FACIAL_LANDMARKS_68_IDXS_FLIP:
@@ -94,11 +95,20 @@ def create_single_landmark_mask(landmark, image_shape):
     :param image_shape: the output mask size (without channel)
     :return: the landmark image mask
     """
-    landmarks_mask = np.zeros((image_shape[0], image_shape[1]))
 
-    landmarks_mask[int(landmark[1]), int(landmark[0])] = 255
+    landmark_mask = np.zeros(image_shape)
+    x = int(min(np.ceil(landmark[1]), image_shape[1] - 1))
+    y = int(min(np.ceil(landmark[0]), image_shape[0] - 1))
 
-    return landmarks_mask
+    try:
+        landmark_mask[x, y] = 255
+
+    except Exception as e:
+        print('x, y = [%d, %d], size = (%d, %d)' % (x, y, image_shape[0], image_shape[1]))
+        traceback.print_exc(file=sys.stdout)
+        raise ValueError(e)
+
+    return landmark_mask
 
 
 def create_mask_from_landmarks(landmarks, image_shape):

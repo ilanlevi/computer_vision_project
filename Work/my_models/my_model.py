@@ -5,8 +5,8 @@ from keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Flatten, Activati
 from keras.models import load_model, save_model, Sequential
 from matplotlib import pyplot as plt
 
-from consts import DEFAULT_TRAIN_RATE, DEFAULT_VALID_RATE, MY_MODEL_LOCAL_PATH, MY_MODEL_NAME, BATCH_SIZE, EPOCHS, \
-    PICTURE_SUFFIX, PICTURE_SIZE
+from consts import DEFAULT_VALID_RATE, MY_MODEL_LOCAL_PATH, MY_MODEL_NAME, BATCH_SIZE, EPOCHS, \
+    PICTURE_SUFFIX, PICTURE_SIZE, DEFAULT_TEST_RATE
 from my_models import MyDataIterator
 from my_utils import mkdir, model_dump, count_files_in_dir
 
@@ -18,7 +18,7 @@ class MyModel:
                  original_file_list=None,
                  image_size=PICTURE_SIZE,
                  picture_suffix=PICTURE_SUFFIX,
-                 test_rate=DEFAULT_TRAIN_RATE,
+                 test_rate=DEFAULT_TEST_RATE,
                  valid_rate=DEFAULT_VALID_RATE,
                  path_to_model=MY_MODEL_LOCAL_PATH,
                  name=MY_MODEL_NAME,
@@ -65,11 +65,12 @@ class MyModel:
         if self.gpu:
             os.environ["CUDA_VISIBLE_DEVICES"] = "0"
             os.environ['KERAS_BACKEND'] = 'tensorflow'
+        else:
+            os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
     def load_data(self):
         """
         Load data for model (set self.data_iterator)
-        :param image_data_generator: keras ImageDataGenerator (most use channels_last) - optional
         """
         self.data_iterator = MyDataIterator(data_path=self.data_path,
                                             image_data_generator=None,
@@ -83,6 +84,7 @@ class MyModel:
                                             )
 
     def compile_model(self):
+        mkdir(self.path)
         self.model = Sequential()
 
         input_shape = (self.image_size, self.image_size, 1)
@@ -100,7 +102,7 @@ class MyModel:
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
 
         # flatten the input
-        self.model.add(Flatten(data_format='channels_first'))
+        self.model.add(Flatten(data_format='channels_last'))
         self.model.add(Dropout(0.5))
 
         self.model.add(Dense(units=64, activation='relu', kernel_regularizer='l2'))
@@ -127,7 +129,7 @@ class MyModel:
         return self.path + '/' + self.name
 
     def train_model(self, image_data_generator=None, save_dir=None, plot=False):
-        self.data_iterator.image_data_generator = image_data_generator
+        self.data_iterator.image_generator = image_data_generator
         self.data_iterator.set_gen_labels(True, save_dir)
 
         test_files, validation_files = self.data_iterator.split_to_train_and_validation(self.test_rate, self.valid_rate)
@@ -143,19 +145,20 @@ class MyModel:
                                          batch_size=self.batch_size)
 
         callback_list = [EarlyStopping(monitor='val_loss', patience=25),
-                         ModelCheckpoint('best_model.h5', monitor='val_loss', mode='min', save_best_only=True)]
+                         ModelCheckpoint(self.get_full_path() + 'best_model.h5', monitor='val_loss', mode='min',
+                                         save_best_only=True)]
 
         hist = self.model.fit_generator(generator=self.data_iterator,
                                         validation_data=validation_data,
                                         callbacks=callback_list,
                                         epochs=self.epochs,
-                                        use_multiprocessing=True,
-                                        workers=3)
+                                        use_multiprocessing=False,
+                                        )
 
         print()
-        print('Train loss:', self.model.evaluate_generator(self.data_iterator, use_multiprocessing=True, workers=5))
-        print('  Val loss:', self.model.evaluate_generator(validation_data, use_multiprocessing=True, workers=5))
-        print(' Test loss:', self.model.evaluate_generator(self.test_data, use_multiprocessing=True, workers=5))
+        print('Train loss:', self.model.evaluate_generator(self.data_iterator, use_multiprocessing=False, workers=1))
+        print('  Val loss:', self.model.evaluate_generator(validation_data, use_multiprocessing=False, workers=1))
+        print(' Test loss:', self.model.evaluate_generator(self.test_data, use_multiprocessing=False, workers=1))
 
         if plot:
             history = hist.history
