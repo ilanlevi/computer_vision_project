@@ -1,17 +1,19 @@
 import os
 
+import pandas as pd
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Flatten, Activation
 from keras.models import load_model, save_model, Sequential
+from keras_preprocessing.image import ImageDataGenerator
 from matplotlib import pyplot as plt
 
 from consts import DEFAULT_VALID_RATE, MY_MODEL_LOCAL_PATH, MY_MODEL_NAME, BATCH_SIZE, EPOCHS, \
-    PICTURE_SUFFIX, PICTURE_SIZE, DEFAULT_TEST_RATE
-from my_models import MyDataIterator
+    PICTURE_SUFFIX, PICTURE_SIZE, DEFAULT_TEST_RATE, VALIDATION_CSV_2, PICTURE_NAME, CSV_VALUES_LABELS
+from my_models import ImagePoseGenerator
 from my_utils import mkdir, model_dump, count_files_in_dir
 
 
-class MyModel:
+class MyNewModel:
 
     def __init__(self,
                  data_path,
@@ -68,21 +70,6 @@ class MyModel:
         else:
             os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
-    def load_data(self):
-        """
-        Load data for model (set self.data_iterator)
-        """
-        self.data_iterator = MyDataIterator(data_path=self.data_path,
-                                            image_data_generator=None,
-                                            original_file_list=self.original_file_list,
-                                            batch_size=self.batch_size,
-                                            picture_suffix=self.picture_suffix,
-                                            out_image_size=self.image_size,
-                                            should_clean_noise=True,
-                                            use_canny=True,
-                                            shuffle=True
-                                            )
-
     def compile_model(self):
         mkdir(self.path)
         self.model = Sequential()
@@ -128,40 +115,65 @@ class MyModel:
         count_files_in_dir(self.path, self.model)
         return self.path + '/' + self.name
 
-    def train_model(self, image_data_generator=None, save_dir=None, plot=False):
-        self.data_iterator.set_image_data_generator(image_data_generator)
-        self.data_iterator.set_gen_labels(True, save_dir)
+    def train_model(self, datagen_args, save_dir=None, plot=False):
+        INPUT_SIZE = (self.image_size, self.image_size)
+        seed = 1
 
-        test_files, validation_files = self.data_iterator.split_to_train_and_validation(self.test_rate, self.valid_rate)
+        image_datagen = ImageDataGenerator(**datagen_args)
+        masks_datagen = ImageDataGenerator(**datagen_args)
+        validation_datagen = ImageDataGenerator(**datagen_args)
 
-        self.test_data = MyDataIterator(self.data_path,
-                                        original_file_list=test_files,
-                                        out_image_size=self.image_size,
-                                        batch_size=self.batch_size)
+        image_generator = image_datagen.flow_from_directory(
+            self.data_path,
+            class_mode=None,
+            target_size=INPUT_SIZE,
+            color_mode='grayscale',
+            batch_size=self.batch_size,
+            shuffle=True,
+            follow_links=True,
+            seed=seed)
 
-        validation_data = MyDataIterator(self.data_path,
-                                         original_file_list=test_files,
-                                         out_image_size=self.image_size,
-                                         batch_size=self.batch_size)
+        pose_datagen = ImagePoseGenerator(self.data_path,
+                                          masks_datagen,
+                                          mask_size=INPUT_SIZE,
+                                          batch_size=self.batch_size,
+                                          shuffle=True,
+                                          follow_links=True,
+                                          seed=seed
+                                          )
+
+        validation_folder = 'C:\\Work\\ComputerVision\\valid_set\\validset_2\\'
+        validation_file = validation_folder + VALIDATION_CSV_2
+        df = pd.read_csv(validation_file)
+        validation_data = validation_datagen.flow_from_dataframe(dataframe=df,
+                                                                 directory=validation_folder,
+                                                                 x_col=PICTURE_NAME,
+                                                                 y_col=CSV_VALUES_LABELS,
+                                                                 class_mode="raw",
+                                                                 shuffle=True,
+                                                                 target_size=INPUT_SIZE,
+                                                                 batch_size=self.batch_size)
 
         callback_list = [EarlyStopping(monitor='val_loss', patience=25),
                          ModelCheckpoint(self.get_full_path() + 'best_model.h5', monitor='val_loss', mode='min',
                                          save_best_only=True)]
 
-        hist = self.model.fit_generator(self.data_iterator,
+        images_and_pose = zip(image_generator, pose_datagen)
+        steps_per_epoch = len(image_generator)
+
+        hist = self.model.fit_generator(images_and_pose,
                                         validation_data=validation_data,
                                         callbacks=callback_list,
                                         epochs=self.epochs,
-                                        steps_per_epoch=self.data_iterator.get_steps_per_epoch(),
+                                        steps_per_epoch=steps_per_epoch,
                                         verbose=2,
-                                        use_multiprocessing=False,
-                                        workers=5
-                                        )
+                                        workers=5,
+                                        use_multiprocessing=False)
 
         print('asdasd')
-        print('Train loss:', self.model.evaluate_generator(self.data_iterator, use_multiprocessing=False))
-        print('  Val loss:', self.model.evaluate_generator(validation_data, use_multiprocessing=False))
-        print(' Test loss:', self.model.evaluate_generator(self.test_data, use_multiprocessing=False))
+        print('Train loss:', self.model.evaluate_generator(images_and_pose, use_multiprocessing=False, workers=5))
+        print('  Val loss:', self.model.evaluate_generator(validation_data, use_multiprocessing=False, workers=5))
+        # print(' Test loss:', self.model.evaluate_generator(self.test_data, use_multiprocessing=True, workers=5))
 
         if plot:
             history = hist.history

@@ -42,6 +42,7 @@ def get_landmarks_from_masks(landmarks_images, flip_back=False):
 
     try:
         for landmarks_image in landmarks_images:
+            landmarks_image = np.squeeze(landmarks_image)
             ix, iy = np.where(landmarks_image > 0)
             if len(ix) == 0:
                 return None

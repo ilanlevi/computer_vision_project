@@ -3,9 +3,9 @@ import sys
 import traceback
 
 import numpy as np
-from keras_preprocessing.image import Iterator
 from keras_preprocessing.image.utils import array_to_img
 from sklearn.model_selection import train_test_split
+from tensorflow_core.python.keras.preprocessing.image import NumpyArrayIterator
 
 from consts import BATCH_SIZE, PICTURE_SUFFIX, PICTURE_SIZE, CANNY_SIGMA, CSV_LABELS, CSV_OUTPUT_FILE_NAME
 from image_utils import load_image, auto_canny, resize_image_and_landmarks, wrap_roi, clean_noise
@@ -16,7 +16,7 @@ from .fpn_wrapper import FpnWrapper
 
 
 # todo -comments
-class MyDataIterator(Iterator):
+class MyDataIterator(NumpyArrayIterator):
 
     def __init__(self,
                  data_path,
