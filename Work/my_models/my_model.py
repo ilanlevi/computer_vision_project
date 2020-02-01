@@ -1,6 +1,6 @@
 import os
 
-from keras.callbacks import EarlyStopping
+from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Flatten, Activation
 from keras.models import load_model, save_model, Sequential
 from matplotlib import pyplot as plt
@@ -142,8 +142,8 @@ class MyModel:
                                          out_image_size=self.image_size,
                                          batch_size=self.batch_size)
 
-        callback_list = [EarlyStopping(monitor='val_loss', patience=25)]
-        # ModelCheckpoint('best_model.h5', monitor='val_loss', mode='min', save_best_only=True)]
+        callback_list = [EarlyStopping(monitor='val_loss', patience=25),
+                         ModelCheckpoint('best_model.h5', monitor='val_loss', mode='min', save_best_only=True)]
 
         hist = self.model.fit_generator(generator=self.data_iterator,
                                         validation_data=validation_data,
