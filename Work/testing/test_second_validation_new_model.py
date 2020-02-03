@@ -5,15 +5,13 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
-from keras.preprocessing.image import ImageDataGenerator
 
 from compare_utils import compare_scores, plot_diff, plot_diff_each_param
 from consts import VALIDATION_DIFF_CSV, VALIDATION_CSV_2, CSV_OUTPUT_FILE_NAME, PICTURE_SIZE, CSV_LABELS
-from my_models import FpnWrapper, ImagePoseGenerator
+from my_models import ImagePoseGenerator
 from my_utils import get_suffix, write_csv
 
 if __name__ == '__main__':
-    fpn = FpnWrapper()
 
     # folder = VALIDATION_FOLDER_2
     folder = 'C:/Work/ComputerVision/valid_set/New folder/'
@@ -27,16 +25,13 @@ if __name__ == '__main__':
 
     INPUT_SIZE = (PICTURE_SIZE, PICTURE_SIZE)
 
-    # img_gen = ImageDataGenerator(horizontal_flip=sys.maxsize)
-    img_gen = ImageDataGenerator()
+    # img_gen = ImageDataGenerator()
     pose_datagen = ImagePoseGenerator(folder,
-                                      img_gen,
                                       shuffle=False,
                                       batch_size=1,
                                       gen_y=True,
                                       mask_size=INPUT_SIZE,
                                       follow_links=False,
-
                                       )
 
     files = pose_datagen.filepaths

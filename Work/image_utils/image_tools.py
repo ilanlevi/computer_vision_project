@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-from consts import CANNY_SIGMA
+from consts import CANNY_SIGMA, DEFAULT_ROI_FACTOR
 
 
 def resize_image_and_landmarks(image, landmarks, new_size=None, inter=cv2.INTER_AREA):
@@ -52,22 +52,23 @@ def auto_canny(image, sigma=CANNY_SIGMA):
     return edged
 
 
-def wrap_roi(image, pts):
+def wrap_roi(image, pts, factor=DEFAULT_ROI_FACTOR):
     """
     Create a roi image from image and landmark.
     Instead of cropping and changing the image size, will change the non roi pixels to 0.
     (for multi-face images)
     :param image: the image
     :param pts: the landmark point
+    :param factor: the roi factor to use for roy box (should be bigger than 1)
     :return: new image
     """
     x, y, w, h = cv2.boundingRect(pts)
-    w = int(1.2 * w)
-    h = int(1.2 * w)
+    w = int(factor * w)
+    h = int(factor * h)
     x2, y2 = x + w, y + h
 
-    x2 = min(x2, image.shape[1])
-    y2 = min(y2, image.shape[0])
+    x2 = min(x2, image.shape[1] - 1)
+    y2 = min(y2, image.shape[0] - 1)
     x = max(x - w, 0)
     y = max(y - h, 0)
 

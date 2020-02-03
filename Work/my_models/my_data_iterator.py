@@ -8,9 +8,8 @@ from keras_preprocessing.image.utils import array_to_img
 from sklearn.model_selection import train_test_split
 
 from consts import BATCH_SIZE, PICTURE_SUFFIX, PICTURE_SIZE, CANNY_SIGMA, CSV_LABELS, CSV_OUTPUT_FILE_NAME
-from image_utils import load_image, auto_canny, resize_image_and_landmarks, wrap_roi, clean_noise
-from image_utils import load_image_landmarks, get_landmarks_from_masks, create_mask_from_landmarks, \
-    create_single_landmark_mask
+from image_utils import load_image, auto_canny, resize_image_and_landmarks, wrap_roi, clean_noise, landmarks_transform
+from image_utils import load_image_landmarks
 from my_utils import get_files_list, my_mkdir, write_csv, get_suffix
 from .fpn_wrapper import FpnWrapper
 
@@ -168,7 +167,7 @@ class MyDataIterator(Iterator):
     def _get_x_y(self, image_path):
         while True:
             try:
-                image, land, y = self._get_samples(image_path)
+                image, landmarks, y = self._get_samples(image_path)
 
                 # remove noise
                 if self.gen_y and self.should_clean_noise:
@@ -189,8 +188,17 @@ class MyDataIterator(Iterator):
                     return image, np.zeros(image.shape), np.zeros((1, 6))
 
                 masks = []
+
+                if random_params:
+                    landmarks_transformed = landmarks_transform(
+                        self.out_image_size,
+                        self.out_image_size,
+                        landmarks,
+                        random_params
+                    )
+
                 for j in range(68):
-                    new_mask = create_single_landmark_mask(land[j], (self.out_image_size, self.out_image_size))
+                    new_mask = create_single_landmark_mask(landmarks[j], (self.out_image_size, self.out_image_size))
                     if random_params is not None and self.image_generator is not None:
                         new_mask = new_mask[..., np.newaxis]
                         new_mask = self.image_generator.apply_transform(new_mask.astype(self.dtype), random_params)

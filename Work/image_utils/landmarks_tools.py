@@ -1,10 +1,7 @@
-import sys
-import traceback
-
 import cv2
 import numpy as np
 
-from consts import R_EYE_IDX, L_EYE_IDX, FACIAL_LANDMARKS_68_IDXS_FLIP, LANDMARKS_FILE_SUFFIX, LANDMARKS_SHAPE
+from consts import LANDMARKS_FILE_SUFFIX, LANDMARKS_SHAPE, FACIAL_LANDMARKS_68_IDXS_FLIP
 from my_utils.my_io import get_prefix
 
 
@@ -29,110 +26,23 @@ def load_image_landmarks(image_path, landmarks_suffix=LANDMARKS_FILE_SUFFIX):
     return landmarks
 
 
-def get_landmarks_from_masks(landmarks_images, flip_back=False):
+def _flip(landmarks_points, height, width, flip_horizontal, flip_vertical):
     """
-    The reverse of create mask -> calculate landmark from mask image.
-    Uses _adjust_horizontal_flip function to flip the landmarks indexes if the image was flipped.
-    :param landmarks_images: the landmark image masks array
-    :param flip_back: flip landmarks back if a horizontal flip
-    :return: image landmarks as (68, 2) array
-    """
-
-    landmarks_points = []
-
-    try:
-        for landmarks_image in landmarks_images:
-            landmarks_image = np.squeeze(landmarks_image)
-            # ix, iy = np.where(landmarks_image > 0)
-            iy, ix = np.where(landmarks_image > 0)
-            if len(ix) == 0:
-                return None
-            landmarks_points.append([np.mean(iy), np.mean(ix)])
-    except Exception:
-        return None
-
-    landmarks_points = np.array(landmarks_points)
-    landmarks_points = np.reshape(landmarks_points, LANDMARKS_SHAPE)
-    if flip_back:
-        landmarks_points = adjust_horizontal_flip(landmarks_points)
-
-    return landmarks_points
-
-
-def was_flipped(landmarks_points):
-    """
-    return if a horizontal flip happens we to flip the target coordinates accordingly.
-    (We will know that the image was flipped if the right eye is after the left index)
-    :param landmarks_points: the landmarks points array
-    :return: true for was flipped or false otherwise
-    """
-    # x-cord of right eye is less than x-cord of left eye
-    return landmarks_points[R_EYE_IDX, 1] > landmarks_points[L_EYE_IDX, 1]  # check if flip happens
-
-
-def adjust_horizontal_flip(landmarks_points):
-    """
-    if a horizontal flip happens we to flip the target coordinates accordingly.
-    (We will know that the image was flipped if the right eye is after the left index)
+    if a horizontal flip happens we to flip the target x coordinates accordingly.
     :param landmarks_points: the landmarks array
     :return: landmarks_points after flipped if needed or the original landmarks_points
     """
-    if was_flipped(landmarks_points):  # check if flip happens
-        print('flipped')
-        # x-cord of right eye is less than x-cord of left eye
-        # horizontal flip happened!
+    if flip_horizontal or flip_vertical:
+        landmarks_points = landmarks_points * np.array(
+            [1 - 2 * flip_horizontal, 1 - 2 * flip_vertical]) + np.array(
+            [width * flip_horizontal, height * flip_vertical])
+    if flip_horizontal:
+        # flip x's of points
         for a, b in FACIAL_LANDMARKS_68_IDXS_FLIP:
-            tmp_a, tmp_b = landmarks_points[b]
-            landmarks_points[b] = landmarks_points[a]
-            landmarks_points[a] = [tmp_a, tmp_b]
-    landmarks_points = np.asarray(landmarks_points)
-    landmarks_points = np.reshape(landmarks_points, (68, 2))
-
+            i, j = landmarks_points[b, 0], landmarks_points[b, 1]
+            landmarks_points[b, 0], landmarks_points[b, 1] = landmarks_points[a, 0], landmarks_points[a, 1]
+            landmarks_points[a, 0], landmarks_points[a, 1] = i, j
     return landmarks_points
-
-
-def create_single_landmark_mask(landmark, image_shape):
-    """
-    creates the mask landmark image
-    :param landmark: image single landmark
-    :param image_shape: the output mask size (without channel)
-    :return: the landmark image mask
-    """
-
-    landmark_mask = np.zeros(image_shape)
-    # x = int(min(np.ceil(landmark[1]), image_shape[1] - 1))
-    # y = int(min(np.ceil(landmark[0]), image_shape[0] - 1))
-    x_s = int(np.clip(int(np.random.normal(landmark[1], image_shape[1] / 10)), 0, image_shape[1] - 1))
-    y_s = int(np.clip(int(np.random.normal(landmark[0], image_shape[0] / 10)), 0, image_shape[0] - 1))
-    try:
-        # landmark_mask[x_s][y_s] = 255
-        landmark_mask[y_s, x_s] = 255
-
-
-    except Exception as e:
-        print('x, y = [%d, %d], size = (%d, %d)' % (x_s, y_s, image_shape[0], image_shape[1]))
-        traceback.print_exc(file=sys.stdout)
-        raise ValueError(e)
-
-    return landmark_mask
-
-
-def create_mask_from_landmarks(landmarks, image_shape):
-    """
-    creates the mask landmark image
-    :param landmarks: all of the landmark
-    :param image_shape: the output mask size (without channel)
-    :return: the landmark image mask
-    """
-    landmarks_mask = np.zeros((image_shape[0], image_shape[1]))
-
-    for landmark in landmarks:
-        x_s = int(np.clip(int(np.random.normal(landmark[1], image_shape[1] / 10)), 0, image_shape[1] - 1))
-        y_s = int(np.clip(int(np.random.normal(landmark[0], image_shape[0] / 10)), 0, image_shape[0] - 1))
-        landmarks_mask[y_s, x_s] = 255
-        # landmarks_mask[int(landmark[1]), int(landmark[0])] = 255
-
-    return landmarks_mask
 
 
 def create_numbered_mask(landmarks, image_shape):
@@ -143,24 +53,153 @@ def create_numbered_mask(landmarks, image_shape):
     :param image_shape: the output mask size (2d array)
     :return: the landmark image mask
     """
-    new_shape = (512, 512)  # the mask size
+    landmarks_mask = np.zeros(image_shape, dtype=np.float)
 
-    shape = (image_shape[0], image_shape[1])
-
-    # calc reverse for mask
-    ratio_x = (new_shape[0] / float(shape[0]))
-    ratio_y = (new_shape[1] / float(shape[1]))
-
-    # resize landmarks
-    landmarks2 = np.array(landmarks.copy())
-    landmarks2 = landmarks2.astype(np.float)
-    landmarks2[:, 0] = landmarks2[:, 0] * ratio_y
-    landmarks2[:, 1] = landmarks2[:, 1] * ratio_x
-
-    landmarks_mask = np.zeros(new_shape, dtype=np.float)
-
-    for n, (x, y) in enumerate(landmarks2):
+    for n, point in enumerate(landmarks):
+        pos = (int(point[0]), int(point[1]))
         label = "%d" % n
-        cv2.putText(landmarks_mask, label, (int(x), int(y)), 0, 0.4, (116, 90, 53), 1, cv2.LINE_AA)
+        cv2.putText(landmarks_mask, label, pos, 0, 0.2, (116, 90, 53), 1, cv2.LINE_AA)
 
     return landmarks_mask
+
+
+def landmarks_transform(width, height, landmarks, transform_parameters):
+    """Applies a transformation to an tensor of landmarks on an image according to given parameters.
+    # Arguments
+        x: 3D tensor, single image. Required only to analyze image dimensions.
+        landmarks: 3D tensor, containing all the 2D points to be transformed.
+        transform_parameters: Dictionary with string - parameter pairs
+            describing the transformation.
+            Currently, the following parameters
+            from the dictionary are used:
+            - `'theta'`: Float. Rotation angle in degrees.
+            - `'tx'`: Float. Shift in the x direction.
+            - `'ty'`: Float. Shift in the y direction.
+            - `'shear'`: Float. Shear angle in degrees.
+            - `'zx'`: Float. Zoom in the x direction.
+            - `'zy'`: Float. Zoom in the y direction.
+            - `'flip_horizontal'`: Boolean. Horizontal flip.
+            - `'flip_vertical'`: Boolean. Vertical flip.
+    # Returns
+        A transformed version of the landmarks.
+    """
+    landmarks = _affine_transform_points(landmarks, height, width,
+                                         transform_parameters.get('theta', 0),
+                                         transform_parameters.get('tx', 0),
+                                         transform_parameters.get('ty', 0),
+                                         transform_parameters.get('shear', 0),
+                                         transform_parameters.get('zx', 1),
+                                         transform_parameters.get('zy', 1)
+                                         )
+
+    # check if flip happened
+    landmarks = _flip(
+        landmarks,
+        height,
+        width,
+        flip_horizontal=transform_parameters.get('flip_horizontal', 0),
+        flip_vertical=transform_parameters.get('flip_vertical', 0)
+    )
+
+    return landmarks
+
+
+def _affine_transform_points(points, height, width, theta=0, tx=0, ty=0, shear=0, zx=1, zy=1):
+    """Applies an affine transformation of the points specified
+     by the parameters given.
+    # Arguments
+        points: 3D tensor, containing all the 2D points to be transformed.
+        height: Height of the image the points are part of
+        width: Width of the image the points are part of
+        theta: Rotation angle in degrees.
+        tx: Width shift.
+        ty: Height shift.
+        shear: Shear angle in degrees.
+        zx: Zoom in x direction.
+        zy: Zoom in y direction
+    # Returns
+        The transformed version of the points.
+    """
+    transform_matrix = _get_affine_transform_matrix(
+        height, width,
+        theta, tx, ty, shear, zx, zy)
+
+    if transform_matrix is not None:
+        homogeneous_points = np.transpose(points)
+        homogeneous_points = np.insert(homogeneous_points[[1, 0]], 2, 1, axis=0)
+        inverse = np.linalg.inv(transform_matrix)
+        homogeneous_points = np.dot(inverse, homogeneous_points)
+        points = homogeneous_points[[1, 0]]
+        points = np.transpose(points)
+
+    return points
+
+
+def _transform_matrix_offset_center(matrix, x, y):
+    o_x = float(x) / 2
+    o_y = float(y) / 2
+    offset_matrix = np.array([[1, 0, o_x], [0, 1, o_y], [0, 0, 1]])
+    reset_matrix = np.array([[1, 0, -o_x], [0, 1, -o_y], [0, 0, 1]])
+    transform_matrix = np.dot(np.dot(offset_matrix, matrix), reset_matrix)
+    return transform_matrix
+
+
+def _get_affine_transform_matrix(height, width, theta=0, tx=0, ty=0, shear=0, zx=1, zy=1):
+    """Compute the affine transformation specified by the parameters given.
+
+    # Arguments
+        height: Height of the image to transform
+        width: Width of the image to transform
+        theta: Rotation angle in degrees.
+        tx: Width shift.
+        ty: Height shift.
+        shear: Shear angle in degrees.
+        zx: Zoom in x direction.
+        zy: Zoom in y direction
+
+    # Returns
+        The affine transformation matrix for the parameters
+        or None if no transformation is needed.
+    """
+
+    transform_matrix = None
+    if theta != 0:
+        theta = np.deg2rad(theta)
+        rotation_matrix = np.array([[np.cos(theta), -np.sin(theta), 0],
+                                    [np.sin(theta), np.cos(theta), 0],
+                                    [0, 0, 1]])
+        transform_matrix = rotation_matrix
+
+    if tx != 0 or ty != 0:
+        shift_matrix = np.array([[1, 0, tx],
+                                 [0, 1, ty],
+                                 [0, 0, 1]])
+        if transform_matrix is None:
+            transform_matrix = shift_matrix
+        else:
+            transform_matrix = np.dot(transform_matrix, shift_matrix)
+
+    if shear != 0:
+        shear = np.deg2rad(shear)
+        shear_matrix = np.array([[1, -np.sin(shear), 0],
+                                 [0, np.cos(shear), 0],
+                                 [0, 0, 1]])
+        if transform_matrix is None:
+            transform_matrix = shear_matrix
+        else:
+            transform_matrix = np.dot(transform_matrix, shear_matrix)
+
+    if zx != 1 or zy != 1:
+        zoom_matrix = np.array([[zx, 0, 0],
+                                [0, zy, 0],
+                                [0, 0, 1]])
+        if transform_matrix is None:
+            transform_matrix = zoom_matrix
+        else:
+            transform_matrix = np.dot(transform_matrix, zoom_matrix)
+
+    if transform_matrix is not None:
+        transform_matrix = _transform_matrix_offset_center(
+            transform_matrix, height, width)
+
+    return transform_matrix

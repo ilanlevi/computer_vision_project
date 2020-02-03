@@ -14,7 +14,7 @@ FACIAL_LANDMARKS_68_IDXS = OrderedDict([
 L_EYE_IDX = 45  # left eye coordinate
 R_EYE_IDX = 36  # right eye coordinate
 
-# flipped indexes mapping
+# flipped indexes mapping -> for horizontal flip
 FACIAL_LANDMARKS_68_IDXS_FLIP = [(16, 0), (15, 1), (14, 2), (13, 3), (12, 4), (11, 5), (10, 6), (9, 7),  # jaw
                                  (26, 17), (25, 18), (24, 19), (23, 20), (22, 21),  # eyebrows
                                  (35, 31), (34, 32),  # nose

@@ -9,8 +9,7 @@ from tensorflow_core.python.keras.preprocessing.image import NumpyArrayIterator
 
 from consts import BATCH_SIZE, PICTURE_SUFFIX, PICTURE_SIZE, CANNY_SIGMA, CSV_LABELS, CSV_OUTPUT_FILE_NAME
 from image_utils import load_image, auto_canny, resize_image_and_landmarks, wrap_roi, clean_noise
-from image_utils import load_image_landmarks, get_landmarks_from_masks, create_mask_from_landmarks, \
-    create_single_landmark_mask
+from image_utils import load_image_landmarks, get_landmarks_from_masks, create_mask_from_landmarks
 from my_utils import get_files_list, my_mkdir, write_csv, get_suffix
 from .fpn_wrapper import FpnWrapper
 
@@ -187,16 +186,6 @@ class MyDataIterator(NumpyArrayIterator):
                         image = self.image_generator.apply_transform(image.astype(self.dtype), random_params)
                 else:
                     return image, np.zeros(image.shape), np.zeros((1, 6))
-
-                masks = []
-                for j in range(68):
-                    new_mask = create_single_landmark_mask(land[j], (self.out_image_size, self.out_image_size))
-                    if random_params is not None and self.image_generator is not None:
-                        new_mask = new_mask[..., np.newaxis]
-                        new_mask = self.image_generator.apply_transform(new_mask.astype(self.dtype), random_params)
-                        new_mask = np.squeeze(new_mask, axis=2)
-                    masks.append(new_mask)
-                masks = np.asarray(masks)
 
                 masks = np.reshape(masks, (68, self.out_image_size, self.out_image_size))
                 should_flip = self.image_generator is not None
