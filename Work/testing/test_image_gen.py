@@ -14,6 +14,7 @@ NUMBER_OF_BATCHES = 6
 if __name__ == '__main__':
 
     # folder = VALIDATION_FOLDER_2
+    # folder = 'C:\\Work\\ComputerVision\\tmp\\'
     folder = 'C:/Work/ComputerVision/valid_set/New folder/'
     save_to_dir = 'testAug'
 

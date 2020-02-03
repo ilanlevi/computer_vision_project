@@ -19,7 +19,7 @@ def resize_image_and_landmarks(image, landmarks, new_size=None, inter=cv2.INTER_
 
     # get ratio
     original_shape = image.shape
-    ratio_y, ratio_x = (new_size / float(original_shape[0])), (new_size / float(original_shape[1]))
+    ratio_y, ratio_x = (new_size / float(original_shape[1])), (new_size / float(original_shape[0]))
 
     # resize the image
     resized = cv2.resize(image, (new_size, new_size), interpolation=inter)
@@ -59,12 +59,12 @@ def wrap_roi(image, pts, factor=DEFAULT_ROI_FACTOR):
     (for multi-face images)
     :param image: the image
     :param pts: the landmark point
-    :param factor: the roi factor to use for roy box (should be bigger than 1)
+    :param factor: the factor to use for padding to roi box (should be bigger than 0)
     :return: new image
     """
     x, y, w, h = cv2.boundingRect(pts)
-    w = int(factor * w)
-    h = int(factor * h)
+    w = int(factor + w)
+    h = int(factor + h)
     x2, y2 = x + w, y + h
 
     x2 = min(x2, image.shape[1] - 1)
@@ -74,9 +74,7 @@ def wrap_roi(image, pts, factor=DEFAULT_ROI_FACTOR):
 
     new_image = np.zeros(image.shape)
 
-    for i in range(y, y2):
-        for j in range(x, x2):
-            new_image[i, j] = image[i, j]
+    new_image[y:y2, x:x2] = image[y:y2, x:x2]
 
     return new_image
 

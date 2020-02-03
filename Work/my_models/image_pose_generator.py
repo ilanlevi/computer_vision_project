@@ -3,7 +3,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras_preprocessing.image import DirectoryIterator, array_to_img, os
 
 from consts import OUT_DIM, PICTURE_SIZE, BATCH_SIZE, CSV_LABELS, CSV_OUTPUT_FILE_NAME
-from image_utils import load_image, resize_image_and_landmarks, landmarks_transform, create_numbered_mask
+from image_utils import load_image, resize_image_and_landmarks, landmarks_transform, create_numbered_mask, wrap_roi
 from image_utils import load_image_landmarks
 from my_utils import my_mkdir, write_csv, get_suffix
 from .fpn_wrapper import FpnWrapper
@@ -62,10 +62,9 @@ class ImagePoseGenerator(DirectoryIterator):
         # self.filepaths is dynamic, is better to call it once outside the loop
         filepaths = self.filepaths
         # save other params
-        gen_y = self.gen_y
         image_generator = self.image_data_generator
         if image_generator is not None:
-            random_params = self.image_data_generator.get_random_transform(self.image_shape)
+            random_params = image_generator.get_random_transform(self.image_shape)
         else:
             random_params = None
 
@@ -137,6 +136,7 @@ class ImagePoseGenerator(DirectoryIterator):
 
         image = load_image(image_path)
         landmarks = load_image_landmarks(image_path)
+        image = wrap_roi(image, landmarks)
         image, landmarks = resize_image_and_landmarks(image, landmarks, self.mask_size[0])
 
         return image, landmarks

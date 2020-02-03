@@ -83,6 +83,7 @@ def landmarks_transform(width, height, landmarks, transform_parameters):
     # Returns
         A transformed version of the landmarks.
     """
+
     landmarks = _affine_transform_points(landmarks, height, width,
                                          transform_parameters.get('theta', 0),
                                          transform_parameters.get('tx', 0),
@@ -104,7 +105,7 @@ def landmarks_transform(width, height, landmarks, transform_parameters):
     return landmarks
 
 
-def _affine_transform_points(points, height, width, theta=0, tx=0, ty=0, shear=0, zx=1, zy=1):
+def _affine_transform_points(landmarks, height, width, theta=0, tx=0, ty=0, shear=0, zx=1, zy=1):
     """Applies an affine transformation of the points specified
      by the parameters given.
     # Arguments
@@ -125,14 +126,14 @@ def _affine_transform_points(points, height, width, theta=0, tx=0, ty=0, shear=0
         theta, tx, ty, shear, zx, zy)
 
     if transform_matrix is not None:
-        homogeneous_points = np.transpose(points)
+        homogeneous_points = np.transpose(landmarks)
         homogeneous_points = np.insert(homogeneous_points[[1, 0]], 2, 1, axis=0)
         inverse = np.linalg.inv(transform_matrix)
         homogeneous_points = np.dot(inverse, homogeneous_points)
-        points = homogeneous_points[[1, 0]]
-        points = np.transpose(points)
+        landmarks = homogeneous_points[[1, 0]]
+        landmarks = np.transpose(landmarks)
 
-    return points
+    return landmarks
 
 
 def _transform_matrix_offset_center(matrix, x, y):
