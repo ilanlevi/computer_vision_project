@@ -43,7 +43,8 @@ def get_landmarks_from_masks(landmarks_images, flip_back=False):
     try:
         for landmarks_image in landmarks_images:
             landmarks_image = np.squeeze(landmarks_image)
-            ix, iy = np.where(landmarks_image > 0)
+            # ix, iy = np.where(landmarks_image > 0)
+            iy, ix = np.where(landmarks_image > 0)
             if len(ix) == 0:
                 return None
             landmarks_points.append([np.mean(iy), np.mean(ix)])
@@ -66,7 +67,7 @@ def was_flipped(landmarks_points):
     :return: true for was flipped or false otherwise
     """
     # x-cord of right eye is less than x-cord of left eye
-    return landmarks_points[R_EYE_IDX, 0] > landmarks_points[L_EYE_IDX, 0]  # check if flip happens
+    return landmarks_points[R_EYE_IDX, 1] > landmarks_points[L_EYE_IDX, 1]  # check if flip happens
 
 
 def adjust_horizontal_flip(landmarks_points):
@@ -77,12 +78,13 @@ def adjust_horizontal_flip(landmarks_points):
     :return: landmarks_points after flipped if needed or the original landmarks_points
     """
     if was_flipped(landmarks_points):  # check if flip happens
+        print('flipped')
         # x-cord of right eye is less than x-cord of left eye
         # horizontal flip happened!
         for a, b in FACIAL_LANDMARKS_68_IDXS_FLIP:
-            tmpX, tmpY = landmarks_points[b]
+            tmp_a, tmp_b = landmarks_points[b]
             landmarks_points[b] = landmarks_points[a]
-            landmarks_points[a] = [tmpX, tmpY]
+            landmarks_points[a] = [tmp_a, tmp_b]
     landmarks_points = np.asarray(landmarks_points)
     landmarks_points = np.reshape(landmarks_points, (68, 2))
 
@@ -98,14 +100,17 @@ def create_single_landmark_mask(landmark, image_shape):
     """
 
     landmark_mask = np.zeros(image_shape)
-    x = int(min(np.ceil(landmark[1]), image_shape[1] - 1))
-    y = int(min(np.ceil(landmark[0]), image_shape[0] - 1))
-
+    # x = int(min(np.ceil(landmark[1]), image_shape[1] - 1))
+    # y = int(min(np.ceil(landmark[0]), image_shape[0] - 1))
+    x_s = int(np.clip(int(np.random.normal(landmark[1], image_shape[1] / 10)), 0, image_shape[1] - 1))
+    y_s = int(np.clip(int(np.random.normal(landmark[0], image_shape[0] / 10)), 0, image_shape[0] - 1))
     try:
-        landmark_mask[x][y] = 255
+        # landmark_mask[x_s][y_s] = 255
+        landmark_mask[y_s, x_s] = 255
+
 
     except Exception as e:
-        print('x, y = [%d, %d], size = (%d, %d)' % (x, y, image_shape[0], image_shape[1]))
+        print('x, y = [%d, %d], size = (%d, %d)' % (x_s, y_s, image_shape[0], image_shape[1]))
         traceback.print_exc(file=sys.stdout)
         raise ValueError(e)
 
@@ -120,8 +125,12 @@ def create_mask_from_landmarks(landmarks, image_shape):
     :return: the landmark image mask
     """
     landmarks_mask = np.zeros((image_shape[0], image_shape[1]))
+
     for landmark in landmarks:
-        landmarks_mask[int(landmark[1]), int(landmark[0])] = 255
+        x_s = int(np.clip(int(np.random.normal(landmark[1], image_shape[1] / 10)), 0, image_shape[1] - 1))
+        y_s = int(np.clip(int(np.random.normal(landmark[0], image_shape[0] / 10)), 0, image_shape[0] - 1))
+        landmarks_mask[y_s, x_s] = 255
+        # landmarks_mask[int(landmark[1]), int(landmark[0])] = 255
 
     return landmarks_mask
 

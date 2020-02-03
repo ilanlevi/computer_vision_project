@@ -107,22 +107,22 @@ class MyNewModel:
 
     def my_save(self):
         my_mkdir(self.path)
+        # todo fix this
         save_model(self.model, self.get_full_path())
         self.model.save_weights(self.get_full_path() + '.wh')
         model_dump(self.get_full_path() + '.pkl', self.model)
 
     def get_full_path(self):
-        count_files_in_dir(self.path, self.model)
+        count_files_in_dir(self.path, 'h5')
         return self.path + '/' + self.name
 
     def train_model(self, datagen_args, save_dir=None, plot=False):
         INPUT_SIZE = (self.image_size, self.image_size)
-        seed = 1
+        # seed = 1
 
         # image_datagen = ImageDataGenerator(**datagen_args)
         masks_datagen = ImageDataGenerator(**datagen_args)
         validation_datagen = ImageDataGenerator(**datagen_args)
-
 
         # image_generator = image_datagen.flow_from_directory(
         #     self.data_path,
@@ -138,9 +138,10 @@ class MyNewModel:
                                           masks_datagen,
                                           mask_size=INPUT_SIZE,
                                           batch_size=self.batch_size,
+                                          gen_y=True,
                                           shuffle=True,
                                           follow_links=True,
-                                          seed=seed
+                                          # seed=seed
                                           )
 
         validation_folder = 'C:\\Work\\ComputerVision\\valid_set\\validset_2\\'
@@ -163,7 +164,7 @@ class MyNewModel:
                                          save_best_only=True)]
 
         # images_and_pose = zip(image_generator, pose_datagen)
-        steps_per_epoch = len(pose_datagen) // self.batch_size
+        steps_per_epoch = len(pose_datagen)
         # masks_datagen.fit(pose_datagen.next()[0], seed=seed)
 
         hist = self.model.fit_generator(pose_datagen,
@@ -191,10 +192,23 @@ class MyNewModel:
             plt.legend()
 
     def model_predict(self, plot=False, save_score=True):
-        if self.test_data is None:
-            self.test_data = self.data_iterator
-
-        y_pred = self.model.predict_generator(self.test_data, verbose=1)
+        # todo
+        # validation_folder = 'C:\\Work\\ComputerVision\\valid_set\\validset_2\\'
+        # validation_file = validation_folder + VALIDATION_CSV_2
+        # df = pd.read_csv(validation_file)
+        # df = df.astype({'rx': float, 'ry': float, 'rz': float, 'tx': float, 'ty': float, 'tz': float})
+        #
+        # validation_data = ImageDataGenerator().flow_from_dataframe(dataframe=df,
+        #                                                            directory=validation_folder,
+        #                                                            x_col=PICTURE_NAME,
+        #                                                            y_col=CSV_VALUES_LABELS,
+        #                                                            class_mode="raw",
+        #                                                            shuffle=True,
+        #                                                            color_mode='grayscale',
+        #                                                            target_size=INPUT_SIZE,
+        #                                                            batch_size=self.batch_size)
+        #
+        # y_pred = self.model.predict_generator(self.test_data, verbose=1)
         print(">>>>> y_pred: " + str(y_pred))
         # diff = self.data.y_test_set - y_pred
 

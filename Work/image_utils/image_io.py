@@ -42,6 +42,8 @@ def load_image(image_path, size=None, gray=True, print_data=False):
     try:
         if gray:
             im = cv2.imread(image_path, 0)
+            # # todo - remove
+            # im = cv2.flip(im, 1)
         else:
             im = cv2.imread(image_path)
         im = my_resize(im, size, size)

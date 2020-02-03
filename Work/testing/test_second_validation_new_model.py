@@ -4,17 +4,19 @@
 import os
 
 import matplotlib.pyplot as plt
+import numpy as np
+from keras.preprocessing.image import ImageDataGenerator
 
 from compare_utils import compare_scores, plot_diff, plot_diff_each_param
-from consts import VALIDATION_DIFF_CSV, PICTURE_NAME, \
-    VALIDATION_CSV_2, VALIDATION_FOLDER_2, CSV_OUTPUT_FILE_NAME
-from my_models import FpnWrapper, MyDataIterator
-from my_utils import read_csv
+from consts import VALIDATION_DIFF_CSV, VALIDATION_CSV_2, CSV_OUTPUT_FILE_NAME, PICTURE_SIZE, CSV_LABELS
+from my_models import FpnWrapper, ImagePoseGenerator
+from my_utils import get_suffix, write_csv
 
 if __name__ == '__main__':
     fpn = FpnWrapper()
 
-    folder = VALIDATION_FOLDER_2
+    # folder = VALIDATION_FOLDER_2
+    folder = 'C:/Work/ComputerVision/valid_set/New folder/'
 
     filename_my = CSV_OUTPUT_FILE_NAME
     filename_valid = VALIDATION_CSV_2
@@ -23,14 +25,30 @@ if __name__ == '__main__':
     if os.path.exists(folder + filename_my):
         os.remove(folder + filename_my)
 
-    csv = read_csv(folder, filename_valid)
-    file_list = [(folder + r.get(PICTURE_NAME)) for r in csv]
+    INPUT_SIZE = (PICTURE_SIZE, PICTURE_SIZE)
 
-    my_iterator = MyDataIterator(folder, None, save_to_dir=folder, shuffle=False, gen_y=True, save_csv=True,
-                                 original_file_list=file_list)
-    for i in range(len(my_iterator)):
-        my_iterator.next()
+    # img_gen = ImageDataGenerator(horizontal_flip=sys.maxsize)
+    img_gen = ImageDataGenerator()
+    pose_datagen = ImagePoseGenerator(folder,
+                                      img_gen,
+                                      shuffle=False,
+                                      batch_size=1,
+                                      gen_y=True,
+                                      mask_size=INPUT_SIZE,
+                                      follow_links=False,
 
+                                      )
+
+    files = pose_datagen.filepaths
+    scores = []
+    for i, file_name in enumerate(files):
+        _, y = pose_datagen.next()
+        rx, ry, rz, tx, ty, tz = np.squeeze(y)
+        name = get_suffix(file_name, '\\')
+        this_score = [i, name, rx, ry, rz, tx, ty, tz]
+        scores.append(this_score)
+
+    write_csv(scores, CSV_LABELS, folder, filename_my, False)
     compare_scores(folder, filename_valid, filename_my, filename_diff, False)
     plot_diff(folder, filename_diff, title='diff')
 

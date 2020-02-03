@@ -19,15 +19,15 @@ def resize_image_and_landmarks(image, landmarks, new_size=None, inter=cv2.INTER_
 
     # get ratio
     original_shape = image.shape
-    ratio_x, ratio_y = (new_size / float(original_shape[0])), (new_size / float(original_shape[1]))
+    ratio_y, ratio_x = (new_size / float(original_shape[0])), (new_size / float(original_shape[1]))
 
     # resize the image
     resized = cv2.resize(image, (new_size, new_size), interpolation=inter)
 
     # resize landmarks
-    resized_landmarks = np.array(landmarks)
-    resized_landmarks[:, 0] = resized_landmarks[:, 0] * ratio_y
-    resized_landmarks[:, 1] = resized_landmarks[:, 1] * ratio_x
+    resized_landmarks = np.zeros(landmarks.shape)
+    resized_landmarks[:, 0] = landmarks[:, 0] * ratio_y
+    resized_landmarks[:, 1] = landmarks[:, 1] * ratio_x
 
     # return the resized image
     return resized, resized_landmarks
